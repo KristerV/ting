@@ -1,6 +1,6 @@
 Template.messages.helpers({
 	messages: function() {
-		return Messages.find({}, {sort: {date: 1}})
+		return Messages.find({}, {sort: {timestamp: 1}})
 	},
 	aho: function() {
 		return isset(this.aho.length) ? this.aho.length : false

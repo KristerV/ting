@@ -6,9 +6,13 @@ getDate = function() {
 	var h = today.getHours();
 	var min = today.getMinutes();
 
-	// if(dd<10) {
-	//     dd='0'+dd
-	// } 
+	if(h<10) {
+	    h='0'+h
+	} 
+
+	if(min<10) {
+	    min='0'+min
+	} 
 
 	if(mm<10) {
 	    mm='0'+mm
