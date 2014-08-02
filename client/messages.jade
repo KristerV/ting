@@ -1,6 +1,7 @@
 template(name='messages')
 	each messages
-		.line
+		.line(id=_id)
+			.aho(style=style) {{aho}}
 			.date {{date}}
 			.name {{name}}
 			.message {{message}}
