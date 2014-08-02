@@ -1,13 +1,14 @@
 template(name='body')
-	.intro
-		+intro
-	
-	.whatname
-		if username
-			p Palun, {{username}}, lisa oma arvamus:
-			+saysomething
-		else
-			+whatname
+	.wrapper
+		.intro
+			+intro
+		
+		.whatname
+			if username
+				p Palun, {{username}}, lisa oma arvamus:
+				+saysomething
+			else
+				+whatname
 
-	.messages
-		+messages
+		.messages
+			+messages
