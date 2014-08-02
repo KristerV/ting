@@ -1,5 +1,27 @@
 body {
 	background-color: rgb(200,255,180);
+	.aho-wrapper {
+		display: none;
+
+		// Click through
+		pointer-events:none;
+		filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='your_transparent.png', sizingMethod='scale');
+		background:none !important;
+
+		position: fixed;
+		top: 50%;
+		left: 0;
+		width: 100%;
+		text-align: center;
+		line-height: 0;
+		.aho-notification {
+			margin: auto;
+			font-size: 200px;
+			color: rgba(0,255,0,0.6);
+			font-weight: normal;
+			font-family: AnnieUseYourTelescope;
+		}
+	}
 	.wrapper {
 		line-height: 1.2em;
 		width: 900px;
@@ -15,6 +37,15 @@ body {
 			margin: 20px;
 			-webkit-box-shadow: 0 3px 10px 0 rgba(0,0,0,0.3);
 			box-shadow: 0 3px 10px 0 rgba(0,0,0,0.3);
+			textarea.message {
+				max-width: 800px;
+				max-height: 300px;
+				resize: auto;
+				word-wrap: break-word;
+				display: block;
+				height: 1.5em;
+				width: 250px;
+			}
 		}
 		.messages {
 			.line {
@@ -23,7 +54,6 @@ body {
 					display: inline-block;
 					width: 1.7em;
 					text-align: center;
-					// padding: 0.5em;
 				}
 				.date {
 					display: inline-block;

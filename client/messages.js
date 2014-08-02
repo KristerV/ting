@@ -18,7 +18,9 @@ Template.messages.events({
 		var msg = Messages.findOne(e.currentTarget.id)
 		if ($.inArray(localStorage.getItem('userId'), msg.aho) > -1)
 			Messages.update(e.currentTarget.id, {$pull: {aho: localStorage.getItem('userId')}})
-		else
+		else {
+			$('.aho-wrapper').fadeIn(400).promise().done(function(){$('.aho-wrapper').fadeOut(1000) })
 			Messages.update(e.currentTarget.id, {$push: {aho: localStorage.getItem('userId')}})
+		}
 	}
 })
