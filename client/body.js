@@ -1,5 +1,5 @@
 Template.body.helpers({
-	messages: function() {
-		return Messages.find()
+	username: function() {
+		return Session.get('username')
 	}
 })

@@ -1,8 +1,13 @@
 template(name='body')
 	.intro
 		+intro
-	.messages
+	
+	.whatname
 		if username
-			+messages
+			p Palun, {{username}}, lisa oma arvamus:
+			+saysomething
 		else
 			+whatname
+
+	.messages
+		+messages

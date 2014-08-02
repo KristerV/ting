@@ -1,7 +1,5 @@
 template(name='messages')
-	.messages
-		each messages
-			.date +date
-			.name +name
-			.message +message
-	input(class="message", type=text, name="message")
+	each messages
+		.date {{date}}
+		.name {{name}}
+		.message {{message}}
