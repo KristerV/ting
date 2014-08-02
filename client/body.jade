@@ -1,0 +1,8 @@
+template(name='body')
+	.intro
+		+intro
+	.messages
+		if username
+			+messages
+		else
+			+whatname
