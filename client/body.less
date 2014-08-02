@@ -16,5 +16,22 @@ body {
 			-webkit-box-shadow: 0 3px 10px 0 rgba(0,0,0,0.3);
 			box-shadow: 0 3px 10px 0 rgba(0,0,0,0.3);
 		}
+		.messages {
+			.line {
+				display: block;
+				.date {
+					display: inline-block;
+					font-size: 0.6em;
+				}
+				.name {
+					display: inline-block;
+					font-weight: normal;
+					&:after {content: ': '}
+				}
+				.message {
+					display: inline-block;
+				}
+			}
+		}
 	}
 }
