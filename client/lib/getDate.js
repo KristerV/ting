@@ -3,6 +3,8 @@ getDate = function() {
 	var dd = today.getDate();
 	var mm = today.getMonth()+1; //January is 0!
 	var yyyy = today.getFullYear();
+	var h = today.getHours();
+	var min = today.getMinutes();
 
 	// if(dd<10) {
 	//     dd='0'+dd
@@ -12,6 +14,6 @@ getDate = function() {
 	    mm='0'+mm
 	} 
 
-	today = dd+'.'+mm;
+	today = h + ':' + min + ' / ' + dd+'.'+mm+'.'+yyyy;
 	return today;
 }

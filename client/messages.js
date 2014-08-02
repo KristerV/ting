@@ -1,6 +1,6 @@
 Template.messages.helpers({
 	messages: function() {
-		return Messages.find()
+		return Messages.find({}, {sort: {date: 1}})
 	},
 	aho: function() {
 		return isset(this.aho.length) ? this.aho.length : false
@@ -13,8 +13,6 @@ Template.messages.helpers({
 
 Template.messages.events({
 	'click .line': function(e, tmple) {
-		if (!isset(Session.get('username')))
-			return false
 		var msg = Messages.findOne(e.currentTarget.id)
 		if ($.inArray(localStorage.getItem('userId'), msg.aho) > -1)
 			Messages.update(e.currentTarget.id, {$pull: {aho: localStorage.getItem('userId')}})
