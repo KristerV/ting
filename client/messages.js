@@ -8,6 +8,13 @@ Template.messages.helpers({
 	style: function() {
 		if ($.inArray(localStorage.getItem('userId'), this.aho) > -1)
 			return "background-color: rgba(0,255,0,0.3); -webkit-border-radius: 10px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.3)"
+	},
+	message: function() {
+		// Make sure newline is properly displayed
+		text = this.message
+	    text = text.replace(/(\r\n|\n|\r)/gm, '<br>')
+	    text = new Spacebars.SafeString(text)
+		return text
 	}
 })
 
