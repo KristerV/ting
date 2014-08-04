@@ -1,1 +1,4 @@
-Messages = new Meteor.Collection('messages1')
+
+Meteor.startup(function(){
+	Messages = new Meteor.Collection('messages1')
+});
