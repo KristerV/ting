@@ -1,4 +1,7 @@
 template(name='saysomething')
 	form(name="saysomething")
+		p.inputTitle <span style="font-weight:normal">Nimi</span> (võib olla ka varjunimi)
+		input(class="name", type="text", name="name")
+		p.inputTitle <span style="font-weight:normal">Sõnum</span> (Milline võiks ting.ee olla? Räägi julgelt vabas vormis)
 		textarea(class="message", type='text', name="message")
 		input(type='submit', value="salvesta")

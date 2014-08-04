@@ -5,13 +5,8 @@ template(name='body')
 		.intro
 			+intro
 		
-		.whatname
-			if username
-				p Tere, <span style="font-weight: normal">{{username}}</span>.
-				p Mida sina arvad, milline võiks ting.ee olla?
-				+saysomething
-			else
-				+whatname
+		.saysomething
+			+saysomething
 
 		.messages
 			+messages

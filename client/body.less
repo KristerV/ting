@@ -27,7 +27,7 @@ body {
 		max-width: 900px;
 		margin: auto;
 		display: block;
-		.intro, .whatname, .messages {
+		.intro, .saysomething, .messages {
 			margin: auto;
 			display: block;
 			background-color: white;
@@ -43,9 +43,12 @@ body {
 				resize: auto;
 				word-wrap: break-word;
 				display: block;
-				height: 1.5em;
-				width: 250px;
+				height: 100px;
+				width: 350px;
 			}
+		}
+		.saysomething {
+			p {margin-bottom: 0;}
 		}
 		.messages {
 			.line {
@@ -71,6 +74,7 @@ body {
 				.message {
 					vertical-align: top;
 					display: inline-block;
+					max-width: 600px;
 				}
 			}
 		}
