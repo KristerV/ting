@@ -1,0 +1,6 @@
+template(name="body")
+	if currentUser
+		p oled sisse logitud
+	else
+		p logi sisse!
+		+loginButtons
