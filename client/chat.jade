@@ -5,7 +5,9 @@ template(name="chat")
 		.chat
 			.messages
 				each messages
-					p {{msg}}
-			.input input
+					p <span class="bold">{{username}}:</span> {{msg}}
+			form(name="chatinput")
+				input(name="msg")
+				input(type="submit")
 		.users
 			+userlist
