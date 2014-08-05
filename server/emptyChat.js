@@ -1,0 +1,2 @@
+Chat.remove({})
+Chat.remove({})

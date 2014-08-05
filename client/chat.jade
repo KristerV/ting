@@ -3,7 +3,9 @@ template(name="chat")
 		.themes
 			+themes
 		.chat
-			.messages msg
+			.messages
+				each messages
+					p {{msg}}
 			.input input
 		.users
 			+userlist
