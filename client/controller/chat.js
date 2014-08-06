@@ -27,8 +27,8 @@ Template.chat.helpers({
 	topicAuthor: function() {
 		return this.author == Meteor.userId()
 	},
-	is4eyes: function() {
-		return this.type == '4eyes'
+	changeType: function() {
+		return this.type != '4eyes' && this.author == Meteor.userId()
 	}
 })
 
