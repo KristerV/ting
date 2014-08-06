@@ -7,12 +7,23 @@
 		height: 100%;
 		float: left;
 	}
-	.themes {
+	.topics {
 		width: 200px;
 		background-color: red;
 	}
 	.circle {
 		width: 500px;
+		.title {
+			position: relative;
+			& > p {
+				display: inline-block;
+			}
+			.delete {
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
+		}
 		.messages {
 			overflow: auto;
 			background-color: green;

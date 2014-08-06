@@ -3,5 +3,5 @@ Accounts.ui.config({
 });
 
 Meteor.startup(function(){
-	Session.set('talkingCircleTopic', 'maincircle')
+	Session.set('circleTopic', 'maincircle')
 })

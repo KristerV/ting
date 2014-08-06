@@ -60,6 +60,13 @@ Template.circle.events({
 	},
 	'blur form[name=edittopic] input': function(e, tmple) {
 		TalkingCircle.doneEditingTopic()
+	},
+	'click .delete': function() {
+		var confirmation = confirm("Lõpetame ringi?")
+		if (confirmation) {
+			TalkingCircles.remove(Session.get('circleTopic'))
+			Session.set('circleTopic', 'maincircle')
+		}
 	}
 })
 

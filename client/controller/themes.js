@@ -1,10 +1,10 @@
-Template.themes.helpers({
-	themes: function() {
+Template.topics.helpers({
+	topics: function() {
 		return TalkingCircles.find({$or: [{type: 'open'}, {author: Meteor.userId()}]})
 	}
 })
 
-Template.themes.events({
+Template.topics.events({
 	'click .theme': function(e, template) {
 		var id = e.currentTarget.id
 		Session.set('circleTopic', id)
