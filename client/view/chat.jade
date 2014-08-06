@@ -5,8 +5,9 @@ template(name="chat")
 			.title
 				with circle
 					p Ringi teema: {{#if topicAuthor}}<span class="topic small-button">{{topic}}</span>{{else}}<span class="bold">{{topic}}</span>{{/if}}
-					p Ring on <span class="type small-button">{{type}}</span>
-					p Autor on <span class="bold">{{authorName}}</span>
+					p Ring on {{#if is4eyes}}{{typeEst}}{{else}}<span class="type small-button">{{typeEst}}</span>{{/if}}
+					if authorName
+						p Autor on <span class="bold">{{authorName}}</span>
 			.messages
 				each messages
 					p <span class="bold">{{username}}:</span> {{msg}}

@@ -1,4 +1,3 @@
-
 Meteor.startup(function () {
 	var bigCircle = Chats.findOne('maincircle')
 	if (bigCircle == 'undefined') {

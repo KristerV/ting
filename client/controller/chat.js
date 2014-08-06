@@ -16,7 +16,7 @@ Template.chat.helpers({
 			chat['typeEst'] = 'avatud'
 		else if (chat['type'] == '4eyes')
 			chat['typeEst'] = 'kahekõne'
-		else
+		else if (chat['type'] == 'closed')
 			chat['typeEst'] = 'suletud'
 
 		if (chat['author'])
@@ -26,6 +26,9 @@ Template.chat.helpers({
 	},
 	topicAuthor: function() {
 		return this.author == Meteor.userId()
+	},
+	is4eyes: function() {
+		return this.type == '4eyes'
 	}
 })
 

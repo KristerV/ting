@@ -1,4 +1,4 @@
 template(name="userlist")
 	.users
 		each users
-			p {{username}}
+			p.username(id=_id) {{username}}
