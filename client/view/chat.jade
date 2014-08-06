@@ -2,6 +2,11 @@ template(name="chat")
 	.chat-wrapper
 		+themes
 		.chat
+			.title
+				with circle
+					p Ringi teema: {{topic}}
+					p Ring on <span class="type small-button">{{type}}</span>
+					p Autor on {{author}}
 			.messages
 				each messages
 					p <span class="bold">{{username}}:</span> {{msg}}
