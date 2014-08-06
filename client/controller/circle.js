@@ -35,6 +35,7 @@ Template.circle.helpers({
 Template.circle.events({
 	'submit form[name=circleinput]': function(e, tmpl) {
 		e.preventDefault()
+		TalkingCircle.bigBlur()
 		var data = getFormData('form[name=circleinput]')
 		if (!data.msg)
 			return false
@@ -44,6 +45,7 @@ Template.circle.events({
 		$('form[name=circleinput] input[name=msg]').val('')
 	},
 	'click .type': function(e, tmpl) {
+		TalkingCircle.bigBlur()
 		var _id = Session.get('circleTopic')
 		var circleType = TalkingCircles.findOne(_id).type
 		if (circleType == 'closed')
@@ -53,15 +55,18 @@ Template.circle.events({
 	},
 	'click .topic': function(e, tmpl) {
 		TalkingCircle.editTopic()
+		TalkingCircle.bigBlur()
 	},
 	'submit form[name=edittopic]': function(e, tmpl) {
 		e.preventDefault()
 		TalkingCircle.doneEditingTopic()
+		TalkingCircle.bigBlur()
 	},
 	'blur form[name=edittopic] input': function(e, tmple) {
 		TalkingCircle.doneEditingTopic()
 	},
 	'click .delete': function(e, tmpl) {
+		TalkingCircle.bigBlur()
 		var confirmation = confirm("Lõpetame ringi?")
 		if (confirmation) {
 			TalkingCircles.remove(Session.get('circleTopic'))
@@ -99,5 +104,8 @@ TalkingCircle = {
 		TalkingCircles.update(_id, {$set: data})
 		$('form[name=edittopic]').remove()
 		$('.circle .topic.small-button').css('display', 'inline-block')
+	},
+	bigBlur: function() {
+		Session.set('selectUsers', null)
 	}
 }

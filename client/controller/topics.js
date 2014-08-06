@@ -10,11 +10,13 @@ Template.topics.helpers({
 
 Template.topics.events({
 	'click .theme': function(e, template) {
+		TalkingCircle.bigBlur()
 		var id = e.currentTarget.id
 		Session.set('circleTopic', id)
 	},
 	'click .new': function(e, tmpl) {
-		var circleId = TalkingCircles.insert({author: Meteor.userId(), type: 'closed', topic: 'avatud teema'})
+		TalkingCircle.bigBlur()
+		var circleId = TalkingCircles.insert({author: Meteor.userId(), type: 'closed', topic: 'uus teema'})
 		Session.set('circleTopic', circleId)
 	}
 })
