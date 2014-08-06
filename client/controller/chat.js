@@ -20,7 +20,7 @@ Template.chat.helpers({
 			chat['type'] = 'suletud'
 
 		if (chat['author'])
-			chat['author'] = Meteor.users.find(chat['author']).username
+			chat['author'] = Meteor.users.findOne(chat['author']).username
 
 		return chat
 	}
@@ -42,5 +42,23 @@ Template.chat.events({
 			Chat.update(_id, {$set: {type: 'open'}})
 		if (circleType == 'open')
 			Chat.update(_id, {$set: {type: 'closed'}})
+	},
+	'click .topic': function(e, tmpl) {
+		var _id = Session.get('chatTopic')
+		var topic = Chat.findOne(_id).topic
+		$('.chat .topic.small-button').css('display', 'none').after('\
+		                                                            <form name="edittopic">\
+		                                                            	<input name="topic">\
+		                                                            	<input type="submit">\
+		                                                            </form>')
+		$('form[name=edittopic] input').val(topic)
+	},
+	'submit form[name=edittopic]': function(e, tmpl) {
+		e.preventDefault()
+		var _id = Session.get('chatTopic')
+		var data = getFormData('form[name=edittopic]')
+		Chat.update(_id, {$set: data})
+		$('form[name=edittopic]').remove()
+		$('.chat .topic.small-button').css('display', 'inline-block')
 	}
 })
