@@ -1,7 +1,6 @@
 template(name="chat")
 	.chat-wrapper
-		.themes
-			+themes
+		+themes
 		.chat
 			.messages
 				each messages
@@ -9,5 +8,4 @@ template(name="chat")
 			form(name="chatinput")
 				input(name="msg")
 				input(type="submit")
-		.users
-			+userlist
+		+userlist
