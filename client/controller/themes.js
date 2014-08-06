@@ -10,7 +10,7 @@ Template.themes.events({
 		Session.set('circleTopic', id)
 	},
 	'click .new': function(e, tmpl) {
-		var circleId = TalkingCircles.insert({author: Meteor.userId(), type: 'closed', topic: 'määramata'})
+		var circleId = TalkingCircles.insert({author: Meteor.userId(), type: 'closed', topic: 'avatud teema'})
 		Session.set('circleTopic', circleId)
 	}
 })
