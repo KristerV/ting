@@ -61,13 +61,24 @@ Template.circle.events({
 	'blur form[name=edittopic] input': function(e, tmple) {
 		TalkingCircle.doneEditingTopic()
 	},
-	'click .delete': function() {
+	'click .delete': function(e, tmpl) {
 		var confirmation = confirm("Lõpetame ringi?")
 		if (confirmation) {
 			TalkingCircles.remove(Session.get('circleTopic'))
 			Session.set('circleTopic', 'maincircle')
 		}
-	}
+	},
+	'click .invite-start': function(e, tmpl) {
+		Session.set('selectUsers', true)
+		$('.invite-start, .invite-selected').toggleClass('hidden')
+	},
+	'click .invite-selected': function(e, tmpl) {
+		Session.set('selectUsers', null)
+		$('.invite-start, .invite-selected').toggleClass('hidden')
+		var data = getFormData('form[name=userlist]')
+		var users = data.users
+		TalkingCircles.update(Session.get('circleTopic'), {$push: {inCircle: data.users}})
+	},
 })
 
 TalkingCircle = {

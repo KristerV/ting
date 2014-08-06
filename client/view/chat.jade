@@ -12,9 +12,11 @@ template(name="circle")
 						p Autor on <span class="bold">{{authorName}}</span>
 					if topicAuthor
 						p.delete.small-button Sulge ring
+						p.invite-start.small-button Kutsu inimesi ringi
+						p.invite-selected.small-button.hidden Vali soovitud inimesed ja vajuta uuesti siia
 			.messages
 				each messages
-					p <span class="bold">{{username}}:</span> {{msg}}
+					p <span class="bold">{{username}}: </span>p{{msg}}
 			form(name="circleinput")
 				input(name="msg")
 				input(type="submit")

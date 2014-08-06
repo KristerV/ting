@@ -1,6 +1,10 @@
 Template.topics.helpers({
 	topics: function() {
-		return TalkingCircles.find({$or: [{type: 'open'}, {author: Meteor.userId()}]})
+		var userid = Meteor.userId()
+		var findOpen = {type: 'open'}
+		var findAuthored = {author: Meteor.userId()}
+		var findSecrets = {inCircle: {$in: [Meteor.userId()]}}
+		return TalkingCircles.find({$or: [findOpen, findAuthored, findSecrets]})
 	}
 })
 

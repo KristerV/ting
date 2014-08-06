@@ -2,10 +2,13 @@ Template.userlist.helpers({
 	users: function() {
 		return Meteor.users.find({}).fetch()
 	},
+	selectUsers: function() {
+		return Session.get('selectUsers')
+	}
 })
 
 Template.userlist.events({
-	'click .username': function(e, tmpl) {
+	'click .username:not(.selectUsers)': function(e, tmpl) {
 		var id_current = Meteor.userId()
 		var id_other = e.currentTarget.id
 		var id_both = [id_current, id_other]

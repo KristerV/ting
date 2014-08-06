@@ -15,13 +15,18 @@
 		width: 500px;
 		.title {
 			position: relative;
-			& > p {
+			& > p:not(.hidden) {
 				display: inline-block;
 			}
 			.delete {
 				position: absolute;
 				right: 0;
 				top: 0;
+			}
+			.invite-start, .invite-selected {
+				position: absolute;
+				right: 0;
+				bottom: 0;
 			}
 		}
 		.messages {
@@ -32,9 +37,5 @@
 		form[name="circleinput"] input {
 			width: 100%;
 		}
-	}
-	.users {
-		width: 200px;
-		background-color: blue;
 	}
 }

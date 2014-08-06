@@ -1,4 +1,13 @@
 template(name="userlist")
-	.users
-		each users
-			p.username(id=_id) {{username}}
+	.userlist
+		form(name="userlist")
+			each users
+				if selectUsers
+					.selectUsers.username
+						label
+							input(type="checkbox" name="users" value=_id)
+							p {{username}}
+					br
+				else
+					p.username(id=_id) {{username}}
+					br
