@@ -13,16 +13,19 @@ Template.chat.helpers({
 			return null
 
 		if (chat['type'] == 'open')
-			chat['type'] = 'avatud'
+			chat['typeEst'] = 'avatud'
 		else if (chat['type'] == '4eyes')
-			chat['type'] = 'kahekõne'
+			chat['typeEst'] = 'kahekõne'
 		else
-			chat['type'] = 'suletud'
+			chat['typeEst'] = 'suletud'
 
 		if (chat['author'])
-			chat['author'] = Meteor.users.findOne(chat['author']).username
+			chat['authorName'] = Meteor.users.findOne(chat['author']).username
 
 		return chat
+	},
+	topicAuthor: function() {
+		return this.author == Meteor.userId()
 	}
 })
 
@@ -48,10 +51,10 @@ Template.chat.events({
 		var topic = Chat.findOne(_id).topic
 		$('.chat .topic.small-button').css('display', 'none').after('\
 		                                                            <form name="edittopic">\
-		                                                            	<input name="topic">\
-		                                                            	<input type="submit">\
+		                                                            	<input name="topic" type="text">\
+		                                                            	<input type="submit" value="salvesta">\
 		                                                            </form>')
-		$('form[name=edittopic] input').val(topic)
+		$('form[name=edittopic] input[type=text]').val(topic)
 	},
 	'submit form[name=edittopic]': function(e, tmpl) {
 		e.preventDefault()

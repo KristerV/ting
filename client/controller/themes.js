@@ -1,6 +1,9 @@
 Template.themes.helpers({
 	themes: function() {
-		return Chat.find({type: 'open'})
+		var open = Chat.find({type: 'open'}).fetch()
+		var authored = Chat.find({author: Meteor.userId()}).fetch()
+		var themes = open.concat(authored)
+		return themes
 	}
 })
 
