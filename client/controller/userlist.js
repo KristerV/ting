@@ -14,11 +14,11 @@ Template.userlist.events({
 		var name_both = name_current + " ja " + name_other
 
 		id_both.sort()
-		var chatId = id_both.join()
+		var circleId = id_both.join()
 
-		var chat = Chats.findOne(chatId)
-		if (!isset(chat))
-			Chats.insert({_id: chatId, topic: name_both, type: "4eyes"})
-		Session.set('chatTopic', chatId)
+		var circle = TalkingCircles.findOne(circleId)
+		if (!isset(circle))
+			TalkingCircles.insert({_id: circleId, topic: name_both, type: "4eyes"})
+		Session.set('circleTopic', circleId)
 	}
 })

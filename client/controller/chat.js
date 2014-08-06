@@ -1,28 +1,28 @@
-Template.chat.helpers({
+Template.circle.helpers({
 	messages: function() {
-		var chat = Chats.findOne(Session.get('chatTopic'))
-		return isset(chat) ? chat.messages : null;
+		var circle = TalkingCircles.findOne(Session.get('circleTopic'))
+		return isset(circle) ? circle.messages : null;
 	},
 	username: function() {
 		var user = Meteor.users.findOne(this.userid)
 		return isset(user) ? user.username : null
 	},
 	circle: function() {
-		var chat = Chats.findOne(Session.get('chatTopic'))
-		if (!isset(chat))
+		var circle = TalkingCircles.findOne(Session.get('circleTopic'))
+		if (!isset(circle))
 			return null
 
-		if (chat['type'] == 'open')
-			chat['typeEst'] = 'avatud'
-		else if (chat['type'] == '4eyes')
-			chat['typeEst'] = 'kahekõne'
-		else if (chat['type'] == 'closed')
-			chat['typeEst'] = 'suletud'
+		if (circle['type'] == 'open')
+			circle['typeEst'] = 'avatud'
+		else if (circle['type'] == '4eyes')
+			circle['typeEst'] = 'kahekõne'
+		else if (circle['type'] == 'closed')
+			circle['typeEst'] = 'suletud'
 
-		if (chat['author'])
-			chat['authorName'] = Meteor.users.findOne(chat['author']).username
+		if (circle['author'])
+			circle['authorName'] = Meteor.users.findOne(circle['author']).username
 
-		return chat
+		return circle
 	},
 	topicAuthor: function() {
 		return this.author == Meteor.userId()
@@ -32,40 +32,42 @@ Template.chat.helpers({
 	}
 })
 
-Template.chat.events({
-	'submit form[name=chatinput]': function(e, tmpl) {
+Template.circle.events({
+	'submit form[name=circleinput]': function(e, tmpl) {
 		e.preventDefault()
-		var data = getFormData('form[name=chatinput]')
+		var data = getFormData('form[name=circleinput]')
+		if (!data.msg)
+			return false
 		data['userid'] = Meteor.userId()
 		data['timestamp'] = Date.now()
-		Chats.update(Session.get('chatTopic'), {$push: {messages: data}})
-		$('form[name=chatinput] input[name=msg]').val('')
+		TalkingCircles.update(Session.get('circleTopic'), {$push: {messages: data}})
+		$('form[name=circleinput] input[name=msg]').val('')
 	},
 	'click .type': function(e, tmpl) {
-		var _id = Session.get('chatTopic')
-		var circleType = Chats.findOne(_id).type
+		var _id = Session.get('circleTopic')
+		var circleType = TalkingCircles.findOne(_id).type
 		if (circleType == 'closed')
-			Chats.update(_id, {$set: {type: 'open'}})
+			TalkingCircles.update(_id, {$set: {type: 'open'}})
 		if (circleType == 'open')
-			Chats.update(_id, {$set: {type: 'closed'}})
+			TalkingCircles.update(_id, {$set: {type: 'closed'}})
 	},
 	'click .topic': function(e, tmpl) {
-		Chat.editTopic()
+		TalkingCircle.editTopic()
 	},
 	'submit form[name=edittopic]': function(e, tmpl) {
 		e.preventDefault()
-		Chat.doneEditingTopic()
+		TalkingCircle.doneEditingTopic()
 	},
 	'blur form[name=edittopic] input': function(e, tmple) {
-		Chat.doneEditingTopic()
+		TalkingCircle.doneEditingTopic()
 	}
 })
 
-Chat = {
+TalkingCircle = {
 	editTopic: function(){
-		var _id = Session.get('chatTopic')
-		var topic = Chats.findOne(_id).topic
-		$('.chat .topic.small-button').css('display', 'none').after('\
+		var _id = Session.get('circleTopic')
+		var topic = TalkingCircles.findOne(_id).topic
+		$('.circle .topic.small-button').css('display', 'none').after('\
 																	<form name="edittopic">\
 																		<input name="topic" type="text">\
 																		<input type="submit" value="salvesta">\
@@ -74,10 +76,10 @@ Chat = {
 		Meteor.flush()
 	},
 	doneEditingTopic: function() {
-		var _id = Session.get('chatTopic')
+		var _id = Session.get('circleTopic')
 		var data = getFormData('form[name=edittopic]')
-		Chats.update(_id, {$set: data})
+		TalkingCircles.update(_id, {$set: data})
 		$('form[name=edittopic]').remove()
-		$('.chat .topic.small-button').css('display', 'inline-block')
+		$('.circle .topic.small-button').css('display', 'inline-block')
 	}
 }

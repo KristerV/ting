@@ -1,7 +1,7 @@
-template(name="chat")
-	.chat-wrapper
+template(name="circle")
+	.circle-wrapper
 		+themes
-		.chat
+		.circle
 			.title
 				with circle
 					p Ringi teema: {{#if topicAuthor}}<span class="topic small-button">{{topic}}</span>{{else}}<span class="bold">{{topic}}</span>{{/if}}
@@ -11,7 +11,7 @@ template(name="chat")
 			.messages
 				each messages
 					p <span class="bold">{{username}}:</span> {{msg}}
-			form(name="chatinput")
+			form(name="circleinput")
 				input(name="msg")
 				input(type="submit")
 		+userlist
