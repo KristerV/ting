@@ -1,8 +1,8 @@
 
 Meteor.startup(function () {
-	var bigCircle = Chat.findOne('maincircle')
+	var bigCircle = Chats.findOne('maincircle')
 	if (bigCircle == 'undefined') {
-		Chat.insert({topic: 'Suur Ring', 
+		Chats.insert({topic: 'Suur Ring', 
 					_id: 'maincircle',
 					created: Date.now(),
 					})

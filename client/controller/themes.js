@@ -1,6 +1,6 @@
 Template.themes.helpers({
 	themes: function() {
-		return Chat.find({$or: [{type: 'open'}, {author: Meteor.userId()}]})
+		return Chats.find({$or: [{type: 'open'}, {author: Meteor.userId()}]})
 	}
 })
 
@@ -10,7 +10,7 @@ Template.themes.events({
 		Session.set('chatTopic', id)
 	},
 	'click .new': function(e, tmpl) {
-		var chatId = Chat.insert({author: Meteor.userId(), type: 'closed', topic: 'määramata'})
+		var chatId = Chats.insert({author: Meteor.userId(), type: 'closed', topic: 'määramata'})
 		Session.set('chatTopic', chatId)
 	}
 })

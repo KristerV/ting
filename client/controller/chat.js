@@ -1,6 +1,6 @@
 Template.chat.helpers({
 	messages: function() {
-		var chat = Chat.findOne(Session.get('chatTopic'))
+		var chat = Chats.findOne(Session.get('chatTopic'))
 		return isset(chat) ? chat.messages : null;
 	},
 	username: function() {
@@ -8,7 +8,7 @@ Template.chat.helpers({
 		return isset(user) ? user.username : null
 	},
 	circle: function() {
-		var chat = Chat.findOne(Session.get('chatTopic'))
+		var chat = Chats.findOne(Session.get('chatTopic'))
 		if (!isset(chat))
 			return null
 
@@ -35,33 +35,46 @@ Template.chat.events({
 		var data = getFormData('form[name=chatinput]')
 		data['userid'] = Meteor.userId()
 		data['timestamp'] = Date.now()
-		Chat.update(Session.get('chatTopic'), {$push: {messages: data}})
+		Chats.update(Session.get('chatTopic'), {$push: {messages: data}})
 		$('form[name=chatinput] input[name=msg]').val('')
 	},
 	'click .type': function(e, tmpl) {
 		var _id = Session.get('chatTopic')
-		var circleType = Chat.findOne(_id).type
+		var circleType = Chats.findOne(_id).type
 		if (circleType == 'closed')
-			Chat.update(_id, {$set: {type: 'open'}})
+			Chats.update(_id, {$set: {type: 'open'}})
 		if (circleType == 'open')
-			Chat.update(_id, {$set: {type: 'closed'}})
+			Chats.update(_id, {$set: {type: 'closed'}})
 	},
 	'click .topic': function(e, tmpl) {
-		var _id = Session.get('chatTopic')
-		var topic = Chat.findOne(_id).topic
-		$('.chat .topic.small-button').css('display', 'none').after('\
-		                                                            <form name="edittopic">\
-		                                                            	<input name="topic" type="text">\
-		                                                            	<input type="submit" value="salvesta">\
-		                                                            </form>')
-		$('form[name=edittopic] input[type=text]').val(topic)
+		Chat.editTopic()
 	},
 	'submit form[name=edittopic]': function(e, tmpl) {
 		e.preventDefault()
+		Chat.doneEditingTopic()
+	},
+	'blur form[name=edittopic] input': function(e, tmple) {
+		Chat.doneEditingTopic()
+	}
+})
+
+Chat = {
+	editTopic: function(){
+		var _id = Session.get('chatTopic')
+		var topic = Chats.findOne(_id).topic
+		$('.chat .topic.small-button').css('display', 'none').after('\
+																	<form name="edittopic">\
+																		<input name="topic" type="text">\
+																		<input type="submit" value="salvesta">\
+																	</form>')
+		$('form[name=edittopic] input[type=text]').val(topic).focus().select()
+		Meteor.flush()
+	},
+	doneEditingTopic: function() {
 		var _id = Session.get('chatTopic')
 		var data = getFormData('form[name=edittopic]')
-		Chat.update(_id, {$set: data})
+		Chats.update(_id, {$set: data})
 		$('form[name=edittopic]').remove()
 		$('.chat .topic.small-button').css('display', 'inline-block')
 	}
-})
+}
