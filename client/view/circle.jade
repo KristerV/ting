@@ -16,7 +16,7 @@ template(name="circle")
 						p.invite-selected.small-button.hidden Vali soovitud inimesed ja vajuta uuesti siia
 			.messages
 				each messages
-					p <span class="bold">{{username}}: </span>p{{msg}}
+					p <span class="bold">{{username}}: </span>{{msg}}
 			form(name="circleinput")
 				input(name="msg")
 				input(type="submit")
