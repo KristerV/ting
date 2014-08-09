@@ -6,8 +6,8 @@ template(name="userlist")
 					.selectUsers.username
 						label
 							input(type="checkbox" name="users" value=_id)
-							p {{username}}
+							p.small-button {{username}}
 					br
 				else
-					p.username(id=_id) {{username}}
+					p.username.small-button(id=_id) {{username}}
 					br
