@@ -26,8 +26,6 @@ Template.topics.events({
 })
 
 isNewMessages = function(circleId) {
-	if (Session.equals('circleTopic', circleId))
-		return false
 
 	// Get circle last timestamp
 	var lastTimestamp = getLastTimestamp(circleId)
@@ -42,6 +40,8 @@ isNewMessages = function(circleId) {
 	// Do they match?
 	if (lastSeen === lastTimestamp)
 		return false
+	else if (Session.equals('circleTopic', circleId))
+		setLastSeenTimestamp(circleId)
 	else
 		return true
 }
