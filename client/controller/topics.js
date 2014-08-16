@@ -7,25 +7,7 @@ Template.topics.helpers({
 		return TalkingCircles.find({$or: [findOpen, findAuthored, findSecrets]})
 	},
 	newMessages: function() {
-		var circleId = this._id
-		if (Session.equals('circleTopic', circleId))
-			return false
-
-		// Get circle last timestamp
-		var lastTimestamp = getLastTimestamp(circleId)
-		if (!isset(lastTimestamp))
-			return false
-
-		// What's the last message the user saw?
-		var lastSeen = getLastSeenTimestamp(circleId)
-		if (!isset(lastSeen))
-			return true
-
-		// Do they match?
-		if (lastSeen === lastTimestamp)
-			return false
-		else
-			return true
+		return isNewMessages(this._id)
 	}
 })
 
@@ -42,6 +24,27 @@ Template.topics.events({
 		Session.set('circleTopic', circleId)
 	}
 })
+
+isNewMessages = function(circleId) {
+	if (Session.equals('circleTopic', circleId))
+		return false
+
+	// Get circle last timestamp
+	var lastTimestamp = getLastTimestamp(circleId)
+	if (!isset(lastTimestamp))
+		return false
+
+	// What's the last message the user saw?
+	var lastSeen = getLastSeenTimestamp(circleId)
+	if (!isset(lastSeen))
+		return true
+
+	// Do they match?
+	if (lastSeen === lastTimestamp)
+		return false
+	else
+		return true
+}
 
 getLastTimestamp = function(circleId) {
 	var circle = TalkingCircles.findOne(circleId)
