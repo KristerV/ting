@@ -2,6 +2,6 @@ template(name="topics")
 	.topics
 		h2 Teemad
 		each topics
-			p.small-button(class="theme" id=_id) {{topic}}
+			p.small-button.theme(class="{{#if newMessages}}red-border{{/if}}" id=_id) {{topic}}
 			br
 		.new +
