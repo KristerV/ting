@@ -9,6 +9,8 @@ Template.guestbook.helpers({
 		return Session.get('guestbookMessage')
 	},
 	guestbookMessage: function() {
+
+		// Get message text
 		var messages = TalkingCircles.findOne('guestbook').messages
 		var msgId = Session.get('guestbookMessage')
 		$.each(messages, function(index, obj) {
@@ -16,14 +18,27 @@ Template.guestbook.helpers({
 				msg = obj.msg
 			}
 		})
-		return isset(msg) ? msg : null
+		if (!isset(msg))
+			return false
+
+		// Make text into square shape
+		var msgArray = msg.split(" ")
+		lineBreakEvery = Math.sqrt(msgArray.length)
+		for (var i=1; i<lineBreakEvery+1; i++)
+			msgArray.splice(i*lineBreakEvery, 0, '<br>')
+		msg = msgArray.join(" ")
+
+		// Make newlines display properly
+		msg = new Spacebars.SafeString(msg)
+
+		// return
+		return msg
 	},
 	circleColor: function() {
 		var msgId = Session.get('guestbookMessage')
 		var color = $('svg circle#' + msgId).css('fill')
 		color = color.replace('rgb', 'rgba').replace(')', ',.3)')
-		$('body').css('background-color', color)
-		return null
+		return color
 	}
 })
 
