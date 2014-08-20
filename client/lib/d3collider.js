@@ -9,7 +9,19 @@ d3collider = function() {
 	var msgs = collection.messages
 	var amount = msgs.length
 
-	var nodes = d3.range(amount).map(function() { return {radius: Math.random() * (300 / amount) + (300 / amount)}; });
+	/*var nodes = []
+	for (i=0; i<amount; i++) {
+		nodes[]
+	}*/
+	var count = 0;
+	var nodes = d3.range(amount+1).map(function() {
+		count++;
+		console.log(isset(msgs[count-2]) ? msgs[count-2]._id : null)
+		return {
+			radius: Math.random() * 12 + 30,
+			id: isset(msgs[count-2]) ? msgs[count-2]._id : null
+		};
+	});
 	var root = nodes[0];
 	var color = d3.scale.category10();
 
@@ -32,6 +44,7 @@ d3collider = function() {
 	.data(nodes.slice(1))
 	.enter().append("circle")
 	.attr("r", function(d) { return d.radius; })
+	.attr("id", function(d) { return d.id; })
 	.style("fill", function(d, i) { return Please.make_color({saturation: .7, value: .9}); });
 
 	force.on("tick", function(e) {

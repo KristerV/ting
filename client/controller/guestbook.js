@@ -1,13 +1,35 @@
 Template.guestbook.helpers({
 	items: function() {
-		// var guestbook = TalkingCircles.findOne('guestbook')
-		// return isset(guestbook) ? guestbook.messages : null
-		console.log("warmup")
 		if (Session.get('guestbookReady') && Session.get('collectionReady')) {
-			console.log("GO")
 			d3collider()
 		}
 		return null
+	},
+	messagePresent: function() {
+		return Session.get('guestbookMessage')
+	},
+	guestbookMessage: function() {
+		var messages = TalkingCircles.findOne('guestbook').messages
+		var msgId = Session.get('guestbookMessage')
+		$.each(messages, function(index, obj) {
+			if (obj._id == msgId) {
+				msg = obj.msg
+			}
+		})
+		return isset(msg) ? msg : null
+	},
+	circleColor: function() {
+		var msgId = Session.get('guestbookMessage')
+		var color = $('svg circle#' + msgId).css('fill')
+		color = color.replace('rgb', 'rgba').replace(')', ',.3)')
+		$('body').css('background-color', color)
+		return null
+	}
+})
+
+Template.guestbook.events({
+	'mouseover svg circle': function(e, tmpl) {
+		Session.set("guestbookMessage", e.currentTarget.id)
 	}
 })
 
