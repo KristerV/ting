@@ -1,6 +1,10 @@
 Template.circle.helpers({
 	messages: function() {
 		var circle = TalkingCircles.findOne(Session.get('circleTopic'))
+		console.log("hello")
+		Meteor.setTimeout(function(){
+			$('.circle .messages').scrollTop($('.circle .messages').height())
+		}, 1)
 		return isset(circle) ? circle.messages : null;
 	},
 	username: function() {
