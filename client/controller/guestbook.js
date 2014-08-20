@@ -54,9 +54,7 @@ Template.guestbook.helpers({
 			return false
 
 		var lineBreakEveryLetters = Math.sqrt(msg.length)
-		console.log(lineBreakEveryLetters)
 		var lineBreakEveryPixels = lineBreakEveryLetters * 13
-		console.log(lineBreakEveryPixels)
 		return 'width:' + lineBreakEveryPixels + 'px;height:' + lineBreakEveryPixels + 'px'
 	}
 })
