@@ -29,7 +29,7 @@ Template.circle.helpers({
 	},
 	changeType: function() {
 		return this.type != '4eyes' && this.author == Meteor.userId()
-	}
+	},
 })
 
 Template.circle.events({
@@ -86,6 +86,10 @@ Template.circle.events({
 	},
 })
 
+Template.circle.rendered = function() {
+	TalkingCircle.resizeMessages()
+}
+
 TalkingCircle = {
 	editTopic: function(){
 		var _id = Session.get('circleTopic')
@@ -107,5 +111,14 @@ TalkingCircle = {
 	},
 	bigBlur: function() {
 		Session.set('selectUsers', null)
+	},
+	resizeMessages: function() {
+		// Set circle messages height
+		Meteor.setTimeout(function(){
+			var wrapperHeight = $('.circle').height()
+			var othersHeight = $('.circle .title').height() + $('.circle form[name=circleinput]').outerHeight()
+			var remainingHeight = wrapperHeight - othersHeight
+			$('.circle .messages').height(remainingHeight)
+		}, 1)
 	}
 }

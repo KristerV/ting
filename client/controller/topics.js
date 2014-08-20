@@ -17,6 +17,8 @@ Template.topics.events({
 		setLastSeenTimestamp(Session.get('circleTopic'))
 		Session.set('circleTopic', e.currentTarget.id)
 		setLastSeenTimestamp(e.currentTarget.id)
+		
+		TalkingCircle.resizeMessages()
 	},
 	'click .new': function(e, tmpl) {
 		TalkingCircle.bigBlur()

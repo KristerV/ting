@@ -8,6 +8,7 @@ template(name="circle")
 					br
 					p Juturing on {{#if changeType}}<span class="type small-button">{{typeEst}}</span>{{else}}{{typeEst}}{{/if}}
 					br
+					p.red {{notice}}
 					if authorName
 						p Autor on <span class="bold">{{authorName}}</span>
 					if topicAuthor
