@@ -15,7 +15,7 @@ Meteor.startup(function () {
 								_id: 'guestbook',
 								created: Date.now(),
 								type: 'open',
-								notice: 'Tähelepanu! Selle ringi teemaks on Kogemused. Siinsed kirjad lähevad otse ting.ee avalikule lehele. Teemast mööda minevad kirjad kustutatakse.'
+								notice: 'Siinsed kirjad lähevad otse pealehele, avalikkuse ette. Kirjutagem siia oma põnevaid Tingi kogemusi ja lugusid. Siinne ring on ainukene mida modereeritakse, sest mula ei paista pealehel hästi välja :)'
 							})
 	}
 });
