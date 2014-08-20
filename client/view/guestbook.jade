@@ -3,7 +3,7 @@ template(name="guestbook")
 		if messagePresent
 			.textbox
 				.text
-					p(style="background-color:{{circleColor}}") {{guestbookMessage}}
+					p(style="background-color:{{circleColor}};{{messageStyle}}") {{guestbookMessage}}
 		p {{items}}
 		//- each items
 		//- 	p(id="{{_id}}") {{msg}}

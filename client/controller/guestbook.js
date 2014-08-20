@@ -21,15 +21,16 @@ Template.guestbook.helpers({
 		if (!isset(msg))
 			return false
 
-		// Make text into square shape
+		/*// Make text into square shape
 		var msgArray = msg.split(" ")
-		lineBreakEvery = Math.sqrt(msgArray.length)
+		lineBreakEveryLetters = Math.sqrt(msg.length)
+		lineBreakEveryPixels = lineBreakEveryLetters * 4;
 		for (var i=1; i<lineBreakEvery+1; i++)
 			msgArray.splice(i*lineBreakEvery, 0, '<br>')
 		msg = msgArray.join(" ")
 
 		// Make newlines display properly
-		msg = new Spacebars.SafeString(msg)
+		msg = new Spacebars.SafeString(msg)*/
 
 		// return
 		return msg
@@ -39,6 +40,24 @@ Template.guestbook.helpers({
 		var color = $('svg circle#' + msgId).css('fill')
 		color = color.replace('rgb', 'rgba').replace(')', ',.3)')
 		return color
+	},
+	messageStyle: function() {
+		// Get message text
+		var messages = TalkingCircles.findOne('guestbook').messages
+		var msgId = Session.get('guestbookMessage')
+		$.each(messages, function(index, obj) {
+			if (obj._id == msgId) {
+				msg = obj.msg
+			}
+		})
+		if (!isset(msg))
+			return false
+
+		var lineBreakEveryLetters = Math.sqrt(msg.length)
+		console.log(lineBreakEveryLetters)
+		var lineBreakEveryPixels = lineBreakEveryLetters * 13
+		console.log(lineBreakEveryPixels)
+		return 'width:' + lineBreakEveryPixels + 'px;height:' + lineBreakEveryPixels + 'px'
 	}
 })
 

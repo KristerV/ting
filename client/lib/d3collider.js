@@ -16,7 +16,6 @@ d3collider = function() {
 	var count = 0;
 	var nodes = d3.range(amount+1).map(function() {
 		count++;
-		console.log(isset(msgs[count-2]) ? msgs[count-2]._id : null)
 		return {
 			radius: Math.random() * 12 + 30,
 			id: isset(msgs[count-2]) ? msgs[count-2]._id : null
