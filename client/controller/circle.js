@@ -41,6 +41,7 @@ Template.circle.events({
 			return false
 		data['userid'] = Meteor.userId()
 		data['timestamp'] = Date.now()
+		data['_id'] = generateHash()
 		TalkingCircles.update(Session.get('circleTopic'), {$push: {messages: data}})
 		$('form[name=circleinput] input[name=msg]').val('')
 	},

@@ -11,11 +11,11 @@ Meteor.startup(function () {
 	}
 	var guestbook = TalkingCircles.findOne('guestbook')
 	if (typeof guestbook == 'undefined') {
-		TalkingCircles.insert({topic: 'Külalisteraamat', 
+		TalkingCircles.insert({topic: 'Tingi Kogemused', 
 								_id: 'guestbook',
 								created: Date.now(),
 								type: 'open',
-								notice: 'Tähelepanu! Siin oleva juturingi teemaks on igavesti Külalisteraamat. Kirjuta siia seda, mida tahaksid, et jõuaks ting.ee avalikule lehele. Põhiliselt võiksid koguneda siia Tingiga seonduvad kogemused. Hea või halb, olgem ausad. See on ainuke ring, mida modereeritakse, kustutamisele kuuluvad kirjad, mis lähevad teemast mööda.'
+								notice: 'Tähelepanu! Selle ringi teemaks on Kogemused. Siinsed kirjad lähevad otse ting.ee avalikule lehele. Teemast mööda minevad kirjad kustutatakse.'
 							})
 	}
 });
