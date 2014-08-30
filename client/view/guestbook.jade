@@ -1,9 +1,0 @@
-template(name="guestbook")
-	.guestbook
-		if messagePresent
-			.textbox
-				.text
-					p(style="background-color:{{circleColor}};{{messageStyle}}") {{guestbookMessage}}
-		p {{items}}
-		//- each items
-		//- 	p(id="{{_id}}") {{msg}}
