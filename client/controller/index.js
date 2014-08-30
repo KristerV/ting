@@ -3,5 +3,6 @@ Accounts.ui.config({
 });
 
 Session.setDefault('language', 'et')
+Session.setDefault('module', {module: 'wall', id: 'announcements'})
 
 Meteor.subscribe("circle")

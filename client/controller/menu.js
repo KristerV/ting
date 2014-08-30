@@ -1,6 +1,5 @@
 Template.menu.helpers({
 	practicalList: function() {
-		// This menu list is defined manually
 		return [
 			{
 				_id: 'announcements',
@@ -39,7 +38,9 @@ Template.menu.helpers({
 
 Template.menu.events({
 	'click .heading': function(e, tmpl) {
+		
 		var list = $(e.currentTarget.nextElementSibling)
+
 		if (list.is(":visible"))
 			list.velocity('slideUp')
 		else
