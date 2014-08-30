@@ -1,6 +1,10 @@
 template(name="chat")
 	.chat
-		each messages
-			p <b>{{username}}</b>: {{msg}}
+		.title
+			p locked
+			h1 title
+		.messages
+			each messages
+				p <b>{{username}}</b>: {{msg}}
 		form(name='chat-msg')
 			input(name="chat-msg")
