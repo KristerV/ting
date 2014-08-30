@@ -1,2 +1,6 @@
 template(name="chat")
-	p chat module active
+	.chat
+		each messages
+			p <b>{{username}}</b>: {{msg}}
+		form(name='chat-msg')
+			input(name="chat-msg")
