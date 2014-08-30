@@ -1,3 +1,14 @@
 template(name="menu")
 	.menu
-		p menu
+		h2.heading {{Translate "Practical"}}
+		.list
+			each practicalList
+				+menuItem
+		h2.heading {{Translate "Circles"}}
+		.list
+			each circleList
+				+menuItem
+		h2.heading {{Translate "People"}}
+		.list
+			each peopleList
+				+menuItem

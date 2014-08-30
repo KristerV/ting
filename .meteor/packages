@@ -4,11 +4,10 @@
 # but you can also edit it by hand.
 
 standard-app-packages
-autopublish
-insecure
 waitingkuo:jade
 less
 accounts-password
 accounts-base
 accounts-ui
+sewdn:velocityjs
 
