@@ -18,3 +18,22 @@ Template.chat.helpers({
 		return user.username
 	}
 })
+
+Template.chat.events({
+	'submit form[name="chat-msg"]': function(e, tmpl) {
+		e.preventDefault()
+		var msg = $('input[name=chat-msg]').val()
+
+		if (!isset(msg))
+			return false
+
+		data = {
+			msg: msg,
+			userid: Meteor.user()._id,
+			timestamp: Date.now(),
+		}
+
+		CircleCollection.update(Session.get('module').id, {$push: {messages: data}})
+		$('input[name=chat-msg]').val('')
+	}
+})
