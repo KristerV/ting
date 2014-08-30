@@ -3,8 +3,11 @@ Meteor.publish("circle", function () {
 	if (!this.userId)
 		return null
 
-	return CircleCollection.find({$or: [{type: 'open'}, 
-	                             		{type: 'closed', author: this.userId}]})
+	return CircleCollection.find({$or: 	[
+											{type: 'open'}, 
+											{type: 'closed', author: this.userId},
+											{type: '4eyes'}
+	                             		]})
 });
 
 Meteor.publish("allUserData", function () {

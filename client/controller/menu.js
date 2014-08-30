@@ -29,7 +29,7 @@ Template.menu.helpers({
 		]
 	},
 	circleList: function() {
-		return CircleCollection.find()
+		return CircleCollection.find({type: {$in: ['open', 'closed']}})
 	},
 	peopleList: function() {
 		return Meteor.users.find()

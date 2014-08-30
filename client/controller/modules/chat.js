@@ -3,7 +3,7 @@ Template.chat.helpers({
 		var id = Session.get('module').id
 		var collection = CircleCollection.findOne(id)
 
-		if (!isset(collection['messages']))
+		if (!isset(collection) || !isset(collection['messages']))
 			return null
 
 		return collection['messages']
@@ -37,3 +37,13 @@ Template.chat.events({
 		$('input[name=chat-msg]').val('')
 	}
 })
+
+Chat = {
+	get4eyesId: function(id_other) {
+		var id_current = Meteor.userId()
+		var id_both = [id_current, id_other]
+		id_both.sort()
+		var circleId = id_both.join()
+		return circleId
+	}
+}

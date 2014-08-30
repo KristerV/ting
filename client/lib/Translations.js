@@ -8,4 +8,7 @@ Translations = {
 	'People': {
 		et: 'Inimesed',
 	},
+	'and': {
+		et: 'ja'
+	}
 }
