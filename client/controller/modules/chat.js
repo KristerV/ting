@@ -1,10 +1,16 @@
 Template.chat.helpers({
 	messages: function() {
 		var id = Session.get('module').id
-		var collection = CircleCollection.findOne(id)
+		var collection = CircleCollection.findOne(id, {fields: {lastSeen: 0}})
 
 		if (!isset(collection) || !isset(collection['messages']))
 			return null
+
+		// Save last seen message timestamp
+		var lastSeen = {}
+		var msgs = collection.messages
+		lastSeen['lastSeen.' + Meteor.userId()] = msgs[msgs.length-1].timestamp
+		CircleCollection.update(id, {$set: lastSeen})
 
 		return collection['messages']
 	},

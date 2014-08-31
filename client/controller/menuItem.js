@@ -7,6 +7,39 @@ Template.menuItem.helpers({
 
 		if (_.contains(circle.hasAccess, userId))
 			return true
+	},
+	isUnread: function() {
+		var obj
+
+		// 4eyes chat needs different approach
+		if (this.type = '4eyes')
+			obj = CircleCollection.findOne(Chat.get4eyesId(this._id))
+		else
+			obj = this
+
+		// Probably 4eyes chat - never talked to this person before
+		if (!isset(obj))
+			return false
+
+		// Either is not chat module or there are no messages
+		if (!isset(obj.lastSeen))
+			return false
+
+		// If never been there
+		if (!isset(obj.lastSeen[Meteor.userId()]))
+			return true
+
+		// There are no messages
+		if (!isset(obj.messages) || !isset(obj.messages[0]))
+			return false
+
+		// Get last written message
+		var msgLast = obj.messages[obj.messages.length-1].timestamp
+
+		// Get last seen message
+		var lastSeen = obj.lastSeen[Meteor.userId()]
+
+		return msgLast > lastSeen
 	}
 })
 Template.menuItem.events({
