@@ -103,7 +103,7 @@ Template.chat.events({
 		$('input[name=chat-topic]').prop('disabled', true)
 		CircleCollection.update(Session.get('module').id, {$set: {topic: newTopic}})
 	},
-	'click form[name=chat-topic]': function(e, tmpl) {
+	'click form[name=chat-topic], click .lock': function(e, tmpl) {
 		Global.bigBlur()
 		var options = $('.module .options')
 		if (options.is(":visible"))
