@@ -10,6 +10,8 @@ Meteor.subscribe("allUserData");
 
 Global = {
 	bigBlur: function(currentTarget) {
+
+		// If user has been giving keys to a circle
 		if (Session.get('toggleAccessToCircle')) {
 			var visibility = Session.get("menuVisibilitySave");
 			$.each(visibility, function(selector, visible){
@@ -30,6 +32,14 @@ Global = {
 			})
 			Session.set('toggleAccessToCircle', null)
 		}
+
+		// If any chat option is in progress
 		Session.set('isOptionsInProgress', false)
+
+		// If chat options are visible
+		if ($('.chat .options').is(':visible'))
+			$('.chat .options').velocity('slideUp')
+
+		// 
 	}
 }

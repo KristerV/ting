@@ -14,11 +14,13 @@ Template.chat.helpers({
 
 		// Scroll to the bottom. Unfortunatelly, I don't know a better place to put this
 		Meteor.setTimeout(function(){
-			$('.module .chat .messages').css('padding-top', $(document).height())
-			$('.module .chat').scrollTop($('.module .chat')[0].scrollHeight)
+			Chat.scrollToBottom()
 		}, 0)
 
 		return collection['messages']
+	},
+	msg: function() {
+		return new Spacebars.SafeString(this.msg.replace(/(\r\n|\n|\r)/gm, '<br>'))
 	},
 	username: function() {
 		var user = Meteor.users.findOne(this.userid)
@@ -75,7 +77,7 @@ Template.chat.events({
 	'submit form[name="chat-msg"]': function(e, tmpl) {
 		e.preventDefault()
 		Global.bigBlur()
-		var msg = $('input[name=chat-msg]').val()
+		var msg = $('textarea[name=chat-msg]').val()
 
 		if (!isset(msg))
 			return false
@@ -86,7 +88,7 @@ Template.chat.events({
 			timestamp: Date.now(),
 		}
 
-		$('input[name=chat-msg]').val('')
+		$('textarea[name=chat-msg]').val('')
 		CircleCollection.update(Session.get('module').id, {$push: {messages: data}})
 	},
 	'submit form[name=chat-topic], blur input[name=chat-topic]': function(e, tmpl) {
@@ -158,7 +160,24 @@ Template.chat.events({
 			Session.set('module', {module: 'wall', id: 'announcements'})
 		}
 	},
+	'keydown textarea[name=chat-msg]': function(e, tmpl) {
+		// Submit when Enter is pressed, but not if modifiers are down
+		if (e.originalEvent.keyIdentifier == 'Enter' 
+				&& e.originalEvent.ctrlKey == false
+				&& e.originalEvent.altKey == false
+				&& e.originalEvent.shiftKey == false
+			) 
+		{
+			$('form[name=chat-msg]').submit()
+			return false
+		}
+	}
 })
+
+Template.chat.rendered = function() {
+	$('textarea').elastic()
+	$('.module .chat .messages').css('padding-top', $(document).height() / 5)
+}
 
 Chat = {
 	get4eyesId: function(id_other) {
@@ -167,5 +186,8 @@ Chat = {
 		id_both.sort()
 		var circleId = id_both.join()
 		return circleId
+	},
+	scrollToBottom: function() {
+		$('.module .chat').scrollTop($('.module .chat')[0].scrollHeight)
 	}
 }
