@@ -12,6 +12,11 @@ Template.chat.helpers({
 		lastSeen['lastSeen.' + Meteor.userId()] = msgs[msgs.length-1].timestamp
 		CircleCollection.update(id, {$set: lastSeen})
 
+		// Scroll to the bottom. Unfortunatelly, I don't know a better place to put this
+		Meteor.setTimeout(function(){
+			$('.module').scrollTop($('.module')[0].scrollHeight)
+		}, 0)
+
 		return collection['messages']
 	},
 	username: function() {
@@ -62,7 +67,7 @@ Template.chat.helpers({
 	},
 	isOptionsInProgress: function() {
 		return Session.get('isOptionsInProgress')
-	}
+	},
 })
 
 Template.chat.events({
