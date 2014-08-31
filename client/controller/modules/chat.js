@@ -23,6 +23,12 @@ Template.chat.helpers({
 		if (isset(collection) && collection.author == Meteor.userId())
 			return true
 	},
+	is4eyes: function() {
+		var id = Session.get('module').id
+		var collection = CircleCollection.findOne(id)
+		if (isset(collection) && collection.type == '4eyes')
+			return true
+	},
 	isLocked: function() {
 		var id = Session.get('module').id
 		var collection = CircleCollection.findOne(id)

@@ -15,7 +15,10 @@ template(name="chat")
 							p.js-invite {{Translate "Allow or deny people to your secret circle"}}
 						p.js-close {{Translate "Close the circle (messages will be gone forever)"}}
 				else
-					p {{Translate "Circle can be managed only by it's creator"}}
+					if is4eyes
+						p {{Translate "Kahekõnel ei ole valikuid, mida muuta."}}
+					else
+						p {{Translate "Circle can be managed only by it's creator"}}
 		.messages
 			each messages
 				p <b>{{username}}</b>: {{msg}}
