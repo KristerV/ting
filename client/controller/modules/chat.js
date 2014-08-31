@@ -14,7 +14,8 @@ Template.chat.helpers({
 
 		// Scroll to the bottom. Unfortunatelly, I don't know a better place to put this
 		Meteor.setTimeout(function(){
-			$('.module').scrollTop($('.module')[0].scrollHeight)
+			$('.module .chat .messages').css('padding-top', $(document).height())
+			$('.module .chat').scrollTop($('.module .chat')[0].scrollHeight)
 		}, 0)
 
 		return collection['messages']
@@ -96,6 +97,7 @@ Template.chat.events({
 		if (!isset(newTopic))
 			return false
 
+		Global.bigBlur()
 		$('input[name=chat-topic]').prop('disabled', true)
 		CircleCollection.update(Session.get('module').id, {$set: {topic: newTopic}})
 	},

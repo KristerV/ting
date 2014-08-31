@@ -1,17 +1,29 @@
 .chat {
+
+	overflow: auto;
+	height: 100%;
 	.title {
+		position: absolute;
+		top: 0;
+		left: 0;
+		text-align: center;
+		width: 100%;
+		.lock {
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
 		.options {
 			display: none;
 		}
 		input {
+			text-align: center;
 			width: 100%;
 			outline: 0;
 			font-size: 2rem;
-				background-color: transparent;
-				color: black;
-				border: 0;
-			&[disabled] {
-			}
+			background-color: transparent;
+			color: black;
+			border: 0;
 		}
 	}
 	.messages {
@@ -22,6 +34,9 @@
 		max-width: 700px;
 		margin: auto;
 		input {
+			max-width: 700px;
+			position: absolute;
+			bottom: 0;
 			width: 100%;
 		}
 	}

@@ -1,7 +1,7 @@
 template(name="chat")
 	.chat
 		.title
-			p {{#if isLocked}}locked{{else}}open{{/if}}
+			p.lock {{#if isLocked}}locked{{else}}open{{/if}}
 			form(name='chat-topic')
 				input(name='chat-topic' value="{{topic}}" disabled="disabled")
 			.options
