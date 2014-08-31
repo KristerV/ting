@@ -6,11 +6,14 @@ template(name="chat")
 				input(name='chat-topic' value="{{topic}}" disabled="disabled")
 			.options
 				if isOwner
-					p.js-rename {{Translate "Rename circle topic"}}
-					p.js-type {{Translate "Toggle circle public visibility"}}
-					if isSecret
-						p.js-invite {{Translate "Allow or deny people to your secret circle"}}
-					p.js-close {{Translate "Close the circle (messages will be gone forever)"}}
+					if isOptionsInProgress
+						p.js-options-stop {{Translate "Click here if you're done editing"}}
+					else
+						p.js-rename {{Translate "Rename circle topic"}}
+						p.js-type {{Translate "Toggle circle public visibility"}}
+						if isSecret
+							p.js-invite {{Translate "Allow or deny people to your secret circle"}}
+						p.js-close {{Translate "Close the circle (messages will be gone forever)"}}
 				else
 					p {{Translate "Circle can be managed only by it's creator"}}
 		.messages

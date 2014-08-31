@@ -31,5 +31,11 @@ Translations = {
 	},
 	'Are you sure you want to close the circle? All messages will be gove forever.': {
 		et: 'Oled kindel, et tahad ringi sulgeda? Kõik mis siin siiani on räägitud, kaob igaveseks.'
+	},
+	"Oh no, you've been kicked out of the circle :(": {
+		et: "Oih, sind visati ringist välja :("
+	},
+	"Click here if you're done editing": {
+		et: 'Kliki siia, kui oled valmis'
 	}
 }

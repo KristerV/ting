@@ -35,20 +35,28 @@ Template.chat.helpers({
 	topic: function() {
 		var id = Session.get('module').id
 		var collection = CircleCollection.findOne(id)
-		if (isset(collection))
-			return collection.topic
+
+		// Assuming noone is trying random hashes, the user has probably been kicked out
+		if (!isset(collection))
+			return Translate("Oh no, you've been kicked out of the circle :(")
+
+		return collection.topic
 	},
 	isSecret: function() {
 		var id = Session.get('module').id
 		var collection = CircleCollection.findOne(id)
 		if (isset(collection) && collection.type == 'closed')
 			return true
+	},
+	isOptionsInProgress: function() {
+		return Session.get('isOptionsInProgress')
 	}
 })
 
 Template.chat.events({
 	'submit form[name="chat-msg"]': function(e, tmpl) {
 		e.preventDefault()
+		Global.bigBlur()
 		var msg = $('input[name=chat-msg]').val()
 
 		if (!isset(msg))
@@ -74,8 +82,17 @@ Template.chat.events({
 		$('input[name=chat-topic]').prop('disabled', true)
 		CircleCollection.update(Session.get('module').id, {$set: {topic: newTopic}})
 	},
+	'click form[name=chat-topic]': function(e, tmpl) {
+		Global.bigBlur()
+		var options = $('.module .options')
+		if (options.is(":visible"))
+			options.velocity('slideUp')
+		else
+			options.velocity('slideDown')
+	},
 	'click .js-rename': function(e, tmpl) {
 		$('input[name=chat-topic]').prop('disabled', false).focus()
+		Session.set('isOptionsInProgress', true)
 	},
 	'click .js-type': function(e, tmpl) {
 		var id = Session.get('module').id
@@ -91,7 +108,11 @@ Template.chat.events({
 
 		CircleCollection.update(id, {$set: {type: newType}})
 	},
+	'click .js-options-stop': function(e, tmpl) {
+		Global.bigBlur()
+	},
 	'click .js-invite': function(e, tmpl) {
+		
 		// Save visibility for each list
 		var visibility = {}
 		$('.menu .list').each(function() {
@@ -101,8 +122,15 @@ Template.chat.events({
 			visibility[selector] = $(this).is(':visible')
 		})
 		Session.set("menuVisibilitySave", visibility)
-		console.log(visibility)
-		$('.menu .list:not(:last-child)').velocity('slideUp')
+
+		// SlideUp all but people
+		$('.menu .list:not(.people)').velocity('slideUp')
+		if (!$('.menu .list.people').is(':visible'))
+			$('.menu .list.people').velocity('slideDown')
+
+		// The actual click-to-give-access happens in menuItem.js
+		Session.set('toggleAccessToCircle', Session.get('module').id)
+		Session.set('isOptionsInProgress', true)
 	},
 	'click .js-close': function(e, tmpl) {
 		var confirmation = confirm(Translate('Are you sure you want to close the circle? All messages will be gove forever.'))
