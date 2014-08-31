@@ -39,7 +39,7 @@ Template.menu.helpers({
 Template.menu.events({
 	'click .heading': function(e, tmpl) {
 		
-		var list = $(e.currentTarget.nextElementSibling)
+		var list = $(e.currentTarget).nextAll('.list:first')
 
 		if (list.is(":visible"))
 			list.velocity('slideUp')

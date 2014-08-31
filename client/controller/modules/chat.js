@@ -92,7 +92,17 @@ Template.chat.events({
 		CircleCollection.update(id, {$set: {type: newType}})
 	},
 	'click .js-invite': function(e, tmpl) {
-		console.log("js-invite")
+		// Save visibility for each list
+		var visibility = {}
+		$('.menu .list').each(function() {
+			var classesString = $(this).prop('class')
+			var classesArray = classesString.split(' ')
+			var selector = '.menu .' + classesArray.join('.')
+			visibility[selector] = $(this).is(':visible')
+		})
+		Session.set("menuVisibilitySave", visibility)
+		console.log(visibility)
+		$('.menu .list:not(:last-child)').velocity('slideUp')
 	},
 	'click .js-close': function(e, tmpl) {
 		var confirmation = confirm(Translate('Are you sure you want to close the circle? All messages will be gove forever.'))

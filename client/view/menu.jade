@@ -1,15 +1,15 @@
 template(name="menu")
 	.menu
 		h2.heading {{Translate "Practical"}}
-		.list
+		.list.practical
 			each practicalList
 				+menuItem
 		h2.heading {{Translate "Circles"}}
 		.new-circle.button {{Translate "new circle"}}
-		.list
+		.list.circles
 			each circleList
 				+menuItem
 		h2.heading {{Translate "People"}}
-		.list
+		.list.people
 			each peopleList
 				+menuItem
