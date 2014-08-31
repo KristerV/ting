@@ -37,6 +37,12 @@ Template.chat.helpers({
 		var collection = CircleCollection.findOne(id)
 		if (isset(collection))
 			return collection.topic
+	},
+	isSecret: function() {
+		var id = Session.get('module').id
+		var collection = CircleCollection.findOne(id)
+		if (isset(collection) && collection.type == 'closed')
+			return true
 	}
 })
 
@@ -72,7 +78,18 @@ Template.chat.events({
 		$('input[name=chat-topic]').prop('disabled', false).focus()
 	},
 	'click .js-type': function(e, tmpl) {
-		console.log("js-type")
+		var id = Session.get('module').id
+		var collection = CircleCollection.findOne(id)
+		var newType
+
+		if (collection.type == 'open')
+			newType = 'closed'
+		else if (collection.type == 'closed')
+			newType = 'open'
+		else
+			return false
+
+		CircleCollection.update(id, {$set: {type: newType}})
 	},
 	'click .js-invite': function(e, tmpl) {
 		console.log("js-invite")

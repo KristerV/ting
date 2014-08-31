@@ -14,11 +14,11 @@ Translations = {
 	"Rename circle topic": {
 		et: 'Muuda ringi teemat',
 	},
-	"Circle is hidden from public": {
-		et: 'Ring on varjatud avalikkuse eest',
+	"Toggle circle public visibility": {
+		et: 'Vaheta ringi nähtavust avalikkuses',
 	},
-	"Invite people to your hidden circle": {
-		et: 'Kutsu inimesi oma salajasse ringi',
+	"Allow or deny people to your secret circle": {
+		et: 'Luba või keela kellegi ligipääsu siia ringi',
 	},
 	"Close the circle (messages will be gone forever)": {
 		et: 'Sulge ring (vestlused kaovad igaveseks)',
