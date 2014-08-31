@@ -104,6 +104,11 @@ Template.chat.events({
 		CircleCollection.update(Session.get('module').id, {$set: {topic: newTopic}})
 	},
 	'click form[name=chat-topic], click .lock': function(e, tmpl) {
+
+		// Don't do anything if user is editing topic
+		if ($('input[name=chat-topic]').prop('disabled') === false)
+			return false
+
 		Global.bigBlur()
 		var options = $('.module .options')
 		if (options.is(":visible"))
