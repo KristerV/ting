@@ -45,5 +45,12 @@ Template.menu.events({
 			list.velocity('slideUp')
 		else
 			list.velocity('slideDown')
+	},
+	'click .new-circle': function(e, tmpl) {
+		var circleId = CircleCollection.insert({author: Meteor.userId(), type: 'closed', topic: Translate('new circle')})
+		Session.set('module', {
+			module: 'chat',
+			id: circleId,
+		})
 	}
 })

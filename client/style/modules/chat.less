@@ -1,7 +1,25 @@
 .chat {
-	max-width: 700px;
-	margin: auto;
-	input {
-		width: 100%;
+	.title {
+		input {
+			width: 100%;
+			outline: 0;
+			font-size: 2rem;
+				background-color: transparent;
+				color: black;
+				border: 0;
+			&[disabled] {
+			}
+		}
+	}
+	.messages {
+		max-width: 700px;
+		margin: auto;
+	}
+	.input {
+		max-width: 700px;
+		margin: auto;
+		input {
+			width: 100%;
+		}
 	}
 }

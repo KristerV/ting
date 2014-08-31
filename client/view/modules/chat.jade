@@ -1,10 +1,20 @@
 template(name="chat")
 	.chat
 		.title
-			p locked
-			h1 title
+			p {{#if isLocked}}locked{{else}}open{{/if}}
+			form(name='chat-topic')
+				input(name='chat-topic' value="{{topic}}" disabled="disabled")
+			.options
+				if isOwner
+					p.js-rename {{Translate "Rename circle topic"}}
+					p.js-type {{Translate "Circle is hidden from public"}}
+					p.js-invite {{Translate "Invite people to your hidden circle"}}
+					p.js-close {{Translate "Close the circle (messages will be gone forever)"}}
+				else
+					p {{Translate "Circle can be managed only by it's creator"}}
 		.messages
 			each messages
 				p <b>{{username}}</b>: {{msg}}
-		form(name='chat-msg')
-			input(name="chat-msg")
+		.input
+			form(name='chat-msg')
+				input(name="chat-msg")

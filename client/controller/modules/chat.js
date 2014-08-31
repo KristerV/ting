@@ -16,6 +16,27 @@ Template.chat.helpers({
 			return Translate('User is missing')
 
 		return user.username
+	},
+	isOwner: function() {
+		var id = Session.get('module').id
+		var collection = CircleCollection.findOne(id)
+		if (isset(collection) && collection.author == Meteor.userId())
+			return true
+	},
+	isLocked: function() {
+		var id = Session.get('module').id
+		var collection = CircleCollection.findOne(id)
+
+		if (isset(collection) && collection.type == 'open')
+			return false
+		else
+			return true
+	},
+	topic: function() {
+		var id = Session.get('module').id
+		var collection = CircleCollection.findOne(id)
+		if (isset(collection))
+			return collection.topic
 	}
 })
 
@@ -33,9 +54,32 @@ Template.chat.events({
 			timestamp: Date.now(),
 		}
 
-		CircleCollection.update(Session.get('module').id, {$push: {messages: data}})
 		$('input[name=chat-msg]').val('')
-	}
+		CircleCollection.update(Session.get('module').id, {$push: {messages: data}})
+	},
+	'submit form[name=chat-topic]': function(e, tmpl) {
+		e.preventDefault()
+		var newTopic = $('input[name=chat-topic]').val()
+
+		// No empty topics allowed
+		if (!isset(newTopic))
+			return false
+
+		$('input[name=chat-topic]').prop('disabled', true)
+		CircleCollection.update(Session.get('module').id, {$set: {topic: newTopic}})
+	},
+	'click .js-rename': function(e, tmpl) {
+		$('input[name=chat-topic]').prop('disabled', false).focus()
+	},
+	'click .js-type': function(e, tmpl) {
+		console.log("js-type")
+	},
+	'click .js-invite': function(e, tmpl) {
+		console.log("js-invite")
+	},
+	'click .js-close': function(e, tmpl) {
+		console.log("js-close")
+	},
 })
 
 Chat = {
