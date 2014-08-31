@@ -44,7 +44,6 @@ Template.menuItem.helpers({
 })
 Template.menuItem.events({
 	'click .menuItem': function(e, tmpl) {
-		Global.bigBlur()
 
 		var idCurrentUser = Meteor.userId()
 		var idTarget = e.currentTarget.id
@@ -73,6 +72,9 @@ Template.menuItem.events({
 			// Stop further execution
 			return true
 		}
+
+		// Ok, really dealing with changing the module now
+		Global.bigBlur()
 
 		// Change module contents
 		var module = $(e.currentTarget).attr('module')
