@@ -63,7 +63,7 @@ Template.chat.events({
 		$('input[name=chat-msg]').val('')
 		CircleCollection.update(Session.get('module').id, {$push: {messages: data}})
 	},
-	'submit form[name=chat-topic]': function(e, tmpl) {
+	'submit form[name=chat-topic], blur input[name=chat-topic]': function(e, tmpl) {
 		e.preventDefault()
 		var newTopic = $('input[name=chat-topic]').val()
 
@@ -95,7 +95,11 @@ Template.chat.events({
 		console.log("js-invite")
 	},
 	'click .js-close': function(e, tmpl) {
-		console.log("js-close")
+		var confirmation = confirm(Translate('Are you sure you want to close the circle? All messages will be gove forever.'))
+		if (confirmation) {
+			CircleCollection.remove(Session.get('module').id)
+			Session.set('module', {module: 'wall', id: 'announcements'})
+		}
 	},
 })
 

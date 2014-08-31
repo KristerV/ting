@@ -18,7 +18,7 @@ Translations = {
 		et: 'Vaheta ringi nähtavust avalikkuses',
 	},
 	"Allow or deny people to your secret circle": {
-		et: 'Luba või keela kellegi ligipääsu siia ringi',
+		et: 'Luba või keela kellegi ligipääs siia ringi',
 	},
 	"Close the circle (messages will be gone forever)": {
 		et: 'Sulge ring (vestlused kaovad igaveseks)',
@@ -29,4 +29,7 @@ Translations = {
 	"new circle": {
 		et: 'uus ring'
 	},
+	'Are you sure you want to close the circle? All messages will be gove forever.': {
+		et: 'Oled kindel, et tahad ringi sulgeda? Kõik mis siin siiani on räägitud, kaob igaveseks.'
+	}
 }

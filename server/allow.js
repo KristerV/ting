@@ -4,7 +4,11 @@ CircleCollection.allow({
 			return true
 	},
 	update: function (userId, doc, fields, modifier) {
-		if (userId == doc.author)
+		if (userId === doc.author)
+			return true
+	},
+	remove: function (userId, doc) {
+		if (userId === doc.author)
 			return true
 	},
 	insert: function (userId, doc) {
