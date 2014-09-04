@@ -120,7 +120,7 @@
 							}
 
 							// Krister's Ting.ee specific stuff
-							$('.module .chat .messages').css('padding-bottom', goalheight)
+							$('.module .chat .messages').css('padding-bottom', goalheight + 5)
 							Chat.scrollToBottom()
 							
 						}
