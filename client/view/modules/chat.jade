@@ -21,7 +21,9 @@ template(name="chat")
 						p {{Translate "Circle can be managed only by it's creator"}}
 		.messages
 			each messages
-				p <span class="font-bold">{{username}}</span>: {{msg}}
+				.message
+					p.name {{username}}
+					p.msg {{msg}}
 		.input
 			form(name='chat-msg')
 				textarea(name="chat-msg")
