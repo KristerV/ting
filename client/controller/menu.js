@@ -32,7 +32,7 @@ Template.menu.helpers({
 		return CircleCollection.find({type: {$in: ['open', 'closed']}})
 	},
 	peopleList: function() {
-		return Meteor.users.find({_id: {$ne: Meteor.userId()}})
+		return Meteor.users.find({_id: {$ne: Meteor.userId()}}, {sort: {'status.online': -1}})
 	},
 })
 
