@@ -167,6 +167,8 @@ Template.chat.events({
 	},
 	'keydown textarea[name=chat-msg]': function(e, tmpl) {
 		// Submit when Enter is pressed, but not if modifiers are down
+		console.log(e.keyCode)
+		console.log(e.originalEvent.keyIdentifier)
 		if (e.keyCode == 13 // enter
 				&& e.originalEvent.ctrlKey == false
 				&& e.originalEvent.altKey == false
