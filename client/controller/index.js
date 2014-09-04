@@ -7,6 +7,7 @@ Session.setDefault('module', {module: 'wall', id: 'announcements'})
 
 Meteor.subscribe("circle")
 Meteor.subscribe("allUserData");
+Meteor.subscribe("userStatus");
 
 Global = {
 	bigBlur: function(currentTarget) {

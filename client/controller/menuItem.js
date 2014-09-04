@@ -40,6 +40,17 @@ Template.menuItem.helpers({
 		var lastSeen = obj.lastSeen[Meteor.userId()]
 
 		return msgLast > lastSeen
+	},
+	userStatus: function() {
+
+		if (isset(this.username)) {
+			var user = Meteor.users.findOne(this._id)
+			if (isset(user) && isset(user.status) && user.status.online === true) {
+				return 'u-green'
+			}
+		}
+		return 'u-transparent'
+
 	}
 })
 Template.menuItem.events({

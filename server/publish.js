@@ -12,5 +12,5 @@ Meteor.publish("circle", function () {
 });
 
 Meteor.publish("allUserData", function () {
-  return Meteor.users.find({}, {fields: {'username': 1}})
+  return Meteor.users.find({}, {fields: {'username': 1, 'status': 1}})
 });
