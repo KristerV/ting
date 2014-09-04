@@ -85,7 +85,7 @@ Template.chat.events({
 		data = {
 			msg: msg,
 			userid: Meteor.user()._id,
-			timestamp: Date.now(),
+			timestamp: TimeSync.serverTime(Date.now()),
 		}
 
 		$('textarea[name=chat-msg]').val('')
@@ -167,7 +167,7 @@ Template.chat.events({
 	},
 	'keydown textarea[name=chat-msg]': function(e, tmpl) {
 		// Submit when Enter is pressed, but not if modifiers are down
-		if (e.originalEvent.keyIdentifier == 'Enter' 
+		if (e.keyCode == 13 // enter
 				&& e.originalEvent.ctrlKey == false
 				&& e.originalEvent.altKey == false
 				&& e.originalEvent.shiftKey == false
