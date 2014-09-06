@@ -11,6 +11,14 @@ Meteor.publish("circle", function () {
 	                             		]})
 });
 
+Meteor.publish("wiki", function () {
+	
+	if (!this.userId)
+		return null
+
+	return WikiCollection.find()
+});
+
 Meteor.publish("allUserData", function () {
   return Meteor.users.find({}, {fields: {'username': 1, 'status': 1}})
 });

@@ -1,0 +1,11 @@
+template(name="wiki")
+	.wiki
+		if isEditMode
+			img.corner-icon.js-edit-mode(src="/icon/scroll-edit.svg")
+		else
+			img.corner-icon.js-edit-mode(src="/icon/scroll.svg")
+		.content
+			if editMode
+				textarea {{content}}
+			else
+				.formatted {{{content}}}

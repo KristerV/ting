@@ -58,7 +58,7 @@ Template.chat.helpers({
 
 		// Assuming noone is trying random hashes, the user has probably been kicked out
 		if (!isset(collection))
-			return Translate("Oh no, you've been kicked out of the circle :(")
+			return Translate("Can't find the circle :(")
 
 		return collection.topic
 	},
@@ -162,7 +162,7 @@ Template.chat.events({
 		var confirmation = confirm(Translate('Are you sure you want to close the circle? All messages will be gove forever.'))
 		if (confirmation) {
 			CircleCollection.remove(Session.get('module').id)
-			Session.set('module', {module: 'wall', id: 'announcements'})
+			Session.set('module', {module: 'wiki', id: 'announcements'})
 		}
 	},
 	'keydown textarea[name=chat-msg]': function(e, tmpl) {

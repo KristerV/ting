@@ -21,3 +21,19 @@ CircleCollection.allow({
 			return true
 	}
 })
+
+WikiCollection.allow({
+	update: function (userId, doc, fields, modifier) {
+		
+		if (userId === doc.author)
+			return true
+	},
+	remove: function (userId, doc) {
+		// if (userId === doc.author)
+			return true
+	},
+	insert: function (userId, doc) {
+		if (userId != null)
+			return true
+	}
+})

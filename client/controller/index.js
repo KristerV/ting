@@ -3,9 +3,10 @@ Accounts.ui.config({
 });
 
 Session.setDefault('language', 'et')
-Session.setDefault('module', {module: 'wall', id: 'announcements'})
+Session.setDefault('module', {module: 'wiki', id: 'announcements'})
 
 Meteor.subscribe("circle")
+Meteor.subscribe("wiki")
 Meteor.subscribe("allUserData");
 Meteor.subscribe("userStatus");
 
@@ -41,6 +42,19 @@ Global = {
 		if ($('.chat .options').is(':visible'))
 			$('.chat .options').velocity('slideUp')
 
-		// 
+		// Save wiki textarea
+		Wiki.saveTextarea()
+		Session.set('editMode', false)
 	}
 }
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: true,
+  smartLists: true,
+  smartypants: false
+});

@@ -1,10 +1,10 @@
 Template.menu.helpers({
 	practicalList: function() {
-		return [
+		/*return [
 			{
 				_id: 'announcements',
 				topic: Translate('Announcements'),
-				module: 'wall',
+				module: 'wiki',
 			},
 			{
 				_id: 'inventory',
@@ -14,19 +14,22 @@ Template.menu.helpers({
 			{
 				_id: 'knowledgebase',
 				topic: Translate('Knowledgebase'),
-				module: 'wall',
+				module: 'wiki',
 			},
 			{
 				_id: 'focalizers',
 				topic: Translate('Focalizers'),
-				module: 'wall',
+				module: 'wiki',
 			},
 			{
 				_id: 'homes',
 				topic: Translate('Homes'),
-				module: 'wall',
+				module: 'wiki',
 			},
-		]
+
+			Visioncircle decisions
+		]*/
+		return WikiCollection.find()
 	},
 	circleList: function() {
 		return CircleCollection.find({type: {$in: ['open', 'closed']}})
@@ -54,5 +57,15 @@ Template.menu.events({
 			module: 'chat',
 			id: circleId,
 		})
+	},
+	'click .new-practical': function(e, tmpl) {
+		Global.bigBlur()
+
+		var wikiId = WikiCollection.insert({author: Meteor.userId(), type: 'wiki', topic: Translate('new wiki'), module: 'wiki', content: ''})
+		Session.set('module', {
+			module: 'wiki',
+			id: wikiId,
+		})
+		Session.set('editMode', true)
 	}
 })
