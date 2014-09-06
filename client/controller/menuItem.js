@@ -55,8 +55,6 @@ Template.menuItem.helpers({
 })
 Template.menuItem.events({
 	'click .menuItem': function(e, tmpl) {
-		console.log(this)
-
 		var idCurrentUser = Meteor.userId()
 		var idTarget = e.currentTarget.id
 

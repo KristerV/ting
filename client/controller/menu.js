@@ -1,34 +1,5 @@
 Template.menu.helpers({
 	practicalList: function() {
-		/*return [
-			{
-				_id: 'announcements',
-				topic: Translate('Announcements'),
-				module: 'wiki',
-			},
-			{
-				_id: 'inventory',
-				topic: Translate('Inventory'),
-				module: 'inventory',
-			},
-			{
-				_id: 'knowledgebase',
-				topic: Translate('Knowledgebase'),
-				module: 'wiki',
-			},
-			{
-				_id: 'focalizers',
-				topic: Translate('Focalizers'),
-				module: 'wiki',
-			},
-			{
-				_id: 'homes',
-				topic: Translate('Homes'),
-				module: 'wiki',
-			},
-
-			Visioncircle decisions
-		]*/
 		return WikiCollection.find()
 	},
 	circleList: function() {

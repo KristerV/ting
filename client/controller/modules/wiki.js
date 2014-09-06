@@ -47,14 +47,20 @@ Template.wiki.events({
 
 Wiki = {
 	saveTextarea: function() {
-		console.log("save")
 		var content = $('textarea').val()
+
+		// BigBlur tries to save even when editMode has already been disabled
+		if (!isset(content))
+			return false
+
+		var firstLine = content.split('\n')[0]
+		firstLine = firstLine.replace(/[^\w\s!?äöüõ]/gi, '')
 
 		// Don't save accidentally emptied wiki
 		if (!isset(content))
 			return false
 		
 		var id = Session.get('module').id
-		WikiCollection.update(id, {$set: {content: content}})
+		WikiCollection.update(id, {$set: {content: content, topic: firstLine}})
 	}
 }
