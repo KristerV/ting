@@ -32,7 +32,7 @@ Template.menu.events({
 	'click .new-practical': function(e, tmpl) {
 		Global.bigBlur()
 
-		var wikiId = WikiCollection.insert({author: Meteor.userId(), type: 'wiki', topic: Translate('new wiki'), module: 'wiki', content: ''})
+		var wikiId = WikiCollection.insert({author: Meteor.userId(), type: 'wiki', topic: Translate('new wiki'), module: 'wiki', content: ['']})
 		Session.set('module', {
 			module: 'wiki',
 			id: wikiId,

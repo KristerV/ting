@@ -5,14 +5,18 @@ Template.wiki.helpers({
 	content: function() {
 		var id = Session.get('module').id
 		var collection = WikiCollection.findOne(id)
+
 		if (!isset(collection))
 			return false
 
+		var content = collection.content
+		var lastContent = content[content.length-1]
+
 		if (Session.get('editMode')) {
 			$('textarea').focus()
-			return collection.content
-		} else {
-			return marked(collection.content)
+			return lastContent.text
+		} else if (isset(lastContent)) {
+			return marked(lastContent.text)
 		}
 	},
 	editMode: function() {
@@ -47,20 +51,29 @@ Template.wiki.events({
 
 Wiki = {
 	saveTextarea: function() {
-		var content = $('textarea').val()
+		var value = $('textarea').val()
 
 		// BigBlur tries to save even when editMode has already been disabled
-		if (!isset(content))
+		// Don't save accidentally emptied wiki
+		if (!isset(value))
 			return false
 
-		var firstLine = content.split('\n')[0]
+		var lines = value.split('\n')
+		var firstLine
+		for (var i = 0; i<lines.length; i++) {
+			if (isset(lines[i])) {
+				firstLine = lines[i]
+				break
+			}
+		}
 		firstLine = firstLine.replace(/[^\w\s!?äöüõ]/gi, '')
 
-		// Don't save accidentally emptied wiki
-		if (!isset(content))
-			return false
-		
 		var id = Session.get('module').id
-		WikiCollection.update(id, {$set: {content: content, topic: firstLine}})
+		var data = {
+			author: Meteor.userId(),
+			text: value,
+			timestamp: TimeSync.serverTime(Date.now()),
+		}
+		WikiCollection.update(id, {$set: {topic: firstLine}, $push: {content: data}})
 	}
 }
