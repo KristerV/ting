@@ -20,6 +20,9 @@ Template.chat.helpers({
 		return doc['messages']
 	},
 	msg: function() {
+		Meteor.setTimeout(function(){
+			$('textarea').focus()
+		},10)
 		return new Spacebars.SafeString(this.msg.replace(/(\r\n|\n|\r)/gm, '<br>'))
 	},
 	username: function() {

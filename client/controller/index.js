@@ -41,12 +41,10 @@ Global = {
 		}
 	},
 	isAnyInputFocused: function() {
-		console.log("check")
 		// Is anything in focus and does textarea exist (must be in wiki edit mode)
-		var isFocus = $('input, textarea').is(':focus') || $('textarea').length > 0
+		var isFocus = $('input, textarea').is(':focus') || $('.wiki textarea').length > 0
 
 		if (!isFocus) {
-			console.log("lost focus")
 			Meteor.clearInterval(Global.isAnyInputFocused)
 			Session.set('isFocusGone', true)
 		}
