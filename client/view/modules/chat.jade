@@ -1,7 +1,7 @@
 template(name="chat")
 	.chat
 		.title
-			img.lock.corner-icon.js-svg(src="/icon/{{#if isLocked}}locked{{else}}unlocked{{/if}}.svg") 
+			img.lock.corner-icon.js-svg(src="/icon/{{#if isLocked}}eye-closed{{else}}eye{{/if}}.svg") 
 			form(name='chat-topic')
 				input(name='chat-topic' value="{{topic}}" disabled="disabled")
 			.options
