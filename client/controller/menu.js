@@ -32,11 +32,21 @@ Template.menu.events({
 	'click .new-practical': function(e, tmpl) {
 		Global.bigBlur()
 
-		var wikiId = WikiCollection.insert({author: Meteor.userId(), type: 'wiki', topic: Translate('new wiki'), module: 'wiki', content: ['']})
+		var wikiId = WikiCollection.insert({
+			author: Meteor.userId(), 
+			type: 'wiki', 
+			topic: Translate('new wiki'), 
+			module: 'wiki', 
+			content: [{
+				author: Meteor.userId(),
+				text: 'Kirjuta siia',
+				timestamp: TimeSync.serverTime(Date.now()),
+			}]
+		})
 		Session.set('module', {
 			module: 'wiki',
 			id: wikiId,
 		})
-		Session.set('editMode', true)
+		Wiki.startEdit()
 	}
 })

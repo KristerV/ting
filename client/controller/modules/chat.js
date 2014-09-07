@@ -1,14 +1,14 @@
 Template.chat.helpers({
 	messages: function() {
 		var id = Session.get('module').id
-		var collection = CircleCollection.findOne(id, {fields: {lastSeen: 0}})
+		var doc = CircleCollection.findOne(id, {fields: {lastSeen: 0}})
 
-		if (!isset(collection) || !isset(collection['messages']))
+		if (!isset(doc) || !isset(doc['messages']))
 			return null
 
 		// Save last seen message timestamp
 		var lastSeen = {}
-		var msgs = collection.messages
+		var msgs = doc.messages
 		lastSeen['lastSeen.' + Meteor.userId()] = msgs[msgs.length-1].timestamp
 		CircleCollection.update(id, {$set: lastSeen})
 
@@ -17,7 +17,7 @@ Template.chat.helpers({
 			Chat.scrollToBottom()
 		}, 0)
 
-		return collection['messages']
+		return doc['messages']
 	},
 	msg: function() {
 		return new Spacebars.SafeString(this.msg.replace(/(\r\n|\n|\r)/gm, '<br>'))
@@ -33,39 +33,39 @@ Template.chat.helpers({
 	},
 	isOwner: function() {
 		var id = Session.get('module').id
-		var collection = CircleCollection.findOne(id)
-		if (isset(collection) && collection.author == Meteor.userId())
+		var doc = CircleCollection.findOne(id)
+		if (isset(doc) && doc.author == Meteor.userId())
 			return true
 	},
 	is4eyes: function() {
 		var id = Session.get('module').id
-		var collection = CircleCollection.findOne(id)
-		if (isset(collection) && collection.type == '4eyes')
+		var doc = CircleCollection.findOne(id)
+		if (isset(doc) && doc.type == '4eyes')
 			return true
 	},
 	isLocked: function() {
 		var id = Session.get('module').id
-		var collection = CircleCollection.findOne(id)
+		var doc = CircleCollection.findOne(id)
 
-		if (isset(collection) && collection.type == 'open')
+		if (isset(doc) && doc.type == 'open')
 			return false
 		else
 			return true
 	},
 	topic: function() {
 		var id = Session.get('module').id
-		var collection = CircleCollection.findOne(id)
+		var doc = CircleCollection.findOne(id)
 
 		// Assuming noone is trying random hashes, the user has probably been kicked out
-		if (!isset(collection))
+		if (!isset(doc))
 			return Translate("Can't find the circle :(")
 
-		return collection.topic
+		return doc.topic
 	},
 	isSecret: function() {
 		var id = Session.get('module').id
-		var collection = CircleCollection.findOne(id)
-		if (isset(collection) && collection.type == 'closed')
+		var doc = CircleCollection.findOne(id)
+		if (isset(doc) && doc.type == 'closed')
 			return true
 	},
 	isOptionsInProgress: function() {
@@ -122,12 +122,12 @@ Template.chat.events({
 	},
 	'click .js-type': function(e, tmpl) {
 		var id = Session.get('module').id
-		var collection = CircleCollection.findOne(id)
+		var doc = CircleCollection.findOne(id)
 		var newType
 
-		if (collection.type == 'open')
+		if (doc.type == 'open')
 			newType = 'closed'
-		else if (collection.type == 'closed')
+		else if (doc.type == 'closed')
 			newType = 'open'
 		else
 			return false
@@ -196,5 +196,23 @@ Chat = {
 	},
 	scrollToBottom: function() {
 		$('.module .chat').scrollTop($('.module .chat')[0].scrollHeight)
+	},
+	stopGivingKeys: function(currentTarget) {
+		var visibility = Session.get("menuVisibilitySave");
+		$.each(visibility, function(selector, visible){
+			// Don't slide if clicked object already sliding
+			if ($(currentTarget).nextAll('.list:first').prop('class') == $(selector).prop('class'))
+				return
+			if (visible === true) {
+				if (!$(selector).is(':visible')) {
+					$(selector).velocity('slideDown')
+				}
+			} else if (visible === false) {
+				if ($(selector).is(':visible')) {
+					$(selector).velocity('slideUp')
+				}
+			}
+		})
+		Session.set('toggleAccessToCircle', null)
 	}
 }

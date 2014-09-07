@@ -1,64 +1,98 @@
 Template.wiki.helpers({
-	isEditMode: function() {
-		return Session.get('editMode') === true ? true : false
-	},
-	content: function() {
-		var id = Session.get('module').id
-		var collection = WikiCollection.findOne(id)
-
-		if (!isset(collection))
+	scrollIcon: function() {
+		// Get doc
+		var doc = Wiki.getDoc()
+		
+		// Collection proably just isn't ready yet
+		if (!isset(doc))
 			return false
 
-		var content = collection.content
-		var lastContent = content[content.length-1]
+		// Are we editing already?
+		if (doc.editing == Meteor.userId())
+			return 'edit'
 
-		if (Session.get('editMode')) {
-			$('textarea').focus()
+		// Is editing allowed by the author?
+		if (doc.editing == 'locked')
+			return 'black'
+
+		// Is anyone else editing at the moment?
+		if (isset(doc.editing))
+			return 'code'
+
+		// It's okay to edit
+		return 'default'
+	},
+	content: function() {
+		var doc = Wiki.getDoc()
+
+		if (!isset(doc))
+			return false
+
+		var content = doc.content
+		var lastContent = content[content.length-1]
+		if (!isset(lastContent) || !isset(lastContent.text))
+			return ''
+
+		if (doc.editing == Meteor.userId()) {
 			return lastContent.text
-		} else if (isset(lastContent)) {
+		} else {
 			return marked(lastContent.text)
 		}
-	},
-	editMode: function() {
-		return Session.get('editMode') === true
 	}
 })
 
 Template.wiki.events({
 	'click .js-edit-mode': function(e, tmple) {
-		var editMode = Session.get('editMode')
-		if (editMode) {
-			Wiki.saveTextarea()
-			Session.set('editMode', false)
-			Meteor.clearInterval(Session.get('saveTextareaInterval'))
+		var doc = Wiki.getDoc()
+		if (doc.editing == Meteor.userId()) {
+			Wiki.stopEdit()
 		} else {
-			Session.set('editMode', true)
-			var intervalId = Meteor.setInterval(function(){
-				Wiki.saveTextarea()
-			}, 10000)
-			Session.set('saveTextareaInterval', intervalId)
+			Wiki.startEdit()
 		}
 	},
-	'keydown textarea': function(e, tmpl) {
-
-		// Save every keydown
-		// var content = $('textarea').val()
-		// var id = Session.get('module').id
-		// WikiCollection.update(id, {$set: {content: content}})
-
-	}
 })
 
 Wiki = {
 	saveTextarea: function() {
-		var value = $('textarea').val()
+		var text = $('textarea').val()
 
-		// BigBlur tries to save even when editMode has already been disabled
+		// BigBlur tries to save even when editing has already been disabled
 		// Don't save accidentally emptied wiki
-		if (!isset(value))
+		if (!isset(text))
 			return false
 
-		var lines = value.split('\n')
+		firstLine = Wiki.getFirstLine(text)
+
+		var data = {
+			author: Meteor.userId(),
+			text: text,
+			timestamp: TimeSync.serverTime(Date.now()),
+		}
+		
+		var id = Session.get('module').id
+		WikiCollection.update(id, {$set: {topic: firstLine}, $push: {content: data}})
+	},
+	startEdit: function() {
+		var id = Session.get('module').id
+		var doc = Wiki.getDoc()
+
+		var intervalId = Meteor.setInterval(function(){
+			Wiki.saveTextarea()
+		}, 10000)
+		Session.set('saveTextareaInterval', intervalId)
+		WikiCollection.update(id, {$set: {editing: Meteor.userId()}})
+		Meteor.setTimeout(function(){
+			$('textarea').focus()
+		}, 10)
+	},
+	stopEdit: function() {
+		var id = Session.get('module').id
+		Wiki.saveTextarea()
+		Meteor.clearInterval(Session.get('saveTextareaInterval'))
+		WikiCollection.update(id, {$set: {editing: ''}})
+	},
+	getFirstLine: function(text) {
+		var lines = text.split('\n')
 		var firstLine
 		for (var i = 0; i<lines.length; i++) {
 			if (isset(lines[i])) {
@@ -67,13 +101,11 @@ Wiki = {
 			}
 		}
 		firstLine = firstLine.replace(/[^\w\s!?äöüõ]/gi, '')
-
+		return firstLine
+	},
+	getDoc: function() {
 		var id = Session.get('module').id
-		var data = {
-			author: Meteor.userId(),
-			text: value,
-			timestamp: TimeSync.serverTime(Date.now()),
-		}
-		WikiCollection.update(id, {$set: {topic: firstLine}, $push: {content: data}})
+		var doc = WikiCollection.findOne(id)
+		return doc
 	}
 }

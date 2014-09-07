@@ -1,11 +1,15 @@
 template(name="wiki")
 	.wiki
-		if isEditMode
-			img.corner-icon.js-edit-mode(src="/icon/scroll-edit.svg")
-		else
+		if equals scrollIcon 'default'
 			img.corner-icon.js-edit-mode(src="/icon/scroll.svg")
+		if equals scrollIcon 'edit'
+			img.corner-icon.js-edit-mode(src="/icon/scroll-edit.svg")
+		if equals scrollIcon 'code'
+			img.corner-icon(src="/icon/scroll-code.svg")
+		if equals scrollIcon 'black'
+			img.corner-icon(src="/icon/scroll-black.svg")
 		.content
-			if editMode
+			if equals scrollIcon 'edit'
 				textarea {{content}}
 			else
 				.formatted {{{content}}}

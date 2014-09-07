@@ -12,42 +12,37 @@ Meteor.subscribe("userStatus");
 
 Global = {
 	bigBlur: function(currentTarget) {
+		var module = Session.get('module')
 
-		// If user has been giving keys to a circle
-		if (Session.get('toggleAccessToCircle')) {
-			var visibility = Session.get("menuVisibilitySave");
-			$.each(visibility, function(selector, visible){
+		if (module.module == 'chat') {
 
-				// Don't slide if clicked object already sliding
-				if ($(currentTarget).nextAll('.list:first').prop('class') == $(selector).prop('class'))
-					return
+			// If user has been giving keys to a circle
+			if (Session.get('toggleAccessToCircle'))
+				Chat.stopGivingKeys(currentTarget)
 
-				if (visible === true) {
-					if (!$(selector).is(':visible')) {
-						$(selector).velocity('slideDown')
-					}
-				} else if (visible === false) {
-					if ($(selector).is(':visible')) {
-						$(selector).velocity('slideUp')
-					}
-				}
-			})
-			Session.set('toggleAccessToCircle', null)
+			// If any chat option is in progress
+			Session.set('isOptionsInProgress', false)
+
+			// If chat options are visible
+			if ($('.chat .options').is(':visible'))
+				$('.chat .options').velocity('slideUp')
 		}
 
-		// If any chat option is in progress
-		Session.set('isOptionsInProgress', false)
+		if (module.module == 'wiki') {
 
-		// If chat options are visible
-		if ($('.chat .options').is(':visible'))
-			$('.chat .options').velocity('slideUp')
+			// Get doc
+			var doc = WikiCollection.findOne(module.id)
+			if (!isset(doc))
+				return false
 
-		// Save wiki textarea
-		Wiki.saveTextarea()
-		Session.set('editMode', false)
+			// Save wiki textarea
+			if (doc.editing == Meteor.userId())
+				Wiki.stopEdit()
+		}
 	}
 }
 
+// Markup settings
 marked.setOptions({
   renderer: new marked.Renderer(),
   gfm: true,
@@ -58,3 +53,8 @@ marked.setOptions({
   smartLists: true,
   smartypants: false
 });
+
+	// Templates can use switch like behaviour
+	UI.registerHelper("equals", function (a, b) {
+		return (a == b)
+	});
