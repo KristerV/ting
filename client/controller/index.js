@@ -39,6 +39,19 @@ Global = {
 			if (doc.editing == Meteor.userId())
 				Wiki.stopEdit()
 		}
+	},
+	isAnyInputFocused: function() {
+		console.log("check")
+		// Is anything in focus and does textarea exist (must be in wiki edit mode)
+		var isFocus = $('input, textarea').is(':focus') || $('textarea').length > 0
+
+		if (!isFocus) {
+			console.log("lost focus")
+			Meteor.clearInterval(Global.isAnyInputFocused)
+			Session.set('isFocusGone', true)
+		}
+
+		return isFocus
 	}
 }
 
@@ -54,7 +67,29 @@ marked.setOptions({
   smartypants: false
 });
 
-	// Templates can use switch like behaviour
-	UI.registerHelper("equals", function (a, b) {
-		return (a == b)
-	});
+// Templates can use switch like behaviour
+UI.registerHelper("equals", function (a, b) {
+	return (a == b)
+});
+
+// Disable automatic reload on file change, if any input is active
+Meteor._reload.onMigrate(function(reloadFunction) {
+	if (Global.isAnyInputFocused()) {
+
+		// Keep checking the focus
+		Meteor.setInterval(Global.isAnyInputFocused, 1000)
+
+		// Restart onMigrate, when focus is lost
+		Deps.autorun(function(c) {
+			if (Session.get('isFocusGone')) {
+				Session.set('isFocusGone', false)
+				c.stop();
+				reloadFunction();
+			}
+		});
+		return [false];
+	} else {
+		Global.bigBlur()
+		return [true];
+	}
+});
