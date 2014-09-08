@@ -56,7 +56,7 @@ WikiCollection.allow({
 
 Meteor.users.allow({
 	update: function (userId, doc, fields, modifier) {
-		if (userId == doc._id && fields == ['username'])
+		if (userId == doc._id && _.difference(fields, ['username']).length == 0)
 			return true
 	}
 })
