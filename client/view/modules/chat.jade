@@ -18,7 +18,7 @@ template(name="chat")
 						img.corner-icon.js-close(src="/icon/trash.svg")
 						p {{Translate "Close circle"}}
 			form(name='chat-topic')
-				input(name='chat-topic' value="{{topic}}")
+				input.btn(name='chat-topic' value="{{topic}}")
 		.messages
 			each messages
 				.message
