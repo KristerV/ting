@@ -2,12 +2,12 @@ template(name="wiki")
 	.wiki
 		.corner-icons
 			if equals scrollIcon 'default'
-				.wrapper
-					img.corner-icon.js-edit-mode(src="/icon/scroll-default.svg")
+				.wrapper.js-edit-mode
+					img.corner-icon(src="/icon/scroll-default.svg")
 					p {{Translate "Write"}}
 			if equals scrollIcon 'edit'
-				.wrapper
-					img.corner-icon.js-edit-mode(src="/icon/scroll-edit.svg")
+				.wrapper.js-edit-mode
+					img.corner-icon(src="/icon/scroll-edit.svg")
 					p {{Translate "Save"}}
 			if equals scrollIcon 'code'
 				.wrapper
@@ -21,18 +21,18 @@ template(name="wiki")
 			if scrollIcon
 				if isOwner
 					if locked
-						.wrapper
-							img.corner-icon.js-lock(src="/icon/locked.svg")
+						.wrapper.js-lock
+							img.corner-icon(src="/icon/locked.svg")
 							p Autor muudab
 					else
-						.wrapper
-							img.corner-icon.js-lock(src="/icon/unlocked.svg")
+						.wrapper.js-lock
+							img.corner-icon(src="/icon/unlocked.svg")
 							p Kõigile muutmiseks
-					.wrapper
-						img.corner-icon.js-remove(src="/icon/trash.svg")
+					.wrapper.js-remove
+						img.corner-icon(src="/icon/trash.svg")
 						p Eemalda
-				.wrapper
-					img.corner-icon.js-help(src="/icon/font.svg")
+				.wrapper.js-help
+					img.corner-icon(src="/icon/font.svg")
 					p Spikker
 				.markdown-help
 					p # Esimese taseme pealkiri
@@ -58,8 +58,8 @@ template(name="wiki")
 					p ---------|---------|------
 					p Püstised | kriipsud| võta
 					p kasvõi   | copy    | pastega
-		.content
-			if equals scrollIcon 'edit'
-				textarea {{content}}
-			else
+		if equals scrollIcon 'edit'
+			textarea {{content}}
+		else
+			.content
 				.formatted {{{content}}}

@@ -2,23 +2,23 @@ template(name="chat")
 	.chat
 		.title
 			.corner-icons
-				.wrapper
+				.wrapper.js-type
 					if isLocked
-						img.corner-icon.js-type(src="/icon/eye-closed.svg")
+						img.corner-icon(src="/icon/eye-closed.svg")
 						p {{Translate "Circle is private"}}
 					else
-						img.corner-icon.js-type(src="/icon/eye.svg")
+						img.corner-icon(src="/icon/eye.svg")
 						p {{Translate "Circle is public"}}
 				if isOwner
 					if isSecret
-						.wrapper
-							img.corner-icon.js-invite(src="/icon/add-user.svg")
+						.wrapper.js-invite
+							img.corner-icon(src="/icon/add-user.svg")
 							if isInviting
 								p {{Translate "Finished inviting"}}
 							else
 								p {{Translate "Invite people"}}
-					.wrapper
-						img.corner-icon.js-close(src="/icon/trash.svg")
+					.wrapper.js-close
+						img.corner-icon(src="/icon/trash.svg")
 						p {{Translate "Close circle"}}
 			form(name='chat-topic')
 				input.btn(name='chat-topic' value="{{topic}}")

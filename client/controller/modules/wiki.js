@@ -43,6 +43,9 @@ Template.wiki.helpers({
 			return Translate('Wiki is empty')
 
 		if (doc.editing == Meteor.userId()) {
+			Meteor.setTimeout(function(){
+				$('textarea').elastic()
+			}, 10)
 			return lastContent.text
 		} else {
 			return marked(lastContent.text)
