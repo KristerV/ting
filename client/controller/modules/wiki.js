@@ -88,7 +88,13 @@ Template.wiki.events({
 				Session.set('module', {module: 'wiki', id: 'announcements'})
 			}
 		}
-
+	},
+	'click .js-help': function(e, tmpl) {
+		var elem = $('.markdown-help')
+		if (elem.is(':visible'))
+			elem.velocity('slideUp')
+		else
+			elem.velocity('slideDown')
 	}
 })
 

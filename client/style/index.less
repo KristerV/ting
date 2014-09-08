@@ -43,30 +43,47 @@ html, body {
 }
 
 .corner-icons {
-    word-wrap: break-word;
     position: absolute;
     left: 0;
     top: 0;
     padding: 0.7em;
-    opacity: 0.5;
     .wrapper {
+        white-space: nowrap;
+        opacity: 0.5;
         vertical-align: top;
         text-align: center;
         display: inline-block;
-        width: 4em;
+        padding: 0.3em;
+        padding-bottom: 1.5em;
+        // width: 4em;
+        & p {
+            position: absolute;
+            opacity: 0;
+        }
+        &:hover {
+            opacity: 1;
+            & p {
+                opacity: 1;
+            }
+        }
     }
     .corner-icon {
         width: 3em;
         height: 3em;
     }
-    & p {
-        opacity: 0;
-    }
-    &:hover {
-        opacity: 1;
-        & p {
-            opacity: 1;
+    .markdown-help {
+        display: none;
+        p {
+            font-family: "Lucida Console", monospace !important;
+            font-size: 0.8em;
+            color: rgba(0,0,0,0.8);
         }
+        padding: 1em;
+        border: 1px solid rgba(0,0,0,0.1);
+        background-color: rgba(0,0,0,0.1);
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
     }
 }
 
