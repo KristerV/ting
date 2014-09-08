@@ -53,3 +53,10 @@ WikiCollection.allow({
 			return true
 	}
 })
+
+Meteor.users.allow({
+	update: function (userId, doc, fields, modifier) {
+		if (userId == doc._id && fields == ['username'])
+			return true
+	}
+})
