@@ -37,5 +37,29 @@ Translations = {
 	},
 	"Click here if you're done editing": {
 		et: 'Kliki siia, kui oled valmis'
-	}
+	},
+	"Circle is private": {
+		et: 'Ring on privaatne',
+	},
+	"Circle is public": {
+		et: 'Ring on avalik',
+	},
+	"Invite people": {
+		et: 'Kutsu inimesi',
+	},
+	"Close circle": {
+		et: 'Sulge ring',
+	},
+	"Write": {
+		et: 'Kirjuta',
+	},
+	"Save": {
+		et: 'Salvesta',
+	},
+	"Someone is writing": {
+		et: 'Keegi kirjutab',
+	},
+	"Authors lock": {
+		et: 'Autori lukk',
+	},
 }

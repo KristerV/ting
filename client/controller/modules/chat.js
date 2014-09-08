@@ -102,26 +102,9 @@ Template.chat.events({
 		if (!isset(newTopic))
 			return false
 
-		Global.bigBlur()
-		$('input[name=chat-topic]').prop('disabled', true)
 		CircleCollection.update(Session.get('module').id, {$set: {topic: newTopic}})
 	},
-	'click form[name=chat-topic], click .lock': function(e, tmpl) {
-
-		// Don't do anything if user is editing topic
-		if ($('input[name=chat-topic]').prop('disabled') === false)
-			return false
-
-		Global.bigBlur()
-		var options = $('.module .options')
-		if (options.is(":visible"))
-			options.velocity('slideUp')
-		else
-			options.velocity('slideDown')
-	},
-	'click .js-rename': function(e, tmpl) {
-		$('input[name=chat-topic]').prop('disabled', false).focus()
-		Session.set('isOptionsInProgress', true)
+	'click .js-public': function(e, tmpl) {
 	},
 	'click .js-type': function(e, tmpl) {
 		var id = Session.get('module').id
@@ -137,29 +120,12 @@ Template.chat.events({
 
 		CircleCollection.update(id, {$set: {type: newType}})
 	},
-	'click .js-options-stop': function(e, tmpl) {
-		Global.bigBlur()
-	},
 	'click .js-invite': function(e, tmpl) {
 		
-		// Save visibility for each list
-		var visibility = {}
-		$('.menu .list').each(function() {
-			var classesString = $(this).prop('class')
-			var classesArray = classesString.split(' ')
-			var selector = '.menu .' + classesArray.join('.')
-			visibility[selector] = $(this).is(':visible')
-		})
-		Session.set("menuVisibilitySave", visibility)
-
-		// SlideUp all but people
-		$('.menu .list:not(.people)').velocity('slideUp')
-		if (!$('.menu .list.people').is(':visible'))
-			$('.menu .list.people').velocity('slideDown')
-
-		// The actual click-to-give-access happens in menuItem.js
-		Session.set('toggleAccessToCircle', Session.get('module').id)
-		Session.set('isOptionsInProgress', true)
+		if (Session.get('toggleAccessToCircle'))
+			Chat.stopGivingKeys()
+		else
+			Chat.startGivingKeys()
 	},
 	'click .js-close': function(e, tmpl) {
 		var confirmation = confirm(Translate('Are you sure you want to close the circle? All messages will be gove forever.'))
@@ -217,5 +183,26 @@ Chat = {
 			}
 		})
 		Session.set('toggleAccessToCircle', null)
+	},
+	startGivingKeys: function() {
+
+		// Save visibility for each list
+		var visibility = {}
+		$('.menu .list').each(function() {
+			var classesString = $(this).prop('class')
+			var classesArray = classesString.split(' ')
+			var selector = '.menu .' + classesArray.join('.')
+			visibility[selector] = $(this).is(':visible')
+		})
+		Session.set("menuVisibilitySave", visibility)
+
+		// SlideUp all but people
+		$('.menu .list:not(.people)').velocity('slideUp')
+		if (!$('.menu .list.people').is(':visible'))
+			$('.menu .list.people').velocity('slideDown')
+
+		// The actual click-to-give-access happens in menuItem.js
+		Session.set('toggleAccessToCircle', Session.get('module').id)
+		Session.set('isOptionsInProgress', true)
 	}
 }

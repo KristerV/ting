@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- The icon can be used freely in both personal and commercial projects with no attribution required, but always appreciated. 
+You may NOT sub-license, resell, rent, redistribute or otherwise transfer the icon without express written permission from iconmonstr.com -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   x="0px"
+   y="0px"
+   width="512px"
+   height="512px"
+   viewBox="0 0 512 512"
+   enable-background="new 0 0 512 512"
+   xml:space="preserve"
+   id="svg2"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="add-user.svg"><metadata
+     id="metadata9"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+     id="defs7" /><sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1600"
+     inkscape:window-height="878"
+     id="namedview5"
+     showgrid="false"
+     inkscape:zoom="0.65186406"
+     inkscape:cx="531.2594"
+     inkscape:cy="186.96963"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" /><path
+     d="M 256 50.34375 C 168.769 50.34375 110.7075 135.155 191.9375 284.75 C 219.3495 335.233 162.3295 347.14475 104.5625 360.46875 C 45.5505 374.07875 50.09375 405.20325 50.09375 461.65625 L 306.03125 461.65625 C 287.44125 441.87725 276.03125 415.25525 276.03125 386.03125 C 276.03125 352.51725 298.7845 321.192 320.0625 284.75 C 407.6655 134.719 341.545 50.34375 256 50.34375 z M 258.21875 87.28125 C 273.65028 87.28125 287.75659 95.718322 296.40625 108.28125 C 288.20486 121.94961 274.17103 131.9375 258.21875 131.9375 C 242.74169 131.9375 228.67647 121.29046 219.84375 108.34375 C 228.75639 95.850522 242.81956 87.28125 258.21875 87.28125 z M 258.53125 96.71875 C 251.41096 96.71875 245.65625 102.5049 245.65625 109.625 C 245.65625 116.74512 251.41114 122.5 258.53125 122.5 C 265.65137 122.5 271.4375 116.74512 271.4375 109.625 C 271.4375 102.5049 265.65137 96.71875 258.53125 96.71875 z M 386.5 310.5625 C 344.811 310.5625 311.03125 344.34225 311.03125 386.03125 C 311.03125 427.72025 344.811 461.53125 386.5 461.53125 C 428.19 461.53125 462 427.72025 462 386.03125 C 462 344.34225 428.19 310.5625 386.5 310.5625 z M 375 341.84375 L 400.21875 341.84375 L 400.21875 374.53125 L 432.90625 374.53125 L 432.90625 399.75 L 400.21875 399.75 L 400.21875 432.4375 L 375 432.4375 L 375 399.75 L 342.3125 399.75 L 342.3125 374.53125 L 375 374.53125 L 375 341.84375 z "
+     id="user-11-icon" /></svg>

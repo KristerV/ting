@@ -3,7 +3,7 @@ CircleCollection.allow({
 		var allowedFields = ['messages', 'lastSeen']
 		
 		// Pushing to messages or setting lastSeen
-		if (userId != null && (modifier.$push != null || modifier.$set != null) && _.difference(fields, allowedFields))
+		if (userId != null && (modifier.$push != null || modifier.$set != null) && _.difference(fields, allowedFields).length == 0)
 			return true
 
 		if (userId === doc.author)

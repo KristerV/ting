@@ -19,13 +19,7 @@ Global = {
 			// If user has been giving keys to a circle
 			if (Session.get('toggleAccessToCircle'))
 				Chat.stopGivingKeys(currentTarget)
-
-			// If any chat option is in progress
-			Session.set('isOptionsInProgress', false)
-
-			// If chat options are visible
-			if ($('.chat .options').is(':visible'))
-				$('.chat .options').velocity('slideUp')
+			
 		}
 
 		if (module.module == 'wiki') {

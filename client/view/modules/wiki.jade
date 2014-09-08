@@ -4,19 +4,19 @@ template(name="wiki")
 			if equals scrollIcon 'default'
 				.wrapper
 					img.corner-icon.js-edit-mode(src="/icon/scroll-default.svg")
-					p Kirjuta
+					p {{Translate "Write"}}
 			if equals scrollIcon 'edit'
 				.wrapper
 					img.corner-icon.js-edit-mode(src="/icon/scroll-edit.svg")
-					p Salvesta
+					p {{Translate "Save"}}
 			if equals scrollIcon 'code'
 				.wrapper
 					img.corner-icon(src="/icon/scroll-code.svg")
-					p Keegi kirjutab
+					p {{Translate "Someone is writing"}}
 			if equals scrollIcon 'black'
 				.wrapper
 					img.corner-icon(src="/icon/scroll-black.svg")
-					p Autori lukk
+					p {{Translate "Authors lock"}}
 
 			if scrollIcon
 				if isOwner

@@ -2,24 +2,23 @@ template(name="chat")
 	.chat
 		.title
 			.corner-icons
-				img.lock.corner-icon.js-svg(src="/icon/{{#if isLocked}}eye-closed{{else}}eye{{/if}}.svg") 
-			form(name='chat-topic')
-				input(name='chat-topic' value="{{topic}}" disabled="disabled")
-			.options
+				.wrapper
+					if isLocked
+						img.corner-icon.js-type(src="/icon/eye-closed.svg")
+						p {{Translate "Circle is private"}}
+					else
+						img.corner-icon.js-type(src="/icon/eye.svg")
+						p {{Translate "Circle is public"}}
 				if isOwner
-					if isOptionsInProgress
-						p.js-options-stop {{Translate "Click here if you're done editing"}}
-					else
-						p.js-rename {{Translate "Rename circle topic"}}
-						p.js-type {{Translate "Toggle circle public visibility"}}
-						if isSecret
-							p.js-invite {{Translate "Allow or deny people to your secret circle"}}
-						p.js-close {{Translate "Close the circle (messages will be gone forever)"}}
-				else
-					if is4eyes
-						p {{Translate "Kahekõnel ei ole valikuid, mida muuta."}}
-					else
-						p {{Translate "Circle can be managed only by it's creator"}}
+					if isSecret
+						.wrapper
+							img.corner-icon.js-invite(src="/icon/add-user.svg")
+							p {{Translate "Invite people"}}
+					.wrapper
+						img.corner-icon.js-close(src="/icon/trash.svg")
+						p {{Translate "Close circle"}}
+			form(name='chat-topic')
+				input(name='chat-topic' value="{{topic}}")
 		.messages
 			each messages
 				.message
