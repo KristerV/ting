@@ -28,11 +28,14 @@ WikiCollection.allow({
 		if (userId == doc.author)
 			return true
 
-		if (doc.editing == 'locked')
+		if (doc.locked)
 			return false
 
 		if (doc.editing == userId)
 			return true
+
+		if (fields == ['locked'] && doc.author != userId)
+			return false
 
 		var allowedFields = ['content', 'editing', 'topic']
 		var diff = _.difference(fields, allowedFields)

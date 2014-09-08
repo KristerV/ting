@@ -37,24 +37,37 @@ html, body {
     color: transparent;
 }
 
-h1, h2, h3, p, input[disabled], .js-svg {
-    cursor: pointer;
-    cursor: hand;
-}
-
 #login-buttons {
     right: 0;
     left: auto;
 }
 
-
-.corner-icon {
+.corner-icons {
+    word-wrap: break-word;
     position: absolute;
     left: 0;
     top: 0;
-    width: 3em;
-    height: 3em;
     padding: 0.7em;
+    opacity: 0.5;
+    .wrapper {
+        vertical-align: top;
+        text-align: center;
+        display: inline-block;
+        width: 4em;
+    }
+    .corner-icon {
+        width: 3em;
+        height: 3em;
+    }
+    & p {
+        opacity: 0;
+    }
+    &:hover {
+        opacity: 1;
+        & p {
+            opacity: 1;
+        }
+    }
 }
 
 strong {

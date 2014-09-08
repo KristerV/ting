@@ -7,13 +7,22 @@ Template.wiki.helpers({
 		if (!isset(doc))
 			return false
 
+		// Author has different conditions
+		if (doc.author == Meteor.userId()) {
+			if (doc.editing == Meteor.userId())
+				return 'edit'
+			if (isset(doc.editing))
+				return 'code'
+			return 'default'
+		}
+
+		// Is editing allowed by the author?
+		if (doc.locked)
+			return 'black'
+
 		// Are we editing already?
 		if (doc.editing == Meteor.userId())
 			return 'edit'
-
-		// Is editing allowed by the author?
-		if (doc.editing == 'locked')
-			return 'black'
 
 		// Is anyone else editing at the moment?
 		if (isset(doc.editing))
@@ -26,18 +35,31 @@ Template.wiki.helpers({
 		var doc = Wiki.getDoc()
 
 		if (!isset(doc))
-			return false
+			return Translate('Wiki not found')
 
 		var content = doc.content
 		var lastContent = content[content.length-1]
 		if (!isset(lastContent) || !isset(lastContent.text))
-			return ''
+			return Translate('Wiki is empty')
 
 		if (doc.editing == Meteor.userId()) {
 			return lastContent.text
 		} else {
 			return marked(lastContent.text)
 		}
+	},
+	locked: function() {
+		var doc = Wiki.getDoc()
+		if (!isset(doc))
+			return false
+
+		return doc.locked
+	},
+	isOwner: function() {
+		var doc = Wiki.getDoc()
+		if (!isset(doc))
+			return false
+		return doc.author == Meteor.userId()
 	}
 })
 
@@ -50,6 +72,24 @@ Template.wiki.events({
 			Wiki.startEdit()
 		}
 	},
+	'click .js-lock': function(e, tmpl) {
+		var doc = Wiki.getDoc()
+		if (doc.locked)
+			WikiCollection.update(doc._id, {$set: {locked: false}})
+		else
+			WikiCollection.update(doc._id, {$set: {locked: true}})
+	},
+	'click .js-remove': function(e, tmpl) {
+		var doc = Wiki.getDoc()
+		if (doc.author == Meteor.userId()) {
+			var confirmation = confirm(Translate('Are you sure you want to delete this wiki? All data will be lost.'))
+			if (confirmation) {
+				WikiCollection.remove(doc._id)
+				Session.set('module', {module: 'wiki', id: 'announcements'})
+			}
+		}
+
+	}
 })
 
 Wiki = {

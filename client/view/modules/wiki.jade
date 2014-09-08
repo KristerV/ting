@@ -1,13 +1,39 @@
 template(name="wiki")
 	.wiki
-		if equals scrollIcon 'default'
-			img.corner-icon.js-edit-mode(src="/icon/scroll.svg")
-		if equals scrollIcon 'edit'
-			img.corner-icon.js-edit-mode(src="/icon/scroll-edit.svg")
-		if equals scrollIcon 'code'
-			img.corner-icon(src="/icon/scroll-code.svg")
-		if equals scrollIcon 'black'
-			img.corner-icon(src="/icon/scroll-black.svg")
+		.corner-icons
+			if equals scrollIcon 'default'
+				.wrapper
+					img.corner-icon.js-edit-mode(src="/icon/scroll-default.svg")
+					p Kirjuta
+			if equals scrollIcon 'edit'
+				.wrapper
+					img.corner-icon.js-edit-mode(src="/icon/scroll-edit.svg")
+					p Salvesta
+			if equals scrollIcon 'code'
+				.wrapper
+					img.corner-icon(src="/icon/scroll-code.svg")
+					p Keegi kirjutab
+			if equals scrollIcon 'black'
+				.wrapper
+					img.corner-icon(src="/icon/scroll-black.svg")
+					p Autori lukk
+
+			if scrollIcon
+				if isOwner
+					if locked
+						.wrapper
+							img.corner-icon.js-lock(src="/icon/locked.svg")
+							p Autor saab muuta
+					else
+						.wrapper
+							img.corner-icon.js-lock(src="/icon/unlocked.svg")
+							p Kõik saavad muuta
+					.wrapper
+						img.corner-icon.js-remove(src="/icon/trash.svg")
+						p Eemalda wiki
+				.wrapper
+					img.corner-icon(src="/icon/question.svg")
+					p Abi
 		.content
 			if equals scrollIcon 'edit'
 				textarea {{content}}

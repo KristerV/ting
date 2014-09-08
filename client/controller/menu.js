@@ -36,7 +36,8 @@ Template.menu.events({
 			author: Meteor.userId(), 
 			type: 'wiki', 
 			topic: Translate('new wiki'), 
-			module: 'wiki', 
+			module: 'wiki',
+			locked: true,
 			content: [{
 				author: Meteor.userId(),
 				text: 'Kirjuta siia',
