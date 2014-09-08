@@ -71,8 +71,8 @@ Template.chat.helpers({
 		if (isset(doc) && doc.type == 'closed')
 			return true
 	},
-	isOptionsInProgress: function() {
-		return Session.get('isOptionsInProgress')
+	isInviting: function() {
+		return Session.get('toggleAccessToCircle')
 	},
 })
 
@@ -203,6 +203,5 @@ Chat = {
 
 		// The actual click-to-give-access happens in menuItem.js
 		Session.set('toggleAccessToCircle', Session.get('module').id)
-		Session.set('isOptionsInProgress', true)
 	}
 }

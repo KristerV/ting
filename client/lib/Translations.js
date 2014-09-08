@@ -62,4 +62,7 @@ Translations = {
 	"Authors lock": {
 		et: 'Autori lukk',
 	},
+	"Finished inviting": {
+		et: 'Lõpeta kutsumine',
+	},
 }

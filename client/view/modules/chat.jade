@@ -13,7 +13,10 @@ template(name="chat")
 					if isSecret
 						.wrapper
 							img.corner-icon.js-invite(src="/icon/add-user.svg")
-							p {{Translate "Invite people"}}
+							if isInviting
+								p {{Translate "Finished inviting"}}
+							else
+								p {{Translate "Invite people"}}
 					.wrapper
 						img.corner-icon.js-close(src="/icon/trash.svg")
 						p {{Translate "Close circle"}}
