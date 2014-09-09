@@ -65,4 +65,7 @@ Translations = {
 	"Finished inviting": {
 		et: 'Lõpeta kutsumine',
 	},
+	"Are you sure you want to delete this wiki? All data will be lost.": {
+		et: "Oled kindel, et soovid kustutada wiki? Kõik andmed kaovad igaveseks."
+	}
 }
