@@ -13,6 +13,8 @@ Meteor.startup(function () {
 			console.log("------- " + email + " -------")
 
 			_.each(circles, function(circle) {
+
+				// This if defines what circles the user can actually read
 				if (
 					(
 						circle.type == 'open' // Public chat
@@ -25,10 +27,12 @@ Meteor.startup(function () {
 					)
 					&&
 					(
+					 	// And whether the circle actually has any messages
 						isset(circle.messages) && isset(circle.messages[circle.messages.length-1])
 					)
 				)
 				{
+					// If there are messages and user has not seen any
 					if (!isset(circle.lastSeen)) {
 						console.log('Circle: ' + circle._id)
 						console.log("Condition: 1")
@@ -39,6 +43,7 @@ Meteor.startup(function () {
 						var lastEmail = isset(user.lastEmail) ? user.lastEmail : null
 						var day = 1000 * 60 * 60 * 24
 
+						// lastSeen must be more than 24hours since last email
 						if (lastSeen < lastMessage && lastSeen > lastEmail + day) {
 							console.log('Circle: ' + circle._id)
 							console.log("Condition: 2")
