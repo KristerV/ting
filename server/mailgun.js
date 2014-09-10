@@ -15,8 +15,8 @@ Meteor.startup(function () {
 			_.each(circles, function(circle) {
 
 				// This if defines what circles the user can actually read
+				var split = circle._id.split(',')
 				if (
-				    var split = circle._id.split(',')
 					(
 						circle.type == 'open' // Public chat
 						||
