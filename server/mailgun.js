@@ -65,7 +65,7 @@ Meteor.startup(function () {
 emailReminders = function(collection) {
 	console.log("")
 	console.log("Start emailing")
-	
+
 	_.each(collection, function(doc){
 		console.log(doc)
 
@@ -106,15 +106,15 @@ emailReminders = function(collection) {
 		<p><a href="http://ting.ee">ting.ee</a></p>\
 		<br>\
 		<p>'+regards+'</p>\
-		<p>Kristeri Tingi robot</p>\
+		<p>Tingi kirjatuvi</p>\
 		<br>\
 		<p>P.S. Kahjuks ei ole hetkel e-maili sätteid võimalik muuta. Aga andke teada oma soovidest Arenduse teema all!</p>\
 		<p>P.S.S. Siia emailile vastates ei näe seda hetkel veel keegi.</p>';
 
-		/*Meteor.http.post(process.env.MAILGUN_API_URL + '/' + process.env.MAILGUN_DOMAIN + '/messages', 
+		Meteor.http.post(process.env.MAILGUN_API_URL + '/' + process.env.MAILGUN_DOMAIN + '/messages', 
 			{
 				auth:"api:" + process.env.MAILGUN_API_KEY,
-				params: {"from":"Ting.ee <info@ting.ee>",
+				params: {"from":"Tingi Kirjatuvi <kirjatuvi@ting.ee>",
 					"to":[doc.email],
 					"subject": "Sul on lugemata juttu",
 					"html": body,
@@ -127,7 +127,7 @@ emailReminders = function(collection) {
 					console.log("Email sent")
 				}
 			}
-		);*/
+		);
 	})
 	console.log("Emailing complete")
 	console.log("")
