@@ -1,7 +1,7 @@
 Meteor.startup(function () {
 	Meteor.setInterval(function(){
 		console.log("")
-		console.log("Start email gathering")
+		console.log(new Date + " - Start email gathering")
 
 		var circles = CircleCollection.find().fetch()
 		var users = Meteor.users.find().fetch()
@@ -59,6 +59,7 @@ Meteor.startup(function () {
 		var sendEmails = _.uniq(sendEmails, false, function(item, key, a){
 			return item.email
 		})
+		console.log("Done with gathering")
 		emailReminders(sendEmails)
 	}, 1000 * 60 * 5)
 });
@@ -67,15 +68,14 @@ emailReminders = function(collection) {
 	if (_.isEmpty(collection))
 		return false
 	console.log("")
-	console.log("Start emailing")
+	console.log("Queue emails")
 	var timeout = 0
 
 	_.each(collection, function(doc){
 		timeout = timeout + 5000
 		// Hoping to bypass google spam this way
 		Meteor.setTimeout(function(){
-			console.log('Timestamp: ' + new Date)
-			console.log(doc)
+			console.log(new Date + ' - Emailing' + doc.email)
 
 			// Add lastEmail to user
 			Meteor.users.update(doc.userId, {$set: {lastEmail: Date.now()}})
@@ -115,9 +115,9 @@ emailReminders = function(collection) {
 				'Juttu jätkub',
 				'Midagi põnevat',
 				'Kujuta ette...',
-				'Lõpuks saadeti pulk edasi',
+				'Pulk jõudis järgmiseni',
 				'Pulk on jõudnud sinuni',
-				'Järsku on midagi arukat?',
+				'Tule kuula pealt',
 				'Mull mull mull mull väiksed kalad',
 				'Kes see neid teateid välja mõtleb ei tea?',
 				'Kolmas ring on täis',
@@ -165,7 +165,6 @@ emailReminders = function(collection) {
 					if(error){
 						console.log("Error: " + error)
 					} else {
-						console.log("Email sent")
 					}
 				}
 			);
