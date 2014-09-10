@@ -72,7 +72,7 @@ emailReminders = function(collection) {
 		timeout = timeout + 5000
 		// Hoping to bypass google spam this way
 		Meteor.setTimeout(function(){
-			console.log('Timestamp: ' + new Date.getTime())
+			console.log('Timestamp: ' + new Date)
 			console.log(doc)
 
 			// Add lastEmail to user
