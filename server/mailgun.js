@@ -60,10 +60,12 @@ Meteor.startup(function () {
 			return item.email
 		})
 		emailReminders(sendEmails)
-	}, 1000 * 60)
+	}, 1000 * 60 * 5)
 });
 
 emailReminders = function(collection) {
+	if (_.isEmpty(collection))
+		return false
 	console.log("")
 	console.log("Start emailing")
 	var timeout = 0
@@ -105,6 +107,39 @@ emailReminders = function(collection) {
 				var regards = 'Parem on, kui lähed Tingi lehele hommikul,'
 			}
 
+			var subjects = [
+				'Keegi seletab midagi',
+				'Miskit tarka räägitakse',
+				'Kellegil on jutustamise hoog sees',
+				'Pulk pole veel raugenud',
+				'Juttu jätkub',
+				'Midagi põnevat',
+				'Kujuta ette...',
+				'Lõpuks saadeti pulk edasi',
+				'Pulk on jõudnud sinuni',
+				'Järsku on midagi arukat?',
+				'Mull mull mull mull väiksed kalad',
+				'Kes see neid teateid välja mõtleb ei tea?',
+				'Kolmas ring on täis',
+				'Käisid vetsus ära? Ühine meiega jälle',
+				'Tulin sulle teada andma',
+				'kopp-kopp',
+				'Midagi uut',
+				'Meeldivat',
+				'Hea kõla',
+				'Armas jutustaja',
+				'Saaks vahel õige kokku?',
+				'Tule tee parem ettepanek',
+				'Lauluga kaasa',
+				'Tants on rahunenud, pulk läheb edasi',
+				'Digipulk on igavese jaksuga',
+				'Ringid on siin lõputud',
+				'Helisev lugude jutustus',
+				'piiks-piiks',
+				'Midagi head',
+				'Kallis karmavõlg, olen sulle tänulik',
+			]
+
 			var body = '<p>'+hello+'</p>\
 			<br>\
 			<p>Keegi on viimase 24 tunni jooksul midagi uut Ting.ee-s jutustanud, järsku sind huvitab?</p>\
@@ -122,7 +157,7 @@ emailReminders = function(collection) {
 					auth:"api:" + process.env.MAILGUN_API_KEY,
 					params: {"from":"Tingi Kirjatuvi <kirjatuvi@ting.ee>",
 						"to":[doc.email],
-						"subject": "Sul on lugemata juttu",
+						"subject": subjects[Math.floor(Math.random() * subjects.length)],
 						"html": body,
 					}
 				},
