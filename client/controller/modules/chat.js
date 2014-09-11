@@ -19,12 +19,6 @@ Template.chat.helpers({
 
 		return doc['messages']
 	},
-	msg: function() {
-		Meteor.setTimeout(function(){
-			$('textarea').focus()
-		},10)
-		return new Spacebars.SafeString(this.msg.replace(/(\r\n|\n|\r)/gm, '<br>'))
-	},
 	username: function() {
 		var user = Meteor.users.findOne(this.userid)
 
@@ -33,6 +27,17 @@ Template.chat.helpers({
 			return Translate('User is missing')
 
 		return user.username
+	},
+	msgDate: function() {
+		var stamp = moment(this.timestamp)
+		var now = moment(TimeSync.serverTime(Date.now()))
+		return moment(stamp).calendar()
+	},
+	msg: function() {
+		Meteor.setTimeout(function(){
+			$('textarea').focus()
+		},10)
+		return new Spacebars.SafeString(this.msg.replace(/(\r\n|\n|\r)/gm, '<br>'))
 	},
 	isOwner: function() {
 		var id = Session.get('module').id

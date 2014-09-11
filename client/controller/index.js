@@ -10,6 +10,8 @@ Meteor.subscribe("wiki")
 Meteor.subscribe("allUserData");
 Meteor.subscribe("userStatus");
 
+moment.locale('et');
+
 Global = {
 	bigBlur: function(currentTarget) {
 		var module = Session.get('module')

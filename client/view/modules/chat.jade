@@ -25,7 +25,7 @@ template(name="chat")
 		.messages
 			each messages
 				.message
-					p.name {{username}}
+					p.name {{username}} <br><span class="msgDate">{{msgDate}}</span>
 					p.msg {{msg}}
 		.input
 			form(name='chat-msg')
