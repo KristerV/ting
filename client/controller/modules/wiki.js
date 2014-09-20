@@ -167,7 +167,7 @@ Wiki = {
 
 		var intervalId = Meteor.setInterval(function(){
 			Wiki.saveTextarea()
-		}, 10000)
+		}, 1000 * 60 * 3)
 		Session.set('saveTextareaInterval', intervalId)
 		WikiCollection.update(id, {$set: {editing: Meteor.userId()}})
 		Meteor.setTimeout(function(){
