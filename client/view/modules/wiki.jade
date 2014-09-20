@@ -23,18 +23,21 @@ template(name="wiki")
 					if locked
 						.wrapper.js-lock
 							img.corner-icon(src="/icon/locked.svg")
-							p Autor muudab
+							p {{Translate "Only author can edit"}}
 					else
 						.wrapper.js-lock
 							img.corner-icon(src="/icon/unlocked.svg")
-							p Kõigile muutmiseks
+							p {{Translate "Everyone can edit"}}
 					.wrapper.js-remove
 						img.corner-icon(src="/icon/trash.svg")
-						p Eemalda
-				.wrapper.js-help
+						p {{Translate "Remove wiki"}}
+				.wrapper.js-corner-help.js-markdown-help
 					img.corner-icon(src="/icon/font.svg")
-					p Spikker
-				.markdown-help
+					p {{Translate "Cheatsheet"}}
+				.wrapper.js-corner-help.js-table-of-contents
+					img.corner-icon(src="/icon/book.svg")
+					p {{Translate "Table of contents"}}
+				.corner-help.markdown-help
 					p # Esimese taseme pealkiri
 					p ## Keskmine taseme pealkiri
 					p ### Väike pealkiri
@@ -58,6 +61,9 @@ template(name="wiki")
 					p ---------|---------|------
 					p Püstised | kriipsud| võta
 					p kasvõi   | copy    | pastega
+				.corner-help.table-of-contents
+					each tableOfContents
+						p {{this}}
 		if equals scrollIcon 'edit'
 			textarea {{content}}
 		else

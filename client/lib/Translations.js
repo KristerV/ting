@@ -67,5 +67,20 @@ Translations = {
 	},
 	"Are you sure you want to delete this wiki? All data will be lost.": {
 		et: "Oled kindel, et soovid kustutada wiki? Kõik andmed kaovad igaveseks."
-	}
+	},
+	"Only author can edit": {
+		et: "Autor muudab"
+	},
+	"Everyone can edit": {
+		et: "Kõik muudavad"
+	},
+	"Remove wiki": {
+		et: "Kustuta wiki"
+	},
+	"Cheatsheet": {
+		et: "Spikker"
+	},
+	"Table of contents": {
+		et: "Sisukord"
+	},
 }

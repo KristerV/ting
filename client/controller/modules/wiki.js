@@ -63,6 +63,14 @@ Template.wiki.helpers({
 		if (!isset(doc))
 			return false
 		return doc.author == Meteor.userId()
+	},
+	tableOfContents: function() {
+		var doc = Wiki.getDoc()
+		if (!isset(doc))
+			return false
+
+		var text = doc.content[doc.content.length-1].text
+		return Wiki.getTableOfContents(text)
 	}
 })
 
@@ -92,9 +100,42 @@ Template.wiki.events({
 			}
 		}
 	},
-	'click .js-help': function(e, tmpl) {
+	'click .js-markdown-helpp': function(e, tmpl) {
 		var elem = $('.markdown-help')
 		if (elem.is(':visible'))
+			elem.velocity('slideUp')
+		else
+			elem.velocity('slideDown')
+	},
+	'click .js-table-of-contentsp': function(e, tmpl) {
+		var elem = $('.table-of-contents')
+		if (elem.is(':visible'))
+			elem.velocity('slideUp')
+		else
+			elem.velocity('slideDown')
+	},
+	'click .js-corner-help': function(e, tmpl) {
+
+		// Get target element
+		var elementClass
+		var current = $(e.currentTarget)
+		if (current.hasClass('js-markdown-help'))
+			elementClass = '.markdown-help'
+		else if (current.hasClass('js-table-of-contents'))
+			elementClass = '.table-of-contents'
+		else
+			return false
+
+		// Is it visible?
+		var elem = $(elementClass)
+		var visible = elem.is(':visible')
+
+		// Hide all other helpers
+		if ($('.corner-help').is(':visible'))
+			$('.corner-help').velocity('slideUp')
+
+		// Hide or show target element
+		if (visible)
 			elem.velocity('slideUp')
 		else
 			elem.velocity('slideDown')
@@ -151,6 +192,16 @@ Wiki = {
 		}
 		firstLine = firstLine.replace(/[^\w\s!?äöüõ]/gi, '')
 		return firstLine
+	},
+	getTableOfContents: function(text) {
+		// text = text.replace(/[^\w\s!?äöüõ]/gi, '')
+		var lines = text.split('\n')
+		var newLines = []
+		for (var i = 0; i<lines.length; i++) {
+			if (lines[i][0] === '#')
+				newLines.push(lines[i])
+		}
+		return newLines
 	},
 	getDoc: function() {
 		var id = Session.get('module').id
