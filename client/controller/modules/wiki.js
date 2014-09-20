@@ -136,7 +136,7 @@ Template.wiki.events({
 		var element = $('.wiki .content .formatted *:contains("' + title + '")')
 
 		// Scroll to title
-		$('.wiki').scrollTop(element.offset().top)
+		element.velocity('scroll', { container: $(".wiki") })
 
 	}
 })
