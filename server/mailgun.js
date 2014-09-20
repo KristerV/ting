@@ -142,16 +142,12 @@ emailReminders = function(collection) {
 			]
 
 			var body = '<p>'+hello+'</p>\
-			<br>\
 			<p>Keegi on viimase 24 tunni jooksul midagi uut Ting.ee-s jutustanud, järsku sind huvitab?</p>\
-			<br>\
 			<p><a href="http://ting.ee">ting.ee</a></p>\
-			<br>\
-			<p>'+regards+'</p>\
-			<p>Tingi kirjatuvi</p>\
-			<br>\
-			<p>P.S. Kahjuks ei ole hetkel e-maili sätteid võimalik muuta. Aga andke teada oma soovidest Arenduse teema all!</p>\
-			<p>P.S.S. Siia emailile vastates ei näe seda hetkel veel keegi.</p>';
+			<p>'+regards+'<br>\
+			Tingi kirjatuvi<br>\
+			P.S. Kahjuks ei ole hetkel e-maili sätteid võimalik muuta. Aga andke teada oma soovidest Arenduse teema all!\
+			P.S.S. Siia emailile vastates ei näe seda hetkel veel keegi.</p>';
 
 			Meteor.http.post(process.env.MAILGUN_API_URL + '/' + process.env.MAILGUN_DOMAIN + '/messages', 
 				{
