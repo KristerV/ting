@@ -100,20 +100,6 @@ Template.wiki.events({
 			}
 		}
 	},
-	'click .js-markdown-helpp': function(e, tmpl) {
-		var elem = $('.markdown-help')
-		if (elem.is(':visible'))
-			elem.velocity('slideUp')
-		else
-			elem.velocity('slideDown')
-	},
-	'click .js-table-of-contentsp': function(e, tmpl) {
-		var elem = $('.table-of-contents')
-		if (elem.is(':visible'))
-			elem.velocity('slideUp')
-		else
-			elem.velocity('slideDown')
-	},
 	'click .js-corner-help': function(e, tmpl) {
 
 		// Get target element
@@ -139,6 +125,19 @@ Template.wiki.events({
 			elem.velocity('slideUp')
 		else
 			elem.velocity('slideDown')
+	},
+	'click .table-of-contents p': function(e, tmpl) {
+
+		// Get title
+		var title = $(e.currentTarget).text()
+		var title = title.replace(/^[^\w\s!?äöüõ]* |[ ]*$/gi, '') // Trim strange characters and space from front, then space from end
+
+		// Find element with title
+		var element = $('.wiki .content .formatted *:contains("' + title + '")')
+
+		// Scroll to title
+		$('.wiki').scrollTop(element.offset().top)
+
 	}
 })
 
