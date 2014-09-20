@@ -16,7 +16,7 @@ Meteor.publish("wiki", function () {
 	if (!this.userId)
 		return null
 
-	return WikiCollection.find()
+	return WikiCollection.find({}, {fields: {content: {$slice: -1}}})
 });
 
 Meteor.publish("allUserData", function () {
