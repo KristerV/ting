@@ -91,3 +91,47 @@ html, body {
 .btn {
     cursor: pointer;
 }
+
+@media print {
+    * {
+        max-width: none !important;
+        background-color: transparent !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+    }
+
+    // hr elements are used for pagebreaks ("---" in markdown)
+    hr {
+        break-before: always;
+        page-break-before: always;
+        border: 0;
+    }
+
+    // Try not to break tables
+    table {
+        page-break-inside: avoid;
+    }
+
+    // Hide elements
+    .corner-icons, .menu, #login-buttons, textarea[name="chat-msg"] {
+        display: none !important;
+    }
+
+    // Hack your way through
+    .wiki {
+        padding-bottom: 1em; // Hide full-height scrollbar
+        height: auto;
+        .content {
+            display: block; // Enable page-break in C and full length page in FF
+        }
+    }
+    .formatted {
+        padding-left: 2em !important; // Show list numbers
+    }
+    .module { // reset module positioning
+        width: auto !important;
+        height: auto !important;
+        position: static !important;
+        overflow: auto !important;
+    }
+}
