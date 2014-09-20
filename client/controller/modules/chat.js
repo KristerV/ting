@@ -141,8 +141,6 @@ Template.chat.events({
 	},
 	'keydown textarea[name=chat-msg]': function(e, tmpl) {
 		// Submit when Enter is pressed, but not if modifiers are down
-		console.log(e.keyCode)
-		console.log(e.originalEvent.keyIdentifier)
 		if (e.keyCode == 13 // enter
 				&& e.originalEvent.ctrlKey == false
 				&& e.originalEvent.altKey == false
@@ -169,7 +167,8 @@ Chat = {
 		return circleId
 	},
 	scrollToBottom: function() {
-		$('.module .chat').scrollTop($('.module .chat')[0].scrollHeight)
+		if (Session.get('module').module == 'chat') // I don't know why scrollToBottom gets called when entering wikiEditMode
+			$('.module .chat').scrollTop($('.module .chat')[0].scrollHeight)
 	},
 	stopGivingKeys: function(currentTarget) {
 		var visibility = Session.get("menuVisibilitySave");
