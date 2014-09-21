@@ -34,7 +34,7 @@ Meteor.startup(function () {
 				)
 				{
 					// If there are messages and user has not seen any
-					if (!isset(circle.lastSeen)) {
+					if (!isset(circle.lastSeen) || !isset(user['status']) || !isset(user.status['lastLogin'])) {
 						console.log('Circle: ' + circle._id)
 						console.log("Condition: 1")
 						sendEmails.push({email: email, userId: userId})
@@ -42,10 +42,12 @@ Meteor.startup(function () {
 						var lastSeen = circle.lastSeen[userId]
 						var lastMessage = circle.messages[circle.messages.length-1].timestamp
 						var lastEmail = isset(user.lastEmail) ? user.lastEmail : null
+						var lastLogin = user.status.lastLogin.date
+						var now = Date.now()
 						var day = 1000 * 60 * 60 * 24
 
 						// lastSeen must be more than 24hours since last email
-						if (lastSeen < lastMessage && lastSeen > lastEmail + day) {
+						if (lastSeen < lastMessage && lastSeen > lastEmail + day && lastLogin + day < now) {
 							console.log('Circle: ' + circle._id)
 							console.log("Condition: 2")
 							sendEmails.push({email: email, userId: userId})
@@ -61,7 +63,7 @@ Meteor.startup(function () {
 		})
 		console.log("Done with gathering")
 		emailReminders(sendEmails)
-	}, 1000 * 60 * 35)
+	}, 1000 * 60 * 35) // the interval that email gathering is done
 });
 
 emailReminders = function(collection) {
