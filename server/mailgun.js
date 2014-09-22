@@ -34,7 +34,7 @@ Meteor.startup(function () {
 				)
 				{
 					// If there are messages and user has not seen any
-					if (!isset(circle.lastSeen) || !isset(user['status']) || !isset(user.status['lastLogin'])) {
+					if ((!isset(circle.lastSeen) || !isset(user['status']) || !isset(user.status['lastLogin'])) && !isset(user.lastEmail)) {
 						console.log('Circle: ' + circle._id)
 						console.log("Condition: 1")
 						sendEmails.push({email: email, userId: userId})
