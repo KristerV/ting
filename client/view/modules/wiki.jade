@@ -31,12 +31,14 @@ template(name="wiki")
 					.wrapper.js-remove
 						img.corner-icon(src="/icon/trash.svg")
 						p {{Translate "Remove wiki"}}
-				.wrapper.js-corner-help.js-markdown-help
-					img.corner-icon(src="/icon/font.svg")
-					p {{Translate "Cheatsheet"}}
-				.wrapper.js-corner-help.js-table-of-contents
-					img.corner-icon(src="/icon/book.svg")
-					p {{Translate "Table of contents"}}
+				if equals scrollIcon 'default'
+					.wrapper.js-corner-help.js-table-of-contents
+						img.corner-icon(src="/icon/book.svg")
+						p {{Translate "Table of contents"}}
+				if equals scrollIcon 'edit'
+					.wrapper.js-corner-help.js-markdown-help
+						img.corner-icon(src="/icon/font.svg")
+						p {{Translate "Cheatsheet"}}
 				.corner-help.markdown-help
 					p # Esimese taseme pealkiri
 					p ## Keskmine taseme pealkiri
