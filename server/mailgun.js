@@ -18,7 +18,7 @@ Meteor.startup(function () {
 				var split = circle._id.split(',')
 				if (
 					(
-						circle.type == 'open' // Public chat
+						(circle.type == 'open' && isset(_.find(circle.messages, function(item){ return item.userid == userId }))) // Public chat
 						||
 						(circle.type == '4eyes' && circle._id.indexOf(userId) > -1 && (split.length === 1 || split[0] != split[1])) // 4eyes and is participant but not self-chat
 						||
@@ -34,11 +34,11 @@ Meteor.startup(function () {
 				)
 				{
 					// If there are messages and user has not seen any
-					if ((!isset(circle.lastSeen) || !isset(user['status']) || !isset(user.status['lastLogin'])) && !isset(user.lastEmail)) {
+					if (!isset(circle.lastSeen) || (!isset(user['status']) || !isset(user.status['lastLogin'])) && !isset(user.lastEmail)) {
 						console.log('Circle: ' + circle._id)
 						console.log("Condition: 1")
 						sendEmails.push({email: email, userId: userId})
-					} else {
+					} else if (isset(user['status'])) {
 						var lastSeen = circle.lastSeen[userId]
 						var lastMessage = circle.messages[circle.messages.length-1].timestamp
 						var lastEmail = isset(user.lastEmail) ? user.lastEmail : null
