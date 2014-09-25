@@ -33,7 +33,8 @@ Meteor.publish("allUserData", function () {
 
 isUserLimited = function(userId) {
 	var user = Meteor.users.findOne(userId)
-	if (!isset(user.profile) || !isset(user.profile.access))
-		return true
-	return user.profile.access === 'limited'
+	if (isset(user.profile) && isset(user.profile.access) && user.profile.access !== 'limited')
+		return false
+	
+	return true
 }
