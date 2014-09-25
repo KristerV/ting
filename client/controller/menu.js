@@ -9,9 +9,12 @@ Template.menu.helpers({
 		return Meteor.users.find({_id: {$ne: Meteor.userId()}}, {sort: {'status.online': -1, 'access': -1}})
 	},
 	isUserLimited: function() {
-		var userAccess = Meteor.user().access
+		var userProfile = Meteor.user().profile
+		if (!isset(userProfile) || !isset(userProfile.access))
+			return true
+
 		var allowed = ['normal', 'admin']
-		var diff = _.difference([userAccess], allowed)
+		var diff = _.difference([userProfile.access], allowed)
 		if (diff.length == 0)
 			return false
 

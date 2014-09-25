@@ -20,13 +20,20 @@ Meteor.publish("wiki", function () {
 
 Meteor.publish("allUserData", function () {
 	
-	if (!this.userId || isUserLimited(this.userId))
+	if (!this.userId)
 		return null
 
-	return Meteor.users.find({}, {fields: {'username': 1, 'status': 1}})
+	// User is not limited
+	if (!isUserLimited(this.userId))
+		return Meteor.users.find({}, {fields: {'username': 1, 'status': 1}})
+
+	// User is limited
+	return Meteor.users.find(this.userId)
 });
 
 isUserLimited = function(userId) {
 	var user = Meteor.users.findOne(userId)
-	return !isset(user.access) || user.access == 'limited'
+	if (!isset(user.profile) || !isset(user.profile.access))
+		return true
+	return user.profile.access !== 'limited'
 }
