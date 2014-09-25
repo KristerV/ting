@@ -81,7 +81,7 @@ Template.menuItem.events({
 			if (!$(e.target).hasClass('my-friend'))
 				var confirmation = confirm(Translate('Do you actually know this person? Has he/she been to a Ting before? Name: ') + targetUser.username)
 			else
-				var confirmation = confirm(targetUser.username + ' still needs more votes before he/she is accepted, are you sure you want to take your vote away?')
+				var confirmation = confirm(targetUser.username + Translate(' still needs more votes before he/she is accepted, are you sure you want to take your vote away?'))
 
 			if (confirmation)
 				Meteor.call('inviteIn', idCurrentUser, idTarget)
