@@ -8,11 +8,9 @@ waitingkuo:jade
 less
 accounts-password
 accounts-base
-accounts-ui
 sewdn:velocityjs
 mizzao:user-status
 mizzao:timesync
 chuangbo:marked
 http
 email
-
