@@ -42,6 +42,8 @@ Template.wiki.helpers({
 		if (!isset(lastContent) || !isset(lastContent.text))
 			return Translate('Wiki is empty')
 
+		Wiki.setLastSeen()
+
 		if (doc.editing == Meteor.userId()) {
 			Meteor.setTimeout(function(){
 				$('textarea').elastic()
@@ -71,7 +73,16 @@ Template.wiki.helpers({
 
 		var text = doc.content[doc.content.length-1].text
 		return Wiki.getTableOfContents(text)
-	}
+	},
+	subscribed: function() {
+		var doc = Wiki.getDoc()
+		var userId = Meteor.userId()
+
+		if (!isset(doc) || _.isUndefined(doc.subscriptions) || !isset(doc.subscriptions[userId]))
+			return false
+		else
+			return true
+	},
 })
 
 Template.wiki.events({
@@ -137,7 +148,20 @@ Template.wiki.events({
 
 		// Scroll to title
 		element.velocity('scroll', { container: $(".wiki") })
+	},
+	'click .js-subscribe': function(e, tmpl) {
+		var doc = Wiki.getDoc()
+		var userId = Meteor.userId()
+		var data = {}
+		if (!isset(doc))
+			return false
 
+		if (isset(doc.subscriptions) && isset(doc.subscriptions[userId]))
+			data[userId] = false
+		else
+			data[userId] = true
+		
+		WikiCollection.update(doc._id, {$set: {subscriptions: data}})
 	}
 })
 
@@ -206,5 +230,14 @@ Wiki = {
 		var id = Session.get('module').id
 		var doc = WikiCollection.findOne(id)
 		return doc
-	}
+	},
+	setLastSeen: function() {
+		var doc = this.getDoc()
+		if (!isset(doc) || !isset(doc.content))
+			return false
+		var lastContent = doc.content[doc.content.length-1]
+		var data = {}
+		data['lastSeen.' + Meteor.userId()] = lastContent.timestamp
+		WikiCollection.update(doc._id, {$set: data})
+	},
 }

@@ -1,9 +1,9 @@
 CircleCollection.allow({
 	update: function (userId, doc, fields, modifier) {
-		var allowedFields = ['messages', 'lastSeen']
+		var allowedFields = ['messages', 'lastSeen', 'subscriptions']
 		
 		// Pushing to messages or setting lastSeen
-		if (userId != null && (modifier.$push != null || modifier.$set != null) && _.difference(fields, allowedFields).length == 0)
+		if (userId != null && (modifier.$push != null || modifier.$pull != null || modifier.$set != null) && _.difference(fields, allowedFields).length == 0)
 			return true
 
 		if (userId === doc.author)
@@ -28,15 +28,21 @@ WikiCollection.allow({
 		if (userId == doc.author)
 			return true
 
+		// allowed fields before locked check
+		var diff = _.difference(fields, ['lastSeen', 'subscriptions'])
+		if (diff.length == 0)
+			return true
+
 		if (doc.locked)
 			return false
 
 		if (doc.editing == userId)
 			return true
 
-		if (fields == ['locked'] && doc.author != userId)
+		if (fields == ['locked'])
 			return false
 
+		// allowed fields after locked check
 		var allowedFields = ['content', 'editing', 'topic']
 		var diff = _.difference(fields, allowedFields)
 		if (diff.length == 0)

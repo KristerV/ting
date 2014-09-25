@@ -20,6 +20,15 @@ template(name="chat")
 					.wrapper.js-close
 						img.corner-icon(src="/icon/trash.svg")
 						p {{Translate "Close circle"}}
+				if not4Eyes
+					if subscribed
+						.wrapper.js-subscribe
+							img.corner-icon(src="/icon/mail-open.svg")
+							p {{Translate "Subscribed"}}
+					else
+						.wrapper.js-subscribe
+							img.corner-icon(src="/icon/mail-closed.svg")
+							p {{Translate "No email"}}
 			form(name='chat-topic')
 				input.btn(name='chat-topic' value="{{topic}}")
 		.messages

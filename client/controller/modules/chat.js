@@ -79,6 +79,27 @@ Template.chat.helpers({
 	isInviting: function() {
 		return Session.get('toggleAccessToCircle')
 	},
+	subscribed: function() {
+		var id = Session.get('module').id
+		var doc = CircleCollection.findOne(id)
+		var userId = Meteor.userId()
+
+		if (_.isUndefined(doc) || _.isUndefined(doc.subscriptions) || !isset(doc.subscriptions[userId]))
+			return false
+		else
+			return true
+	},
+	not4Eyes: function() {
+		var id = Session.get('module').id
+		var doc = CircleCollection.findOne(id)
+		if (!isset(doc))
+			return false
+
+		if (_.isUndefined(doc.type) || doc.type !== '4eyes')
+			return true
+		else
+			return false
+	}
 })
 
 Template.chat.events({
@@ -86,18 +107,28 @@ Template.chat.events({
 		e.preventDefault()
 		Global.bigBlur()
 		var msg = $('textarea[name=chat-msg]').val()
+		var id = Session.get('module').id
+		var doc = CircleCollection.findOne(id)
+		var userId = Meteor.userId()
 
 		if (!isset(msg))
 			return false
 
+		// If subscription preference not saved, set to true
+		if (_.isUndefined(doc.subscriptions) || _.isUndefined(doc.subscriptions[userId])) {
+			var subs = {}
+			subs[userId] = true
+			CircleCollection.update(id, {$set: {subscriptions: subs}})
+		}
+
 		data = {
 			msg: msg,
-			userid: Meteor.user()._id,
+			userid: userId,
 			timestamp: TimeSync.serverTime(Date.now()),
 		}
 
 		$('textarea[name=chat-msg]').val('')
-		CircleCollection.update(Session.get('module').id, {$push: {messages: data}})
+		CircleCollection.update(id, {$push: {messages: data}})
 	},
 	'submit form[name=chat-topic], blur input[name=chat-topic]': function(e, tmpl) {
 		e.preventDefault()
@@ -150,6 +181,21 @@ Template.chat.events({
 			$('form[name=chat-msg]').submit()
 			return false
 		}
+	},
+	'click .js-subscribe': function(e, tmpl) {
+		var id = Session.get('module').id
+		var doc = CircleCollection.findOne(id)
+		var userId = Meteor.userId()
+		var data = {}
+		if (!isset(doc))
+			return false
+
+		if (isset(doc.subscriptions) && isset(doc.subscriptions[userId]))
+			data[userId] = false
+		else
+			data[userId] = true
+		
+		CircleCollection.update(doc._id, {$set: {subscriptions: data}})
 	}
 })
 

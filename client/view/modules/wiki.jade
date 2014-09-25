@@ -39,6 +39,14 @@ template(name="wiki")
 					.wrapper.js-corner-help.js-markdown-help
 						img.corner-icon(src="/icon/font.svg")
 						p {{Translate "Cheatsheet"}}
+				if subscribed
+					.wrapper.js-subscribe
+						img.corner-icon(src="/icon/mail-open.svg")
+						p {{Translate "Subscribed"}}
+				else
+					.wrapper.js-subscribe
+						img.corner-icon(src="/icon/mail-closed.svg")
+						p {{Translate "No email"}}
 				.corner-help.markdown-help
 					p # Esimese taseme pealkiri
 					p ## Keskmine taseme pealkiri

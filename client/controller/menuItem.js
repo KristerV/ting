@@ -12,7 +12,7 @@ Template.menuItem.helpers({
 		var obj
 
 		// 4eyes chat needs different approach
-		if (this.type = '4eyes')
+		if (!_.isUndefined(this.username))
 			obj = CircleCollection.findOne(Chat.get4eyesId(this._id))
 		else
 			obj = this
@@ -21,25 +21,23 @@ Template.menuItem.helpers({
 		if (!isset(obj))
 			return false
 
-		// Either is not chat module or there are no messages
-		if (!isset(obj.lastSeen))
-			return false
+		var lastChange = null
+		if (obj.module == 'wiki') {
+			// Get last change date
+			if (!isset(obj.content) || obj.content[obj.content.length-1].timestamp)
+				lastChange = obj.content[obj.content.length-1].timestamp
+		} else { // must be chat
+			// Get last message date
+			if (isset(obj.messages) && obj.messages[obj.messages.length-1].timestamp)
+				lastChange = obj.messages[obj.messages.length-1].timestamp
+		}
 
-		// If never been there
-		if (!isset(obj.lastSeen[Meteor.userId()]))
-			return true
+		// Get last seen
+		var lastSeen = null
+		if (isset(obj.lastSeen) && isset(obj.lastSeen[Meteor.userId()]))
+			lastSeen = obj.lastSeen[Meteor.userId()]
 
-		// There are no messages
-		if (!isset(obj.messages) || !isset(obj.messages[0]))
-			return false
-
-		// Get last written message
-		var msgLast = obj.messages[obj.messages.length-1].timestamp
-
-		// Get last seen message
-		var lastSeen = obj.lastSeen[Meteor.userId()]
-
-		return msgLast > lastSeen
+		return lastChange > lastSeen
 	},
 	userStatus: function() {
 
