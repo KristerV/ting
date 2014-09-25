@@ -2,8 +2,6 @@ Meteor.startup(function () {
 	Meteor.setInterval(function(){Mailgun.gatherEmails()}, 1000 * 60 * 71)
 });
 
-
-
 Mailgun = {
 	gatherEmails: function() {
 		console.log("")
@@ -40,7 +38,7 @@ Mailgun = {
 					if (
 						(
 							(circle.type == 'open' // Public chat
-								&& isset(circle.subscriptions[userId])) // is subscribed
+								isset(circle.subscriptions) && isset(circle.subscriptions[userId])) // is subscribed
 							||
 							(circle.type == '4eyes' // 4eyes chat
 							 	&& circle._id.indexOf(userId) > -1  // is participant
