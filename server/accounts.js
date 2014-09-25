@@ -8,6 +8,7 @@ Accounts.emailTemplates.resetPassword.subject = function (user) {
     return "Parooli muutmine"
 }
 Accounts.emailTemplates.resetPassword.text = function (user, url) {
+    url = url.replace('localhost', "ting.ee")
    return "Järgneva lingiga saad oma parooli muuta:\n"
      + url
      + "\n\nKui sa pole parooli muutmist tellinud, võid rahulikult seda kirja ignoreerida."
