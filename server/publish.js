@@ -35,5 +35,5 @@ isUserLimited = function(userId) {
 	var user = Meteor.users.findOne(userId)
 	if (!isset(user.profile) || !isset(user.profile.access))
 		return true
-	return user.profile.access !== 'limited'
+	return user.profile.access === 'limited'
 }
