@@ -25,7 +25,7 @@ Meteor.publish("allUserData", function () {
 
 	// User is not limited
 	if (!isUserLimited(this.userId))
-		return Meteor.users.find({}, {fields: {'username': 1, 'status': 1}})
+		return Meteor.users.find({}, {fields: {'username': 1, 'status': 1, 'profile.access': 1}})
 
 	// User is limited
 	return Meteor.users.find(this.userId)

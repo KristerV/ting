@@ -48,7 +48,18 @@ Template.menuItem.helpers({
 			}
 		}
 		return 'u-transparent'
+	},
+	isLimited: function() {
+		if (!isset(this.username))
+			return false
 
+		if (isset(this.profile) && isset(this.profile.access) && this.profile.access !== 'limited')
+			return false
+
+		return true
+	},
+	myFriend: function() {
+		return true
 	}
 })
 Template.menuItem.events({
