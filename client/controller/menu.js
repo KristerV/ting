@@ -1,12 +1,12 @@
 Template.menu.helpers({
 	practicalList: function() {
-		return WikiCollection.find()
+		return WikiCollection.find({}, {sort: {topic: 1}})
 	},
 	circleList: function() {
-		return CircleCollection.find({type: {$in: ['open', 'closed']}})
+		return CircleCollection.find({type: {$in: ['open', 'closed']}}, {sort: {topic: 1}})
 	},
 	peopleList: function() {
-		return Meteor.users.find({_id: {$ne: Meteor.userId()}}, {sort: {'status.online': -1, 'access': -1}})
+		return Meteor.users.find({_id: {$ne: Meteor.userId()}}, {sort: {'status.online': -1, username: 1}})
 	},
 	isUserLimited: function() {
 		var userProfile = Meteor.user().profile

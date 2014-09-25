@@ -59,15 +59,36 @@ Template.menuItem.helpers({
 		return true
 	},
 	myFriend: function() {
-		return true
+		if (!isset(this.username))
+			return false
+
+		if (isset(this.profile) && isset(this.profile.accessFriends) && _.contains(this.profile.accessFriends, Meteor.userId()))
+			return true
+
+		return false
 	}
 })
 Template.menuItem.events({
 	'click .menuItem': function(e, tmpl) {
 		var idCurrentUser = Meteor.userId()
 		var idTarget = e.currentTarget.id
+		var targetUser = Meteor.users.findOne(e.currentTarget.id)
 
-		// "Give person access to circle" mode
+
+		// Is actually the "invite in" button
+		if ($(e.target).hasClass('no-access')) {
+
+			if (!$(e.target).hasClass('my-friend'))
+				var confirmation = confirm(Translate('Do you actually know this person? Has he/she been to a Ting before? Name: ') + targetUser.username)
+			else
+				var confirmation = confirm(targetUser.username + ' still needs more votes before he/she is accepted, are you sure you want to take your vote away?')
+
+			if (confirmation)
+				Meteor.call('inviteIn', idCurrentUser, idTarget)
+			return true
+		}
+
+		// "Give someone access to circle
 		var toggleCircleId = Session.get('toggleAccessToCircle')
 		if (isset(toggleCircleId)) {
 
