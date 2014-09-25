@@ -40,7 +40,7 @@ Template.menu.events({
 			locked: true,
 			content: [{
 				author: Meteor.userId(),
-				text: 'Kirjuta siia',
+				text: 'Nimetu wiki',
 				timestamp: TimeSync.serverTime(Date.now()),
 			}]
 		})
