@@ -1,18 +1,21 @@
 template(name="menu")
 	.menu
-		h1.heading.practical {{Translate "Practical"}}
-		p.new-practical ( + ) uus wiki
-		br
-		.list.practical
-			each practicalList
-				+menuItem
-		h1.heading.circles {{Translate "Circles"}}
-		p.new-circle ( + ) uus ring
-		br
-		.list.circles
-			each circleList
-				+menuItem
-		h1.heading.people {{Translate "People"}}
-		.list.people
-			each peopleList
-				+menuItem
+		if isUserLimited
+			p {{Translate "Someone has to accept you into this community, before you can take part in it. Did you make sure to register a recognizable username? If not, ask for help from EMAIL"}}
+		else
+			h1.heading.practical {{Translate "Practical"}}
+			p.new-practical ( + ) uus wiki
+			br
+			.list.practical
+				each practicalList
+					+menuItem
+			h1.heading.circles {{Translate "Circles"}}
+			p.new-circle ( + ) uus ring
+			br
+			.list.circles
+				each circleList
+					+menuItem
+			h1.heading.people {{Translate "People"}}
+			.list.people
+				each peopleList
+					+menuItem

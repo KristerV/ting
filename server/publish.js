@@ -1,6 +1,5 @@
 Meteor.publish("circle", function () {
-	
-	if (!this.userId)
+	if (!this.userId || isUserLimited(this.userId))
 		return null
 
 	return CircleCollection.find({$or: 	[
@@ -13,12 +12,21 @@ Meteor.publish("circle", function () {
 
 Meteor.publish("wiki", function () {
 	
-	if (!this.userId)
+	if (!this.userId || isUserLimited(this.userId))
 		return null
 
 	return WikiCollection.find({}, {fields: {content: {$slice: -1}}})
 });
 
 Meteor.publish("allUserData", function () {
-  return Meteor.users.find({}, {fields: {'username': 1, 'status': 1}})
+	
+	if (!this.userId || isUserLimited(this.userId))
+		return null
+
+	return Meteor.users.find({}, {fields: {'username': 1, 'status': 1}})
 });
+
+isUserLimited = function(userId) {
+	var user = Meteor.users.findOne(userId)
+	return !isset(user.access) || user.access == 'limited'
+}

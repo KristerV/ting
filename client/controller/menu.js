@@ -6,8 +6,17 @@ Template.menu.helpers({
 		return CircleCollection.find({type: {$in: ['open', 'closed']}})
 	},
 	peopleList: function() {
-		return Meteor.users.find({_id: {$ne: Meteor.userId()}}, {sort: {'status.online': -1}})
+		return Meteor.users.find({_id: {$ne: Meteor.userId()}}, {sort: {'status.online': -1, 'access': -1}})
 	},
+	isUserLimited: function() {
+		var userAccess = Meteor.user().access
+		var allowed = ['normal', 'admin']
+		var diff = _.difference([userAccess], allowed)
+		if (diff.length == 0)
+			return false
+
+		return true
+	}
 })
 
 Template.menu.events({
