@@ -4,14 +4,17 @@
 // special URLs. since accounts-ui depends on accounts-base, we are
 // guaranteed to have these set at this point.
 //
+Meteor.setTimeout(function(){
 
-if (Accounts._resetPasswordToken) {
-  Accounts._loginButtonsSession.set('resetPasswordToken', Accounts._resetPasswordToken);
-}
+  if (Accounts._resetPasswordToken) {
+    Accounts._loginButtonsSession.set('resetPasswordToken', Accounts._resetPasswordToken);
+  }
 
-if (Accounts._enrollAccountToken) {
-  Accounts._loginButtonsSession.set('enrollAccountToken', Accounts._enrollAccountToken);
-}
+  if (Accounts._enrollAccountToken) {
+    Accounts._loginButtonsSession.set('enrollAccountToken', Accounts._enrollAccountToken);
+  }
+  
+}, 1000)
 
 // Needs to be in Meteor.startup because of a package loading order
 // issue. We can't be sure that accounts-password is loaded earlier
