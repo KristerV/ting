@@ -17,82 +17,87 @@ Mailgun = {
 		_.each(users, function(user){
 			var userId = user._id
 			var email = user.emails[0].address
-			sendEmails[userId] = {}
-			console.log("------- " + email + " -------")
+			var userProfile = user.profile
 
-			if ((!isset(user['status']) || !isset(user.status['lastLogin']))) { // User is from before user.status time
-				if (!isset(user.lastEmail)) {
-					console.log("Condition: 0")
-					sendEmails[userId]['other'] = Translate("There are too many to count")
-				}
-			} else {
-				var lastEmail = isset(user.lastEmail) ? user.lastEmail : null
-				var lastLogin = user.status.lastLogin.date
+			if (isset(user.profile) && isset(user.profile.access) && _.difference([user.profile.access], ['normal', 'admin']).length == 0) {
 
-				// Circles
-				sendEmails[userId]['circles'] = []
-				_.each(circles, function(circle) {
+				sendEmails[userId] = {}
+				console.log("------- " + email + " -------")
 
-					// This if defines what circles the user can actually read
-					var split = circle._id.split(',')
-					if (
-						(
-							(circle.type == 'open' // Public chat
-								&& isset(circle.subscriptions) 
-								&& isset(circle.subscriptions[userId])) // is subscribed
-							||
-							(circle.type == '4eyes' // 4eyes chat
-							 	&& circle._id.indexOf(userId) > -1  // is participant
-								&& (split.length === 1 || split[0] != split[1])) // is not selfchat
-							||
-							(circle.type == 'closed' // Private chat
-							 	&& isset(circle.hasAccess) 
-								&& isset(circle.hasAccess[userId]) // Has access
-								&& isset(circle.subscriptions[userId])) // is subscribed
-							||
-							circle.author == userId
+				if ((!isset(user['status']) || !isset(user.status['lastLogin']))) { // User is from before user.status time
+					if (!isset(user.lastEmail)) {
+						console.log("Condition: 0")
+						sendEmails[userId]['other'] = Translate("There are too many to count")
+					}
+				} else {
+					var lastEmail = isset(user.lastEmail) ? user.lastEmail : null
+					var lastLogin = user.status.lastLogin.date
+
+					// Circles
+					sendEmails[userId]['circles'] = []
+					_.each(circles, function(circle) {
+
+						// This if defines what circles the user can actually read
+						var split = circle._id.split(',')
+						if (
+							(
+								(circle.type == 'open' // Public chat
+									&& isset(circle.subscriptions) 
+									&& isset(circle.subscriptions[userId])) // is subscribed
+								||
+								(circle.type == '4eyes' // 4eyes chat
+								 	&& circle._id.indexOf(userId) > -1  // is participant
+									&& (split.length === 1 || split[0] != split[1])) // is not selfchat
+								||
+								(circle.type == 'closed' // Private chat
+								 	&& isset(circle.hasAccess) 
+									&& isset(circle.hasAccess[userId]) // Has access
+									&& isset(circle.subscriptions[userId])) // is subscribed
+								||
+								circle.author == userId
+							)
+							&&
+							(
+							 	// Does circle have messages?
+								isset(circle.messages) && isset(circle.messages[circle.messages.length-1])
+							)
 						)
-						&&
-						(
-						 	// Does circle have messages?
-							isset(circle.messages) && isset(circle.messages[circle.messages.length-1])
-						)
-					)
-					{
-						// If there are messages and user has not seen any
-						if (!isset(circle.lastSeen)) {
-							console.log('Circle: ' + circle._id)
-							console.log("Condition: 1")
-							sendEmails[userId]['circles'].push(circle.topic)
-						} else if (isset(user['status'])) {
-							var lastSeen = circle.lastSeen[userId]
-							var lastMessage = circle.messages[circle.messages.length-1].timestamp
-							
-							// lastSeen must be more than 24hours since last email
-							if (lastSeen < lastMessage && lastSeen > lastEmail && lastLogin + day < now) {
+						{
+							// If there are messages and user has not seen any
+							if (!isset(circle.lastSeen)) {
 								console.log('Circle: ' + circle._id)
-								console.log("Condition: 2")
+								console.log("Condition: 1")
 								sendEmails[userId]['circles'].push(circle.topic)
+							} else if (isset(user['status'])) {
+								var lastSeen = circle.lastSeen[userId]
+								var lastMessage = circle.messages[circle.messages.length-1].timestamp
+								
+								// lastSeen must be more than 24hours since last email
+								if (lastSeen < lastMessage && lastSeen > lastEmail && lastLogin + day < now) {
+									console.log('Circle: ' + circle._id)
+									console.log("Condition: 2")
+									sendEmails[userId]['circles'].push(circle.topic)
+								}
 							}
 						}
-					}
-				})
+					})
 
-				// Wikis
-				sendEmails[userId]['wikis'] = []
-				_.each(wikis, function(wiki) {
-					var lastSeen = wiki.lastSeen[userId]
-					var lastChange = wiki.content[wiki.content.length-1].timestamp
+					// Wikis
+					sendEmails[userId]['wikis'] = []
+					_.each(wikis, function(wiki) {
+						var lastSeen = wiki.lastSeen[userId]
+						var lastChange = wiki.content[wiki.content.length-1].timestamp
 
-					if (isset(wiki.subscriptions) && isset(wiki.subscriptions[userId]) // is subscribed
-					    	&& lastSeen < lastChange // haven't seen change
-					    	&& lastSeen > lastEmail // Has not already gotten mail about it
-					    	&& lastLogin + day < now) { // wait 24h before sending
-						console.log('Wiki: ' + wiki._id)
-						console.log("Condition: 3")
-						sendEmails[userId]['wikis'].push(wiki.topic)
-					}
-				})
+						if (isset(wiki.subscriptions) && isset(wiki.subscriptions[userId]) // is subscribed
+						    	&& lastSeen < lastChange // haven't seen change
+						    	&& lastSeen > lastEmail // Has not already gotten mail about it
+						    	&& lastLogin + day < now) { // wait 24h before sending
+							console.log('Wiki: ' + wiki._id)
+							console.log("Condition: 3")
+							sendEmails[userId]['wikis'].push(wiki.topic)
+						}
+					})
+				}
 			}
 		})
 		console.log("Done with gathering")
