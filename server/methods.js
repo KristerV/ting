@@ -22,8 +22,13 @@ Meteor.methods({
 		var friends = targetUser.profile.accessFriends
 		var friendsNeeded = Meteor.users.find({'profile.access': {$in: ['normal', 'admin']}}).count() / 5
 		if (friends.length > friendsNeeded || friendsNeeded <= 1) {
-			console.log("friend accepted")
 			Meteor.users.update(targetUserId, {$set: {'profile.access': ['normal']}})
+			Email.send({
+				from: "kirjatuvi@ting.ee",
+				to: targetUser.emails[0],
+				subject: Translate("You have been accepted into ting.ee"),
+				text: Translate("Hi,\n\nJust letting you know you can now access ting.ee\n\nWelcome,\nTing.ee"),
+			})
 		}
 	},
 });
