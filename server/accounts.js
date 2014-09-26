@@ -19,6 +19,7 @@ Accounts.emailTemplates.verifyEmail.subject = function (user) {
     return "Kinnita oma email"
 }
 Accounts.emailTemplates.verifyEmail.text = function (user, url) {
+    url = url.replace('localhost', "ting.ee")
    return "Järgneva lingiga kinnita oma e-mail:\n"
      + url
      + "\n\nPärast kinnitust peab keegi olemasolev kasutaja su sisse lubama, seda selleks, et säilitada intiimne keskkond."

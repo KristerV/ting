@@ -222,7 +222,7 @@ Template._loginButtonsLoggedOutPasswordService.fields = function () {
          ["USERNAME_AND_EMAIL", "USERNAME_AND_OPTIONAL_EMAIL", "USERNAME_ONLY"],
          passwordSignupFields());
      }},
-    {fieldName: 'email', fieldLabel: Translate('Email (to be verified)'), inputType: 'email',
+    {fieldName: 'email', fieldLabel: Translate('Email (for notifications)'), inputType: 'email',
      visible: function () {
        return _.contains(
          ["USERNAME_AND_EMAIL", "EMAIL_ONLY"],
