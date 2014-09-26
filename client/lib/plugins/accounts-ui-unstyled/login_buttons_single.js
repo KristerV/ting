@@ -1,16 +1,13 @@
-// for convenience
-var loginButtonsSession = Accounts._loginButtonsSession;
-
 
 var loginResultCallback = function (serviceName, err) {
   if (!err) {
-    loginButtonsSession.closeDropdown();
+    Accounts._loginButtonsSession.closeDropdown();
   } else if (err instanceof Accounts.LoginCancelledError) {
     // do nothing
   } else if (err instanceof ServiceConfiguration.ConfigError) {
-    loginButtonsSession.configureService(serviceName);
+    Accounts._loginButtonsSession.configureService(serviceName);
   } else {
-    loginButtonsSession.errorMessage(err.reason || "Unknown error");
+    Accounts._loginButtonsSession.errorMessage(err.reason || "Unknown error");
   }
 };
 
@@ -31,7 +28,7 @@ Accounts.onPageLoadLogin(function (attemptInfo) {
 Template._loginButtonsLoggedOutSingleLoginButton.events({
   'click .login-button': function () {
     var serviceName = this.name;
-    loginButtonsSession.resetMessages();
+    Accounts._loginButtonsSession.resetMessages();
 
     // XXX Service providers should be able to specify their
     // `Meteor.loginWithX` method name.
