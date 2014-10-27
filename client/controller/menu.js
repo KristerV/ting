@@ -10,13 +10,18 @@ Template.menu.helpers({
 	},
 	isUserLimited: function() {
 		var userProfile = Meteor.user().profile
-		if (!isset(userProfile) || !isset(userProfile.access))
+		if (!isset(userProfile) || !isset(userProfile.access)) {
+			console.log("here 1")
 			return true
+		}
 
 		var allowed = ['normal', 'admin']
-		var diff = _.difference([userProfile.access], allowed)
-		if (diff.length == 0)
+		var userRoles = typeof userProfile.access == 'object' ? userProfile.access : [userProfile.access]
+		var diff = _.difference(userRoles, allowed)
+		if (diff.length == 0) {
+			console.log("here 2")
 			return false
+		}
 
 		return true
 	}

@@ -1,5 +1,5 @@
 Meteor.startup(function () {
-	Meteor.setInterval(function(){Mailgun.gatherEmails()}, 1000 * 60 * 71)
+	Meteor.setInterval(function(){Mailgun.gatherEmails()}, 1000 * 20)
 });
 
 Mailgun = {
