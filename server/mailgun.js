@@ -65,7 +65,7 @@ Mailgun = {
 						)
 						{
 							// If there are messages and user has not seen any
-							if (!isset(circle.lastSeen)) {
+							if (!isset(circle.lastSeen) || !isset(circle.lastSeen[userId])) {
 								console.log('Circle: ' + circle._id)
 								console.log("Condition: 1")
 								sendEmails[userId]['circles'].push(circle.topic)
