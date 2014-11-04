@@ -18,8 +18,11 @@ Mailgun = {
 			var userId = user._id
 			var email = user.emails[0].address
 			var userProfile = user.profile
+			var userRoles
 
-			var userRoles = typeof user.profile.access == 'object' ? user.profile.access : [user.profile.access]
+			if (isset(userProfile))
+				userRoles = typeof user.profile.access == 'object' ? user.profile.access : [user.profile.access]
+			
 			if (isset(user.profile) && isset(user.profile.access) && _.difference([user.profile.access], ['normal', 'admin']).length == 0) {
 
 				sendEmails[userId] = {}
