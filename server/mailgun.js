@@ -47,7 +47,11 @@ Mailgun = {
 						if ( 
 							(
 							 	!isset(lastEmail) // no email sent to person
-								|| lastEmail < lastLogin // no login since last email
+								|| lastEmail < lastLogin // has logged in since last email
+						    )
+						    &&
+						    (
+						     	lastLogin + day < now // It's been 24h since last login
 						    )
 						    &&
 							(
@@ -82,10 +86,8 @@ Mailgun = {
 								var lastSeen = circle.lastSeen[userId]
 								var lastMessage = circle.messages[circle.messages.length-1].timestamp
 								
-								if (	lastSeen < lastMessage // Newest message has not been seen 
-								    	&& lastLogin > lastEmail // No email has been sent after last login
-								    	&& lastLogin + day < now // It's been 24h since last login
-								    ) {
+								if (lastSeen < lastMessage) // Newest message has not been seen 
+								{
 									console.log('Circle: ' + circle._id)
 									console.log("Condition: 2")
 									sendEmails[userId]['circles'].push(circle.topic)
