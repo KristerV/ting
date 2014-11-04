@@ -44,7 +44,12 @@ Mailgun = {
 
 						// This if defines what circles the user can actually read
 						var split = circle._id.split(',')
-						if (
+						if ( 
+							(
+							 	!isset(lastEmail) // no email sent to person
+								|| lastEmail < lastLogin // no login since last email
+						    )
+						    &&
 							(
 								(circle.type == 'open' // Public chat
 									&& isset(circle.subscriptions) 
