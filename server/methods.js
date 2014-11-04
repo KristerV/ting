@@ -25,7 +25,7 @@ Meteor.methods({
 			Meteor.users.update(targetUserId, {$set: {'profile.access': ['normal']}})
 			Email.send({
 				from: "kirjatuvi@ting.ee",
-				to: targetUser.emails[0],
+				to: targetUser.emails[0].address,
 				subject: Translate("You have been accepted into ting.ee"),
 				text: Translate("Hi,\n\nJust letting you know you can now access ting.ee\n\nWelcome,\nTing.ee"),
 			})
