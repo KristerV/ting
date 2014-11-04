@@ -1,5 +1,6 @@
 Meteor.startup(function () {
 	Meteor.setInterval(function(){Mailgun.gatherEmails()}, 1000 * 60 * 32)
+	// Meteor.setTimeout(function(){Mailgun.gatherEmails()}, 1000)
 });
 
 Mailgun = {
@@ -135,6 +136,7 @@ Mailgun = {
 		Meteor.users.update(userId, {$set: {lastEmail: Date.now()}})
 
 		// Basic data
+		var userEmail = Meteor.users.findOne(userId).emails[0].address
 		var username = Meteor.users.findOne(userId).username
 		var Digital = new Date()
 		var hours = Digital.getHours()
@@ -226,7 +228,7 @@ Mailgun = {
 			{
 				auth:"api:" + process.env.MAILGUN_API_KEY,
 				params: {"from":"Tingi Kirjatuvi <kirjatuvi@ting.ee>",
-					"to":[doc.email],
+					"to":[userEmail],
 					"subject": subjects[Math.floor(Math.random() * subjects.length)],
 					"html": body,
 				}
