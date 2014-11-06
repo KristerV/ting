@@ -121,8 +121,8 @@ Template.chat.events({
 		// If subscription preference not saved, set to true
 		if (_.isUndefined(doc.subscriptions) || _.isUndefined(doc.subscriptions[userId])) {
 			var subs = {}
-			subs[userId] = true
-			CircleCollection.update(id, {$set: {subscriptions: subs}})
+			subs['subscriptions.'+userId] = true
+			CircleCollection.update(id, {$set: subs})
 		}
 
 		data = {
@@ -195,11 +195,11 @@ Template.chat.events({
 			return false
 
 		if (isset(doc.subscriptions) && isset(doc.subscriptions[userId]))
-			data[userId] = false
+			data['subscriptions.'+userId] = false
 		else
-			data[userId] = true
+			data['subscriptions.'+userId] = true
 		
-		CircleCollection.update(doc._id, {$set: {subscriptions: data}})
+		CircleCollection.update(doc._id, {$set: data})
 	}
 })
 

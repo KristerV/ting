@@ -157,11 +157,11 @@ Template.wiki.events({
 			return false
 
 		if (isset(doc.subscriptions) && isset(doc.subscriptions[userId]))
-			data[userId] = false
+			data['subscriptions.'+userId] = false
 		else
-			data[userId] = true
+			data['subscriptions.'+userId] = true
 		
-		WikiCollection.update(doc._id, {$set: {subscriptions: data}})
+		WikiCollection.update(doc._id, {$set: data})
 	}
 })
 
