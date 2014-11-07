@@ -3,7 +3,17 @@ Template.menu.helpers({
 		return WikiCollection.find({}, {sort: {topic: 1}})
 	},
 	circleList: function() {
-		return CircleCollection.find({type: {$in: ['open', 'closed']}}, {sort: {topic: 1}})
+		var circles = CircleCollection.find({type: {$in: ['open', 'closed']}}, {sort: {topic: 1}})
+		circles.observeChanges({
+			changed: function (id, fields) {
+				var circle = CircleCollection.findOne(id)
+				var lastMessage = circle['messages'][circle['messages'].length-1]
+				var lastMessageUsername = Meteor.users.findOne(lastMessage.userid).username
+				G.notify(lastMessageUsername + ": " + lastMessage.msg)
+				
+			},	
+		});
+		return circles
 	},
 	peopleList: function() {
 		return Meteor.users.find({_id: {$ne: Meteor.userId()}}, {sort: {'status.online': -1, username: 1}})
@@ -11,7 +21,6 @@ Template.menu.helpers({
 	isUserLimited: function() {
 		var userProfile = Meteor.user().profile
 		if (!isset(userProfile) || !isset(userProfile.access)) {
-			console.log("here 1")
 			return true
 		}
 
@@ -19,7 +28,6 @@ Template.menu.helpers({
 		var userRoles = typeof userProfile.access == 'object' ? userProfile.access : [userProfile.access]
 		var diff = _.difference(userRoles, allowed)
 		if (diff.length == 0) {
-			console.log("here 2")
 			return false
 		}
 

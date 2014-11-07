@@ -31,7 +31,6 @@ Template.chat.helpers({
 	msgDate: function() {
 		var stamp = moment(this.timestamp)
 		var now = moment(TimeSync.serverTime(Date.now()))
-		console.log(stamp.diff(now, 'days'))
 		if (stamp.diff(now, 'days') < -2)
 			return moment(stamp).format('DD.MM.YYYY')
 		else

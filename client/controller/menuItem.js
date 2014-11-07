@@ -36,7 +36,7 @@ Template.menuItem.helpers({
 		var lastSeen = null
 		if (isset(obj.lastSeen) && isset(obj.lastSeen[Meteor.userId()]))
 			lastSeen = obj.lastSeen[Meteor.userId()]
-
+		
 		return lastChange > lastSeen
 	},
 	userStatus: function() {

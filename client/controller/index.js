@@ -87,3 +87,13 @@ Meteor._reload.onMigrate(function(reloadFunction) {
 		return [true];
 	}
 });
+
+// Tab Window Visibility Manager
+$(window).TabWindowVisibilityManager({
+    onFocusCallback: function(){
+    	Session.set("windowHidden", false)
+    },
+    onBlurCallback: function(){
+    	Session.set("windowHidden", true)
+    }
+});
