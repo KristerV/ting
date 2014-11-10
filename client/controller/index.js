@@ -91,11 +91,22 @@ Meteor._reload.onMigrate(function(reloadFunction) {
 // Tab Window Visibility Manager
 $(window).TabWindowVisibilityManager({
     onFocusCallback: function(){
-    	console.log("Window is visible")
     	Session.set("windowHidden", false)
     },
     onBlurCallback: function(){
-    	console.log("Window is hidden")
     	Session.set("windowHidden", true)
     }
+});
+
+// Notifications trigger
+CircleCollection.find({type: {$in: ['open', 'closed', '4eyes']}}, {sort: {topic: 1}}).observeChanges({
+	changed: function (id, fields) {
+		if (!isset(fields['messages']))
+			return false
+		var circle = CircleCollection.findOne(id)
+		var lastMessage = circle['messages'][circle['messages'].length-1]
+		var lastMessageUsername = Meteor.users.findOne(lastMessage.userid).username
+		G.notify(lastMessageUsername + ": " + lastMessage.msg)
+		
+	},	
 });

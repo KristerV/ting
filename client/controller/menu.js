@@ -4,15 +4,6 @@ Template.menu.helpers({
 	},
 	circleList: function() {
 		var circles = CircleCollection.find({type: {$in: ['open', 'closed']}}, {sort: {topic: 1}})
-		circles.observeChanges({
-			changed: function (id, fields) {
-				var circle = CircleCollection.findOne(id)
-				var lastMessage = circle['messages'][circle['messages'].length-1]
-				var lastMessageUsername = Meteor.users.findOne(lastMessage.userid).username
-				G.notify(lastMessageUsername + ": " + lastMessage.msg)
-				
-			},	
-		});
 		return circles
 	},
 	peopleList: function() {
