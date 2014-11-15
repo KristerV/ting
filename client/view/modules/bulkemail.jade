@@ -1,0 +1,8 @@
+template(name="bulkemail")
+	.bulkemail
+		form(name="bulkemail")
+			p From: Ting.ee
+			p To: All {{peopleCount}} members
+			input(name="subject" type="text" placeholder="subject" required)
+			textarea(name="body" placeholder="body" rows="15" required)
+			input(type="submit")

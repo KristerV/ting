@@ -3,6 +3,8 @@ template(name="menu")
 		if isUserLimited
 			p {{Translate "Someone has to accept you into this community, before you can take part in it. Did you make sure to register a recognizable username? If not, ask for help from EMAIL"}}
 		else
+			if admin
+				p.new-email ( + ) {{Translate "new bulk email"}}
 			h1.heading.practical {{Translate "Practical"}}
 			p.new-practical ( + ) uus wiki
 			br

@@ -129,13 +129,13 @@ Mailgun = {
 			if (isset(doc) && (isset(doc.other) || isset(doc.circles) || isset(doc.wikis))){
 				timeout = timeout + (1000 * 35)
 				// Hoping to bypass google spam this way
-				Meteor.setTimeout(function(){Mailgun.sendEmail(userId, doc)}, timeout)
+				Meteor.setTimeout(function(){Mailgun.sendNotification(userId, doc)}, timeout)
 			}
 		})
 		console.log("Emails queued")
 		console.log("")
 	},
-	sendEmail: function(userId, doc){
+	sendNotification: function(userId, doc){
 
 		console.log('Email for user ' + userId  +' at ' + new Date)
 
@@ -170,39 +170,6 @@ Mailgun = {
 			var regards = 'Parem on, kui lähed Tingi lehele hommikul,'
 		}
 
-		var subjects = [
-			'Keegi seletab midagi',
-			'Miskit tarka räägitakse',
-			'Kellegil on jutustamise hoog sees',
-			'Pulk pole veel raugenud',
-			'Juttu jätkub',
-			'Midagi põnevat',
-			'Kujuta ette...',
-			'Lõpuks saadeti pulk edasi',
-			'Pulk on jõudnud sinuni',
-			'Järsku on midagi arukat?',
-			'Mull mull mull mull väiksed kalad',
-			'Kes see neid teateid välja mõtleb ei tea?',
-			'Kolmas ring on täis',
-			'Käisid vetsus ära? Ühine meiega jälle',
-			'Tulin sulle teada andma',
-			'kopp-kopp',
-			'Midagi uut',
-			'Meeldivat',
-			'Hea kõla',
-			'Armas jutustaja',
-			'Saaks vahel õige kokku?',
-			'Tule tee parem ettepanek',
-			'Lauluga kaasa',
-			'Tants on rahunenud, pulk läheb edasi',
-			'Digipulk on igavese jaksuga',
-			'Ringid on siin lõputud',
-			'Helisev lugude jutustus',
-			'piiks-piiks',
-			'Midagi head',
-			'Kallis karmavõlg, olen sulle tänulik',
-		]
-
 		var newsList = ''
 		if (isset(doc.other))
 			newsList = doc.other
@@ -228,25 +195,36 @@ Mailgun = {
 		'<p><a href="http://ting.ee">ting.ee</a></p>\
 		<p>'+regards+'<br>\
 		Tingi kirjatuvi<br>\
-		P.S. Kahjuks ei ole hetkel e-maili sätteid võimalik muuta. Aga andke teada oma soovidest Arenduse teema all!<br>\
-		P.S.S. Siia emailile vastates ei näe seda hetkel veel keegi.</p>';
+		P.S. Kui esinevad vead või soovid nimekirjast eemaldamist, kirjuta krister.viirsaar@gmail.com või helista 56355555</p>';
+
+		Mailgun.sendEmail(userEmail, "Midagi uut..", body)		
+	},
+	sendEmail: function(to, subject, body) {
+		if (!to || !subject || !body) {
+			console.log("Email broken")
+			return false
+		}
+		console.log("Email to:" to)
+		console.log("Subject:" subject)
 
 		Meteor.http.post(process.env.MAILGUN_API_URL + '/' + process.env.MAILGUN_DOMAIN + '/messages', 
 			{
-				auth:"api:" + process.env.MAILGUN_API_KEY,
-				params: {"from":"Tingi Kirjatuvi <kirjatuvi@ting.ee>",
-					"to":[userEmail],
-					"subject": subjects[Math.floor(Math.random() * subjects.length)],
-					"html": body,
-				}
+				auth: "api:" + process.env.MAILGUN_API_KEY,
+				params: 
+					{"from":"Tingi Kirjatuvi <kirjatuvi@ting.ee>",
+						"to":to,
+						"subject": subject,
+						"html": body,
+					}
+					
 			},
 			function(error, result) {
 				if(error){
-					console.log("Error: " + error)
+					console.log("Email error: " + error)
 				} else {
 					console.log("Email sent")
 				}
 			}
-		);
+		)
 	}
 }

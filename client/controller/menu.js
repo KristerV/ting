@@ -23,6 +23,9 @@ Template.menu.helpers({
 		}
 
 		return true
+	},
+	admin: function() {
+		return Meteor.user().profile.access == 'admin'
 	}
 })
 
@@ -65,5 +68,8 @@ Template.menu.events({
 			id: wikiId,
 		})
 		Wiki.startEdit()
+	},
+	'click .new-email': function(e, tmpl) {
+		Session.set('module', {module: 'bulkemail'})
 	}
 })
