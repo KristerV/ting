@@ -7,7 +7,7 @@ Template.menu.helpers({
 		return circles
 	},
 	peopleList: function() {
-		return Meteor.users.find({_id: {$ne: Meteor.userId()}}, {sort: {'status.online': -1, username: 1}})
+		return Meteor.users.find({_id: {$ne: Meteor.userId()}}, {sort: {'status.online': -1, 'status.lastLogin.date': -1, username: 1}})
 	},
 	isUserLimited: function() {
 		var userProfile = Meteor.user().profile
