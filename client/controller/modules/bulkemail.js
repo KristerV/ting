@@ -15,12 +15,8 @@ Template.bulkemail.events({
 			return false
 		}
 
-		var userEmails = []
-		var users = Meteor.users.find().fetch()
-		for (var i = 0; i < users.length; i++) {
-			userEmails.push(users[i].emails[0].address)
-		}
+		Meteor.call('sendBulkemail', subject, body)
 
-		Mailgun.sendEmail(userEmails, subject, body)
+		Session.set('module', {module: 'wiki', id: 'announcements'})
 	}
 })

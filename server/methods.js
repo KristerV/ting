@@ -31,4 +31,17 @@ Meteor.methods({
 			})
 		}
 	},
+	sendBulkemail: function(subject, body) {
+		if (!subject || !body) {
+			console.log("Bulk email empty field")
+			return false
+		}
+		var userEmails = []
+		var users = Meteor.users.find().fetch()
+		for (var i = 0; i < users.length; i++) {
+			userEmails.push(users[i].emails[0].address)
+		}
+
+		Mailgun.sendEmail(userEmails, subject, body)
+	},
 });
