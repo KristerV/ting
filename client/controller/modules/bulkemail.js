@@ -1,6 +1,9 @@
 Template.bulkemail.helpers({
 	peopleCount: function() {
 		return Meteor.users.find().count()
+	},
+	admin: function() {
+		return Meteor.user().profile.access == 'admin'
 	}
 })
 
