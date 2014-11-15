@@ -204,8 +204,8 @@ Mailgun = {
 			console.log("Email broken")
 			return false
 		}
-		console.log("Email to:" to)
-		console.log("Subject:" subject)
+		console.log("Email to:" + to)
+		console.log("Subject:" + subject)
 
 		Meteor.http.post(process.env.MAILGUN_API_URL + '/' + process.env.MAILGUN_DOMAIN + '/messages', 
 			{
