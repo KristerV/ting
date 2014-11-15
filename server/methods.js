@@ -36,12 +36,12 @@ Meteor.methods({
 			console.log("Bulk email empty field")
 			return false
 		}
-		var userEmails = []
+		Mailgun.sendEmail('krister.viirsaar@gmail.com', subject, body)
 		var users = Meteor.users.find().fetch()
 		for (var i = 0; i < users.length; i++) {
-			userEmails.push(users[i].emails[0].address)
+			var email = users[i].emails[0].address
+			// Mailgun.sendEmail(email, subject, body)
 		}
 
-		Mailgun.sendEmail(userEmails, subject, body)
 	},
 });

@@ -214,7 +214,7 @@ Mailgun = {
 					{"from":"Tingi Kirjatuvi <kirjatuvi@ting.ee>",
 						"to":to,
 						"subject": subject,
-						"html": body,
+						"html": body.replace(/\r?\n/g, '<br />');,
 					}
 					
 			},
