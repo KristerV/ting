@@ -56,7 +56,7 @@ Template.menu.events({
 			type: 'wiki', 
 			topic: Translate('new wiki'), 
 			module: 'wiki',
-			locked: true,
+			locked: false,
 			content: [{
 				author: Meteor.userId(),
 				text: 'Nimetu wiki',
