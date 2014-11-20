@@ -91,9 +91,11 @@ Meteor._reload.onMigrate(function(reloadFunction) {
 // Tab Window Visibility Manager
 $(window).TabWindowVisibilityManager({
     onFocusCallback: function(){
+    	console.log("window is visible")
     	Session.set("windowHidden", false)
     },
     onBlurCallback: function(){
+    	console.log("window is hidden")
     	Session.set("windowHidden", true)
     }
 });
