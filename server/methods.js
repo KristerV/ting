@@ -21,7 +21,7 @@ Meteor.methods({
 		targetUser = Meteor.users.findOne(targetUserId)
 		var friends = targetUser.profile.accessFriends
 		var friendsNeeded = Meteor.users.find({'profile.access': {$in: ['normal', 'admin']}}).count() / 20
-		if (friends.length > friendsNeeded || friendsNeeded <= 1) {
+		if (friends.length > Math.round(friendsNeeded) || friendsNeeded <= 1) {
 			Meteor.users.update(targetUserId, {$set: {'profile.access': ['normal']}})
 			Email.send({
 				from: "kirjatuvi@ting.ee",
