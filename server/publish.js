@@ -7,7 +7,9 @@ Meteor.publish("circle", function () {
 											{type: 'closed', author: this.userId},
 											{type: '4eyes'},
 											{type: 'closed', hasAccess: this.userId}
-	                             		]})
+										]
+									},
+									{fields: {messages: {$slice: -40}}})
 });
 
 Meteor.publish("wiki", function () {
