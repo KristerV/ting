@@ -42,7 +42,7 @@ Template.menu.events({
 	},
 	'click .new-circle': function(e, tmpl) {
 		Global.bigBlur()
-		var circleId = CircleCollection.insert({author: Meteor.userId(), type: 'closed', topic: Translate('new circle')})
+		var circleId = CircleCollection.insert({author: Meteor.userId(), type: 'open', topic: Translate('new circle')})
 		Session.set('module', {
 			module: 'chat',
 			id: circleId,
