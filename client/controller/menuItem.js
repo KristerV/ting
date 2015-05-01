@@ -1,5 +1,7 @@
 Template.menuItem.helpers({
 	hasAccess: function() {
+		if (!Session.get('module'))
+			return false
 		var userId = this._id
 		var circle = CircleCollection.findOne(Session.get('module').id)
 		if (!isset(circle) || !isset(circle.hasAccess))

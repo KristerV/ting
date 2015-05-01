@@ -15,6 +15,8 @@ moment.locale('et');
 Global = {
 	bigBlur: function(currentTarget) {
 		var module = Session.get('module')
+		if (!module)
+			return false
 
 		if (module.module == 'chat') {
 
