@@ -43,4 +43,7 @@ Meteor.methods({
 		}
 
 	},
+	sendSingleEmail: function(to, subject, body) {
+		Mailgun.sendEmail(to, subject, body)
+	}
 });
