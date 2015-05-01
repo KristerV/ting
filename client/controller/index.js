@@ -3,7 +3,7 @@ Accounts.ui.config({
 });
 
 Session.setDefault('language', 'et')
-Session.setDefault('module', {module: 'wiki', id: 'announcements'})
+Session.setDefault('module', null)
 
 Meteor.subscribe("circle")
 Meteor.subscribe("wiki")
