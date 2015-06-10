@@ -5,6 +5,8 @@ Meteor.startup(function () {
 
 Mailgun = {
 	gatherEmails: function() {
+		console.log("Emails don't gather properly")
+		return false
 		console.log("")
 		console.log("Start email gathering")
 
