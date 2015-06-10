@@ -5,7 +5,7 @@ Meteor.startup(function () {
 
 Mailgun = {
 	gatherEmails: function() {
-		console.log("Emails don't gather properly")
+		console.log("Emails don't gather properly (only reaches about a dozen users)")
 		return false
 		console.log("")
 		console.log("Start email gathering")
@@ -231,19 +231,21 @@ Mailgun = {
 		console.log("MANDRILL_KEY: "+process.env.MANDRILL_KEY)
 		Meteor.http.post('https://mandrillapp.com/api/1.0/messages/send.json', {
 			"key": process.env.MANDRILL_KEY,
-			"from_email": "kirjatuvi@ting.ee",
-			"subject": subject,
-			"html": body.replace(/\r?\n/g, '<br />'),
-			"to": [
-				{
-					"email": to,
-					"type": "to"
-				}
-			],
-			"headers": {
-				"Reply-To": "krister.viirsaar@gmail.com"
-			},
-			"track_opens": true,
+			"message": {
+				"from_email": "kirjatuvi@ting.ee",
+				"subject": subject,
+				"html": body.replace(/\r?\n/g, '<br />'),
+				"to": [
+					{
+						"email": to,
+						"type": "to"
+					}
+				],
+				"headers": {
+					"Reply-To": "krister.viirsaar@gmail.com"
+				},
+				"track_opens": true,
+			}
 		},
 			function(error, result) {
 				if(error){
