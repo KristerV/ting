@@ -207,7 +207,7 @@ Mailgun = {
 		console.log("Email to:" + to)
 		console.log("Subject:" + subject)
 
-		Meteor.http.post(process.env.MAILGUN_API_URL + '/' + process.env.MAILGUN_DOMAIN + '/messages', 
+		/*Meteor.http.post(process.env.MAILGUN_API_URL + '/' + process.env.MAILGUN_DOMAIN + '/messages', 
 			{
 				auth: "api:" + process.env.MAILGUN_API_KEY,
 				params: 
@@ -218,6 +218,30 @@ Mailgun = {
 					}
 					
 			},
+			function(error, result) {
+				if(error){
+					console.log("Email error: " + error)
+				} else {
+					console.log("Email sent")
+				}
+			}
+		)*/
+		Meteor.http.post('https://mandrillapp.com/api/1.0/messages/send.json', {
+			"key": process.env.MANDRILL_KEY,
+			"from_email": "kirjatuvi@ting.ee",
+			"subject": subject,
+			"html": body.replace(/\r?\n/g, '<br />'),
+			"to": [
+				{
+					"email": to,
+					"type": "to"
+				}
+			],
+			"headers": {
+				"Reply-To": "krister.viirsaar@gmail.com"
+			},
+			"track_opens": true,
+		},
 			function(error, result) {
 				if(error){
 					console.log("Email error: " + error)
