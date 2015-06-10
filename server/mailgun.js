@@ -228,8 +228,7 @@ Mailgun = {
 				}
 			}
 		)*/
-		console.log("MANDRILL_KEY: "+process.env.MANDRILL_KEY)
-		Meteor.http.post('https://mandrillapp.com/api/1.0/messages/send.json', {
+		var data = {
 			"key": process.env.MANDRILL_KEY,
 			"message": {
 				"from_email": "kirjatuvi@ting.ee",
@@ -246,7 +245,10 @@ Mailgun = {
 				},
 				"track_opens": true,
 			}
-		},
+		}
+		console.log("---------DATA-----------")
+		console.log(data)
+		Meteor.http.post('https://mandrillapp.com/api/1.0/messages/send.json', data,
 			function(error, result) {
 				if(error){
 					console.log("Email error: " + error)
