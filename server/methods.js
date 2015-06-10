@@ -45,5 +45,8 @@ Meteor.methods({
 	},
 	sendSingleEmail: function(to, subject, body) {
 		Mailgun.sendEmail(to, subject, body)
+	},
+	sendTestEmail: function(subject, body) {
+		Mailgun.sendEmail('krister.viirsaar@gmail.com', subject, body)
 	}
 });
