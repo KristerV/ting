@@ -228,27 +228,28 @@ Mailgun = {
 				}
 			}
 		)*/
-		var data = {
-			"key": process.env.MANDRILL_KEY,
-			"message": {
-				"from_email": "kirjatuvi@ting.ee",
-				"subject": subject,
-				"html": body.replace(/\r?\n/g, '<br />'),
-				"to": [
-					{
-						"email": to,
-						"type": "to"
+		Meteor.http.post('https://mandrillapp.com/api/1.0/messages/send.json',
+			{
+				"key": process.env.MANDRILL_KEY,
+				"params": {
+					"key": process.env.MANDRILL_KEY,
+					"message": {
+						"from_email": "kirjatuvi@ting.ee",
+						"subject": subject,
+						"html": body.replace(/\r?\n/g, '<br />'),
+						"to": [
+							{
+								"email": to,
+								"type": "to"
+							}
+						],
+						"headers": {
+							"Reply-To": "krister.viirsaar@gmail.com"
+						},
+						"track_opens": true,
 					}
-				],
-				"headers": {
-					"Reply-To": "krister.viirsaar@gmail.com"
-				},
-				"track_opens": true,
-			}
-		}
-		console.log("---------DATA-----------")
-		console.log(data)
-		Meteor.http.post('https://mandrillapp.com/api/1.0/messages/send.json', data,
+				}
+			},
 			function(error, result) {
 				if(error){
 					console.log("Email error: " + error)
