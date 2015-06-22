@@ -1,5 +1,8 @@
 CircleCollection.allow({
 	update: function (userId, doc, fields, modifier) {
+		if (Meteor.users.findOne(userId).profile.access == 'admin')
+			return true
+
 		var allowedFields = ['messages', 'lastSeen', 'subscriptions']
 		
 		// Pushing to messages or setting lastSeen
@@ -26,6 +29,9 @@ WikiCollection.allow({
 			return false
 		
 		if (userId == doc.author)
+			return true
+		
+		if (Meteor.users.findOne(userId).profile.access == 'admin')
 			return true
 
 		// allowed fields before locked check
