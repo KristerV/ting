@@ -235,7 +235,7 @@ Mailgun = {
 					"message": {
 						"from_email": "kirjatuvi@ting.ee",
 						"subject": subject,
-						"html": body.replace(/\r?\n/g, '<br />'),
+						"html": body,
 						"to": [
 							{
 								"email": to,
