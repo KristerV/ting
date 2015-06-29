@@ -64,6 +64,8 @@ Template.wiki.helpers({
 		var doc = Wiki.getDoc()
 		if (!isset(doc))
 			return false
+		if (Meteor.users.findOne(Meteor.userId()).profile.access == 'admin')
+			return true
 		return doc.author == Meteor.userId()
 	},
 	tableOfContents: function() {

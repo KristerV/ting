@@ -47,6 +47,8 @@ Template.chat.helpers({
 		var doc = CircleCollection.findOne(id)
 		if (isset(doc) && doc.author == Meteor.userId())
 			return true
+		if (Meteor.users.findOne(Meteor.userId()).profile.access == 'admin')
+			return true
 	},
 	is4eyes: function() {
 		var id = Session.get('module').id

@@ -13,6 +13,10 @@ CircleCollection.allow({
 			return true
 	},
 	remove: function (userId, doc) {
+
+		if (Meteor.users.findOne(userId).profile.access == 'admin')
+			return true
+		
 		if (userId === doc.author)
 			return true
 	},
@@ -57,6 +61,10 @@ WikiCollection.allow({
 		return false
 	},
 	remove: function (userId, doc) {
+
+		if (Meteor.users.findOne(userId).profile.access == 'admin')
+			return true
+		
 		if (userId === doc.author)
 			return true
 	},
