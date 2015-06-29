@@ -105,7 +105,7 @@ Template.wiki.events({
 	},
 	'click .js-remove': function(e, tmpl) {
 		var doc = Wiki.getDoc()
-		if (doc.author == Meteor.userId()) {
+		if (doc.author == Meteor.userId() || Meteor.users.findOne(Meteor.userId()).profile.access == 'admin') {
 			var confirmation = confirm(Translate('Are you sure you want to delete this wiki? All data will be lost.'))
 			if (confirmation) {
 				WikiCollection.remove(doc._id)
