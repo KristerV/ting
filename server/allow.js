@@ -76,7 +76,14 @@ WikiCollection.allow({
 
 Meteor.users.allow({
 	update: function (userId, doc, fields, modifier) {
+		if (Meteor.users.findOne(userId).profile.access == 'admin')
+			return true
 		if (userId == doc._id && _.difference(fields, ['username']).length == 0)
+			return true
+	},
+	remove: function (userId, doc) {
+
+		if (Meteor.users.findOne(userId).profile.access == 'admin')
 			return true
 	}
 })

@@ -50,6 +50,10 @@ Template.chat.helpers({
 		if (Meteor.users.findOne(Meteor.userId()).profile.access == 'admin')
 			return true
 	},
+	isAdmin: function() {
+		if (Meteor.users.findOne(Meteor.userId()).profile.access == 'admin')
+			return true
+	},
 	is4eyes: function() {
 		var id = Session.get('module').id
 		var doc = CircleCollection.findOne(id)
@@ -201,6 +205,15 @@ Template.chat.events({
 			data['subscriptions.'+userId] = true
 		
 		CircleCollection.update(doc._id, {$set: data})
+	},
+	'click .js-removeUser': function(e) {
+		var chatId = Session.get('module').id
+		var chat = CircleCollection.findOne(chatId)
+		console.log(chat)
+		// Meteor.users.update()
+	},
+	'click .js-allowUser': function(e) {
+		// Meteor.users.update()
 	}
 })
 

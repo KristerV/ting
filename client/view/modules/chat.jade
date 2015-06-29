@@ -2,6 +2,14 @@ template(name="chat")
 	.chat
 		.title
 			.corner-icons
+				if isAdmin
+					if is4eyes
+						.wrapper.js-removeUser
+							img.corner-icon(src="/icon/trash.svg")
+							p {{Translate "Remove user"}}
+						.wrapper.js-allowUser
+							img.corner-icon(src="/icon/trash.svg")
+							p {{Translate "Allow user"}}
 				.wrapper.js-type
 					if isLocked
 						img.corner-icon(src="/icon/eye-closed.svg")
