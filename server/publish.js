@@ -9,7 +9,7 @@ Meteor.publish("circle", function () {
 											{type: 'closed', hasAccess: this.userId}
 										]
 									},
-									{fields: {messages: {$slice: -40}}})
+									{fields: {messages: {$slice: -100}}})
 });
 
 Meteor.publish("wiki", function () {
