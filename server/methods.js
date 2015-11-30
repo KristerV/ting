@@ -7,7 +7,7 @@ Meteor.methods({
 		var targetUser = Meteor.users.findOne(targetUserId)
 		if (!isset(targetUser.profile) || !isset(targetUser.profile.accessFriends))
 			Meteor.users.update(targetUserId, {$set: {'profile.accessFriends': []}})
-			
+
 		// If current user is not friend already
 		targetUser = Meteor.users.findOne(targetUserId)
 		if (!_.contains(targetUser.profile.accessFriends, currentUserId))
@@ -21,7 +21,8 @@ Meteor.methods({
 		targetUser = Meteor.users.findOne(targetUserId)
 		var friends = targetUser.profile.accessFriends
 		var friendsNeeded = Meteor.users.find({'profile.access': {$in: ['normal', 'admin']}}).count() / 20
-		if (friends.length > Math.round(friendsNeeded) || friendsNeeded <= 1) {
+		var adminIsInviting = Meteor.users.findOne({_id: this.userId, 'profile.access': {$in: ['admin']}})
+		if (friends.length > Math.round(friendsNeeded) || friendsNeeded <= 1 || adminIsInviting) {
 			Meteor.users.update(targetUserId, {$set: {'profile.access': ['normal']}})
 			Email.send({
 				from: "kirjatuvi@ting.ee",
