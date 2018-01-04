@@ -5,6 +5,7 @@
 		body {
 			font-family: Arial;
 			padding-bottom: 10rem;
+			background-color: #fefefe;
 		}
 		.sisu {
 			max-width: 700px;
@@ -15,18 +16,16 @@
 			font-style: italic;
 			color: rgba(0,0,0,0.5);
 			font-size: 0.8rem;
-			line-height: 1rem;
+			line-height: 0.5rem;
 		}
 		h1 {
 			margin-top: 4rem;
-		}
-		p {
-			margin-left: 1.6rem;
 		}
 		.tab {
 			margin-left: 1.6rem;
 		}
 	</style>
+	<link rel="stylesheet" type="text/css" href="eventswall.css">
 </head>
 <body>
 <div class="sisu">
@@ -39,6 +38,46 @@
 	<p>Mina usun imedesse.<br>Mina usun armastusse.<br>Mina usun maagiasse<br>iga päev.<br>
 	<br>
 	Sa ka!<br>Kui tahad tule usu ka koos meiega.</p>
+
+	<h1>Kohtumised</h1>
+	<p>Üritused, kus võib Tingilisi näha. Teavitusi saab tellida <a target="_blank" href="https://groups.google.com/forum/#!forum/ting-ee-uritused/join">e-mailile</a> või <a target="_blank" href="https://m.me/852356474951117">Facebook Messengeri</a>.<br><button onclick="toggleEventAdder()">Lisa uus üritus</button></p>
+
+	<noscript>Your browser doesn't support Javascript, so no events displayed.</noscript>
+	<div id="eventswall">
+		<form class="paper hidden" id="addEvent" style="display: none" action="https://flowxo.com/hooks/b/vqaw39n7">
+			<table>
+				<tr>
+					<td>Pealkiri:</td>
+					<td><input name="Title" required></td>
+				</tr>
+				<tr>
+					<td>Kirjeldus:</td>
+					<td><input name="Description" required></td>
+				</tr>
+				<tr>
+					<td>Aeg:</td>
+					<td><input name="StartTime" required></td>
+				</tr>
+				<tr>
+					<td>Koht:</td>
+					<td><input name="Location" required></td>
+				</tr>
+				<tr>
+					<td>Kontaktisik:</td>
+					<td><input name="Contact" required></td>
+				</tr>
+				<tr>
+					<td>Kuulutuse viimane kuupäev:</td>
+					<td><input name="EndDate" type="date" required></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="Saada"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<script src="eventswall.js"></script>
 
 	<h1>Tingist avalikult</h1>
 	<p>
