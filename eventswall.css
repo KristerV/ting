@@ -8,6 +8,7 @@
 	position: relative;
 	min-width: 230px;
 	background-color: white;
+	word-break: break-word;
 }
 
 .paper h2 {
