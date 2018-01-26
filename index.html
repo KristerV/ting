@@ -24,6 +24,12 @@
 		.tab {
 			margin-left: 1.6rem;
 		}
+		.inline {
+			display: inline;
+		}
+		.block {
+			display: block;
+		}
 	</style>
 	<link rel="stylesheet" type="text/css" href="eventswall.css">
 </head>
@@ -40,15 +46,17 @@
 	Sa ka!<br>Kui tahad tule usu ka koos meiega.</p>
 
 	<h1>Kohtumised</h1>
-	<p>Üritused, kus võib Tingilisi näha.</p>
+	<p>Saame kokku! Pane siia üritusi kus võib teisi Tingilisi kohata. Ükskõik kas piletiga või välismaal või lihtsalt kutsud külla.</p>
 	<button onclick="toggleEventAdder()">Lisa uus üritus</button>
 	<p class="text-hint" style="display: inline">Andmebaas <a href="https://docs.google.com/spreadsheets/d/1_dr8sK6cOCluyXvdTA7Bhyq-KHgaNpWPH5bTCikxUa0/edit?usp=sheets_home&ths=true" target="_blank">on avalik</a>. Selle muutmiseks küsi teistelt abi.</p>
-	<form action="https://flowxo.com/hooks/a/nyzxxn6b">
-		<input name="email" placeholder="Minu e-mail"/>
-		<input type="submit" value="Teavita mind üritustest e-mailile"/>
-		<p class="text-hint" style="display: inline">(See ei ole suur Tingi uudiskirja nimekiri)</p>
-	</form>
-	<p class="text-hint"><b>Teavitusi saab ka Facebook Messengeri tellida.</b> Lihtsalt saada sõnum <a target="_blank" href="https://m.me/852356474951117">Ting.ee Üritused</a> lehele.</p>
+	<br><button onclick="toggleSubscribeBlock()">Telli omale teavitused.</button> <p class="text-hint inline">(See ei ole sama mis suur Tingi uudiskiri)</p>
+	<div style="display: none" class="block paper" id="subscribe-block">
+		<form action="https://flowxo.com/hooks/a/nyzxxn6b">
+			<input name="email" placeholder="Minu e-mail"/>
+			<input type="submit" value="Teavita mind üritustest e-mailile"/>
+		</form>
+		<p>Teavitusi saab ka Facebook Messengeri tellida. Lihtsalt saada sõnum <a target="_blank" href="https://m.me/852356474951117">Ting.ee Üritused</a> lehele.</p>
+	</div>
 
 	<noscript>Your browser doesn't support Javascript, so no events displayed.</noscript>
 	<div id="eventswall">

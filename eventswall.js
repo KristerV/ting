@@ -98,3 +98,9 @@ function toggleEventAdder() {
 	var visible = "inline-block"
 	div.style.display = div.style.display !== visible ? visible : "none";
 }
+
+function toggleSubscribeBlock() {
+	var div = document.getElementById('subscribe-block')
+	var visible = "inline-block"
+	div.style.display = div.style.display !== visible ? visible : "none";
+}
