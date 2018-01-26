@@ -16,11 +16,11 @@ httpGET(linkData, function(resp) {
 function httpGET(theUrl, callback)
 {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
+    xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             callback(xmlHttp.responseText);
     }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous
     xmlHttp.send(null);
 }
 
@@ -60,7 +60,6 @@ function formatEvents(cells) {
 	var colIndex = 0
 	cells.forEach(function(cell){
 		var text = cell.content.$t
-		console.log(text, colIndex)
 
 		if (text === 'EOL') {
 			firstLine = false
